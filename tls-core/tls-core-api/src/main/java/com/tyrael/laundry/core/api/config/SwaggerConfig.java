@@ -44,11 +44,11 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "PMC REST API",
-                "PMC REST API Documentation.",
+                "Tyrael Laundry SaaS API",
+                "TLS REST API Documentation.",
                 "1.0",
                 "API TOS",
-                "pmc@tyraelsoft.com",
+                "tls@tyraelsoft.com",
                 "", //license label
                 "" //license url
         );

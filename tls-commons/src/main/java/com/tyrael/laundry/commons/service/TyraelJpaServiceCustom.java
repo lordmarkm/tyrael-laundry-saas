@@ -9,9 +9,9 @@ import com.tyrael.laundry.commons.dto.PageInfo;
 import com.tyrael.laundry.commons.model.BaseEntity;
 
 /**
- * @author mbmartinez
- * @param <E> Entity
- * @param <D> DTO
+ * 
+ * @author Mark Martinez, created Nov 29, 2015
+ *
  */
 @Transactional
 public interface TyraelJpaServiceCustom<E extends BaseEntity, D> {

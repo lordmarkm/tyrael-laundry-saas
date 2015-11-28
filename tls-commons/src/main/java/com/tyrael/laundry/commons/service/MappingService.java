@@ -9,10 +9,9 @@ import org.springframework.core.GenericTypeResolver;
 import com.google.common.collect.Lists;
 
 /**
- * @author Mark
+ * 
+ * @author Mark Martinez, created Nov 29, 2015
  *
- * @param <E>
- * @param <D>
  */
 public abstract class MappingService<E, D> {
 

@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Mark
+ * 
+ * @author Mark Martinez, created Nov 29, 2015
+ *
  */
 public class PageInfo<T> {
 

@@ -1,6 +1,7 @@
 package com.tyrael.laundry.commons.dto;
 
 import org.joda.time.DateTime;
+import org.springframework.core.style.ToStringCreator;
 
 /**
  * 
@@ -11,6 +12,19 @@ public class BaseDto {
 
     protected DateTime dateCreated;
     protected DateTime dateUpdated;
+    protected boolean deleted;
+
+    @Override
+    public final String toString() {
+        return this.toStringCreator().toString();
+    }
+
+    protected ToStringCreator toStringCreator() {
+        return new ToStringCreator(this)
+                .append("created", dateCreated)
+                .append("updated", dateCreated)
+                .append("deleted", deleted);
+    }
 
     public DateTime getDateCreated() {
         return dateCreated;
@@ -26,6 +40,14 @@ public class BaseDto {
 
     public void setDateUpdated(DateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
 }
