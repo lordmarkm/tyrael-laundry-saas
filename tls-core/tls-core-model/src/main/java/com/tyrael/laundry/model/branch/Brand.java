@@ -1,4 +1,4 @@
-package com.tyrael.laundry.model;
+package com.tyrael.laundry.model.branch;
 
 import javax.persistence.Entity;
 

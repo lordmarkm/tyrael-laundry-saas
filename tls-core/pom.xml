@@ -10,5 +10,6 @@
   <name>Tyrael Laundry SaaS :: Core</name>
   <modules>
   	<module>tls-core-model</module>
+  	<module>tls-core-api</module>
   </modules>
 </project>

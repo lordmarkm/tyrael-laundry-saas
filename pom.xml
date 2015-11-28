@@ -16,6 +16,7 @@
   <modules>
   <module>tls-core</module>
   <module>tls-commons</module>
+  <module>tls-app</module>
   </modules>
 
   <properties>
