@@ -1,0 +1,42 @@
+{
+  "name": "bower_components",
+  "version": "1.0.0",
+  "homepage": "https://github.com/lordmarkm/sjw",
+  "authors": [
+    "Markm <lordmarkm@gmail.com>"
+  ],
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.3.15",
+    "bootstrap": "3.3.4",
+    "jquery": "2.1.3",
+    "underscore": "1.5.2",
+    "startbootstrap-sb-admin-2": "1.0.4",
+    "components-font-awesome": "4.3",
+    "angularjs-toaster": "0.4.11",
+    "requirejs": "2.1.16",
+    "angular-ui-router": "0.2.13",
+    "angular-ui-select": "0.11.2",
+    "angular-sanitize": "1.3.15",
+    "angular-resource": "1.3.15",
+    "ng-table": "0.5.4",
+    "bootstrap-flat-css": "latest",
+    "angular-bootstrap": "0.12.1",
+    "moment": "2.10.2",
+    "angular-moment": "0.10.1"
+  },
+  "resolutions": {
+    "bootstrap": "3.3.4",
+    "angular": "1.3.15"
+  }
+}
