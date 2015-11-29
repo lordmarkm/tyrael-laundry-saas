@@ -15,7 +15,7 @@ import com.tyrael.laundry.commons.model.BaseEntity;
  * @author Mark Martinez, created Nov 29, 2015
  *
  */
-public abstract class TyraelJpaServiceCustomImpl<E extends BaseEntity, D, R extends TyraelJpaService<E, D>>
+public abstract class TyraelJpaServiceCustomImpl<E extends BaseEntity, D, R extends TyraelJpaService<E>>
     extends MappingService<E, D> implements TyraelJpaServiceCustom<E, D> {
 
     @Autowired

@@ -7,6 +7,6 @@ import com.tyrael.laundry.commons.dto.BaseNamedDto;
  * @author Mark Martinez, created Nov 29, 2015
  *
  */
-public class UserDto extends BaseNamedDto {
+public class BrandDto extends BaseNamedDto {
 
 }

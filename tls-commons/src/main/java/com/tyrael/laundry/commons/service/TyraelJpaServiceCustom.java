@@ -3,7 +3,7 @@ package com.tyrael.laundry.commons.service;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.repository.NoRepositoryBean;
 
 import com.tyrael.laundry.commons.dto.PageInfo;
 import com.tyrael.laundry.commons.model.BaseEntity;
@@ -13,7 +13,7 @@ import com.tyrael.laundry.commons.model.BaseEntity;
  * @author Mark Martinez, created Nov 29, 2015
  *
  */
-@Transactional
+@NoRepositoryBean
 public interface TyraelJpaServiceCustom<E extends BaseEntity, D> {
 
     D findOneInfo(Long id);

@@ -1,5 +1,7 @@
 package com.tyrael.laundry.model.user;
 
+import java.util.Set;
+
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -23,15 +25,8 @@ public class User extends BaseNamedEntity {
     @CollectionTable(name = "user_roles", joinColumns = {
         @JoinColumn(name = "user_id")
     })
-    private String[] roles;
-
-    public String[] getRoles() {
-        return roles;
-    }
-
-    public void setRoles(String[] roles) {
-        this.roles = roles;
-    }
+    @Column(name = "role")
+    private Set<String> roles;
 
     public String getPassword() {
         return password;
@@ -39,6 +34,14 @@ public class User extends BaseNamedEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
     }
 
 

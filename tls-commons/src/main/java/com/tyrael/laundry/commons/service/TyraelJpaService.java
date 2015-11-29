@@ -12,8 +12,7 @@ import com.tyrael.laundry.commons.model.BaseEntity;
  *
  */
 @NoRepositoryBean
-public interface TyraelJpaService<E extends BaseEntity, D>
-    extends TyraelJpaServiceCustom<E, D>,
-            JpaRepository<E, Long>, QueryDslPredicateExecutor<E> {
+public interface TyraelJpaService<E extends BaseEntity>
+    extends JpaRepository<E, Long>, QueryDslPredicateExecutor<E> {
 
 }

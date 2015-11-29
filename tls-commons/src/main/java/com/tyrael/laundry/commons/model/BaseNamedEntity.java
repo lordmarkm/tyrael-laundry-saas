@@ -14,7 +14,7 @@ public abstract class BaseNamedEntity extends BaseEntity {
     @Column(name = "name")
     protected String name;
 
-    @Column(name = "desc")
+    @Column(name = "description")
     protected String description;
 
     public String getName() {

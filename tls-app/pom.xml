@@ -15,6 +15,18 @@
       <artifactId>tls-core-api</artifactId>
       <version>${project.version}</version>
     </dependency>
+
+    <!-- Application Security -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+    <!-- Jackson Joda -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-joda</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
