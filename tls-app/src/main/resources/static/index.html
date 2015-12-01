@@ -1,1 +1,39 @@
-hello word
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<title>Tyrael Laundry</title>
+<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+<!-- 
+<link rel="stylesheet" href="lib/bootstrap-flat-css/bootstrap-flat.css" />
+ -->
+<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />
+<link rel="stylesheet" href="lib/angularjs-toaster/toaster.css" />
+<link rel="stylesheet" href="lib/app.css" />
+
+<link rel="stylesheet" href="lib/metisMenu/dist/metisMenu.css" />
+<link rel="stylesheet" href="lib/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css" />
+<link rel="stylesheet" href="lib/angular-ui-select/dist/select.min.css">
+
+<script data-main="main.js" src="lib/requirejs/require.js"></script>
+
+</head>
+
+<body>
+  <!-- Main Content -->
+  <div class="container">
+    <toaster-container toaster-options="{'time-out': 4000, 'limit' : 3}"></toaster-container>
+    <div class="row">
+      <div class="main">
+        <div ui-view>Loading resources...</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom: 30px;"></div>
+  <div class="text-center">Icons made by <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>, <a href="http://www.flaticon.com/authors/vectorgraphit" title="Vectorgraphit">Vectorgraphit</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+</body>
+
+</html>

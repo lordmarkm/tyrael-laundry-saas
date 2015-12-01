@@ -17,7 +17,6 @@
   <module>tls-core</module>
   <module>tls-commons</module>
   <module>tls-app</module>
-  <module>tls-web</module>
   </modules>
 
   <properties>
