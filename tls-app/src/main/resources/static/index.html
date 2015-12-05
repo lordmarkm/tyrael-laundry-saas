@@ -7,12 +7,17 @@
 <title>Gina's Laundry</title>
 <link rel="icon" type="image/png" href="img/logo.png" />
 <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
-<link rel="stylesheet" href="lib/bootstrap-flat-css/bootstrap-flat.css" />
 <link rel="stylesheet" href="css/app.css" />
+<link rel="stylesheet" type="text/css" href="lib/slick-carousel/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="lib/slick-carousel/slick/slick-theme.css"/>
+<script src="lib/jquery/dist/jquery.min.js"></script>
+<script src="lib/slick-carousel/slick/slick.min.js"></script>
+<script src="js/index.js"></script>
+
 </head>
 
 <body>
-<div class="container">
+<div class="container container-main">
 <div class="row">
   <div class="col-sm-4">
     <img src="img/nav-brand.png" class="tls-fit" />
@@ -21,17 +26,61 @@
     <img src="img/nav-contact.png" class="tls-fit" />
   </div>
 </div>
-<div class="row">
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#">Home</a></li>
-    <li><a href="#">Menu 1</a></li>
-    <li><a href="#">Menu 2</a></li>
-    <li><a href="#">Menu 3</a></li>
-  </ul>
+
+<div class="row mt20">
+  <!-- Static navbar -->
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Project name</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li role="separator" class="divider"></li>
+              <li class="dropdown-header">Nav header</li>
+              <li><a href="#">Separated link</a></li>
+              <li><a href="#">One more separated link</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
+          <li><a href="../navbar-static-top/">Static top</a></li>
+          <li><a href="../navbar-fixed-top/">Fixed top</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+  </nav>
 </div>
+
 <div class="row">
-  <div class="col-sm-4 thumbnail">
-    <img src="img/logo.png" />
+  <div class="col-sm-12">
+    <div class="your-class">
+      <div><img src="img/carousel-1.jpg" /></div>
+      <div><img src="img/carousel-2.jpg" /></div>
+      <div><img src="img/carousel-3.jpg" /></div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-4">
+    <img src="img/logo.png" class="tls-fit" />
   </div>
   <div class="col-sm-8">
     <h3>Gina's Laundry</h3>
@@ -39,35 +88,38 @@
     <p>Block 13, Lot 6. Aldea Homes, Sibulan
   </div>
 </div>
-<div class="row">
-  <div class="col-sm-12 thumbnail">
-    <img src="img/banner.jpg" />
-  </div>
-</div>
 
 <footer class="row">
-  <div class="col-sm-4">
-    <h2>Contact Us</h2>
-    <h4>Gina's Laundry</h4>
-    <p>t: 09235981954
-    <p>a: Block 13, Lot 6. Aldea Homes, Sibulan
-    <p>e: <a href="mailto:markbbmartinez@gmail.com">markbbmartinez@gmail.com</a>
-  </div>
-  <div class="col-sm-4">
-    <h2>Service Features</h2>
-    <h4>Convenient Laundry Service</h4>
-    <ul>
-      <li>24 Hour Turnaround.
-      <li>Free pickup and Delivery.
-      <li>Easy Online Access
-    </ul>
-  </div>
-  <div class="col-sm-4">
-    <h2>Peace of Mind</h2>
-    <h4>Quality Assurance.</h4>
-    <p>Every piece of laundry is handle with care by our trained attendants, we guarantee our service by double checking you wont have any missing clothes before delivery.
+  <div class="panel panel-default">
+	  <div class="col-sm-4">
+	    <h2>Contact Us</h2>
+	    <h4>Gina's Laundry</h4>
+	    <p>t: 09235981954
+	    <p>a: Block 13, Lot 6. Aldea Homes, Sibulan
+	    <p>e: <a href="mailto:markbbmartinez@gmail.com">markbbmartinez@gmail.com</a>
+	  </div>
+	  <div class="col-sm-4">
+	    <h2>Service Features</h2>
+	    <h4>Convenient Laundry Service</h4>
+	    <ul>
+	      <li>24 Hour Turnaround.
+	      <li>Free pickup and Delivery.
+	      <li>Easy Online Access
+	    </ul>
+	  </div>
+	  <div class="col-sm-4">
+	    <h2>Peace of Mind</h2>
+	    <h4>Quality Assurance.</h4>
+	    <p>Every piece of laundry is handle with care by our trained attendants, we guarantee our service by double checking you wont have any missing clothes before delivery.
+	  </div>
   </div>
 </footer>
-
 </div>
+
+<div class="container mt20 mb20">
+  <div class="row">
+    There are things that come after the container
+  </div>
+</div>
+
 </body>
