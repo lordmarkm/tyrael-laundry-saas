@@ -1,1 +1,100 @@
-<ui-view></ui-view>
+<div id="wrapper">
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+  <div class="navbar-header">
+    <a class="navbar-brand" ui-sref="default.manager.splash" title="Management Dashboard">Management</a>
+  </div>
+  <!-- /.navbar-header -->
+  
+  <div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse">
+      <ul class="nav" id="side-menu">
+        <li class="sidebar-search">
+            <div class="input-group custom-search-form">
+              <ui-select ng-model="search.jobOrder" on-select="onSelect($item)">
+                <ui-select-match placeholder="Search...">{{$select.selected.trackingNo}}</ui-select-match>
+                <ui-select-choices repeat="jobOrder in search.results track by $index"
+                     refresh="doSearch($select.search)"
+                     refresh-delay="0">
+                     <div>
+                        <div ng-bind-html="jobOrder.trackingNo | highlight: $select.search"></div>
+                        <div class="row">
+                        <div class="col-sm-8" style="overflow: hidden; text-overflow: ellipsis;">
+                          <small ng-bind-html="jobOrder.customer.formattedName | highlight: $select.search"></small>
+                        </div>
+                        <div class="col-sm-4" style="padding: 0;">
+                          <small ng-bind-html="jobOrder.dateReceived | date: 'MMM-dd-yyyy'"></small>
+                        </div>
+                        </div>
+                     </div>
+                </ui-select-choices>
+              </ui-select>              
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button" disabled="true">
+                    <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </div>
+            <!-- /input-group -->
+        </li>
+        <li><a ui-sref="default.manager.splash" ui-sref-active="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a></li>
+        <li><a ui-sref="default.manager.joborder_list" ui-sref-active="active"><i class="fa fa-list fa-fw"></i> View All Job Orders</a></li>
+        <li ng-if="recentData.jobOrder">
+          <a ui-sref="default.manager.joborder_view({trackingNo: recentData.jobOrder.trackingNo})" ui-sref-active="active">
+            <i class="fa fa-file-text-o fa-fw"></i> Last Viewed <br>
+            <small style="margin-left: 20px;">{{recentData.jobOrder.trackingNo}}</small>
+          </a>
+        </li>
+        <li ng-class="{hide: !recentData.customer.id}">
+          <a href="javascript:;">
+            <i class="fa fa-user fa-fw"></i> Last Viewed <br>
+            <small style="margin-left: 20px;">{{recentData.customer.formattedName}}</small>
+            <span class="fa arrow"></span>
+          </a>
+          <ul class="nav nav-second-level collapse in">
+            <li>
+              <a ui-sref="default.manager.customer_view({id: recentData.customer.id})"
+                ui-sref-active="active">
+                Name and Address
+              </a>
+            </li>
+            <li>
+              <a ui-sref="default.manager.customer_view_joborders({id: recentData.customer.id})"
+                ui-sref-active="active">
+                Job Orders
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li><a ui-sref="default.manager.transport" ui-sref-active="active"><i class="fa fa-truck fa-fw"></i> Pickup/Delivery</a></li>
+        <li><a ui-sref="default.manager.price_management" ui-sref-active="active"><i class="fa fa-money fa-fw"></i> Price Management</a></li>
+        <li><a ui-sref="default.manager.branch_management" ui-sref-active="active"><i class="fa fa-institution fa-fw"></i> Branch Management</a></li>
+        <li>
+          <a href="javascript:;">
+            <i class="fa fa-line-chart"> Reports</i>
+            <span class="fa arrow"></span>
+          </a>
+          <ul class="nav nav-second-level collapse in">
+            <li>
+              <a ui-sref="default.manager.reports.summary"
+                ui-sref-active="active">
+                Branch Summary
+              </a>
+            </li>
+            <li>
+              <a ui-sref="default.manager.reports.income"
+                ui-sref-active="active">
+                Income
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li><a ui-sref="default.manager.reports.extraction" ui-sref-active="active"><i class="fa fa-database fa-fw"></i> Load Dynamic Reports Data</a></li>
+        <li><a href="/{{contextPath}}/report.jsp?query=tyrael_laundry" target="_blank"><i class="fa fa-bar-chart fa-fw"></i> View Dynamic Reports</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div id="page-wrapper" style="padding-top: 20px;">
+  <ui-view></ui-view>
+</div>
+</div>
