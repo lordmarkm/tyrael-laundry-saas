@@ -13,7 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.tyrael.laundry.authentication.CustomUsernamePasswordAuthenticationFilter;
 import com.tyrael.laundry.core.api.service.UserService;
 
 /**
@@ -27,6 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CustomUsernamePasswordAuthenticationFilter jsonAuthFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -60,13 +65,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 .permitAll()
                 .and()
-            .formLogin()
-                .loginPage("/login")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .loginProcessingUrl("/login/authenticate")
-                .failureUrl("/login?msg=bad_credentials")
-                .permitAll();
+            .addFilterBefore(jsonAuthFilter, UsernamePasswordAuthenticationFilter.class);
+//            .formLogin()
+//                .loginPage("/login")
+//                .usernameParameter("username")
+//                .passwordParameter("password")
+//                .loginProcessingUrl("/login/authenticate")
+//                .failureUrl("/login?msg=bad_credentials")
+//                .permitAll();
 //                .and()
 //            .rememberMe()
 //                .key(env.getProperty("remember.me.key"));

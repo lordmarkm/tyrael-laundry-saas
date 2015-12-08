@@ -1,4 +1,4 @@
-package com.tyrael.laundry.core.api.config;
+package com.tyrael.laundry;
 
 import com.google.common.base.Predicate;
 

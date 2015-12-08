@@ -1,5 +1,5 @@
 $(function () {
-  $('.your-class').slick({
+  $('#carousel-main').slick({
     //settings here
     arrows: false,
     autoplay: true,

@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="lib/slick-carousel/slick/slick.css"/>
 <link rel="stylesheet" type="text/css" href="lib/slick-carousel/slick/slick-theme.css"/>
 <script src="lib/jquery/dist/jquery.min.js"></script>
+<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="lib/slick-carousel/slick/slick.min.js"></script>
 <script src="js/index.js"></script>
 
@@ -20,9 +21,9 @@
 <div class="container container-main">
 <div class="row">
   <div class="col-sm-4">
-    <img src="img/nav-brand.png" class="tls-fit" />
+    <a href="/"><img src="../img/nav-brand.png" class="tls-fit" /></a>
   </div>
-  <div class="col-sm-4 tet">
+  <div class="col-sm-4 text-center">
     <img src="img/nav-contact.png" class="tls-fit" />
   </div>
 </div>
@@ -33,12 +34,11 @@
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Project name</a>
+        <div class="navbar-brand">Navigation</div>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
@@ -52,14 +52,14 @@
               <li><a href="#">Another action</a></li>
               <li><a href="#">Something else here</a></li>
               <li role="separator" class="divider"></li>
-              <li class="dropdown-header">Nav header</li>
+              <li class="dropdown-header">Admins and POS</li>
               <li><a href="#">Separated link</a></li>
               <li><a href="#">One more separated link</a></li>
             </ul>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="./app/app.html">Go to App</a></li>
+          <li><a href="/app/#/login">Login</a></li>
         </ul>
       </div><!--/.nav-collapse -->
     </div><!--/.container-fluid -->
@@ -68,7 +68,7 @@
 
 <div class="row">
   <div class="col-sm-12">
-    <div class="your-class">
+    <div id="carousel-main">
       <div><img src="img/carousel-1.jpg" /></div>
       <div><img src="img/carousel-2.jpg" /></div>
       <div><img src="img/carousel-3.jpg" /></div>

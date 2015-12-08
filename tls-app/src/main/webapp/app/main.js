@@ -71,13 +71,7 @@ require([
     'metisMenu',
     'moment',
     'angular-moment',
-    'core/core.module.js',
-    'common/common.module.js',
-    'splash/splash.module.js',
-    'manager/manager.module.js',
-    'pos/pos.module.js',
-    'anon/anon.module.js',
-    'customer_portal/customer.module.js'
+    'core/core.module.js'
   ], function (angular) {
   angular.element().ready(function () {
     angular.bootstrap(document, [
@@ -90,13 +84,7 @@ require([
       'ui.bootstrap',
       'toaster',
       'angularMoment',
-      'core.module',
-      'common.module',
-      'splash.module',
-      'manager.module',
-      'pos.module',
-      'anon.module',
-      'customer.module'
+      'core.module'
     ]);
   });
 });
