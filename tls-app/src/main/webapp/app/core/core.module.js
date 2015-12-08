@@ -7,7 +7,7 @@ define([
 ], function (angular, RootController, AuthenticationController, AuthenticationService, LoginService) {
   console.debug('Configuring core.module');
   angular.module('core.module', [])
-    .service('auth', AuthenticationService)
+    .service('AuthenticationService', AuthenticationService)
     .service('LoginService', LoginService)
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
 

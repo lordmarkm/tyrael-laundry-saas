@@ -71,7 +71,8 @@ require([
     'metisMenu',
     'moment',
     'angular-moment',
-    'core/core.module.js'
+    'core/core.module.js',
+    'admin/admin.module.js'
   ], function (angular) {
   angular.element().ready(function () {
     angular.bootstrap(document, [
@@ -84,7 +85,8 @@ require([
       'ui.bootstrap',
       'toaster',
       'angularMoment',
-      'core.module'
+      'core.module',
+      'admin.module'
     ]);
   });
 });

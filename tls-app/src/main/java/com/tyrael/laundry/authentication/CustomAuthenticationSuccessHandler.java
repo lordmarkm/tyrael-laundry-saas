@@ -20,13 +20,8 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication auth) throws IOException, ServletException {
-        if (!"application/json".equals(request.getHeader("Content-Type"))) {
-            //super.onAuthenticationSuccess(request, response, auth);
-            throw new IllegalStateException("You may only authenticate through Json!");
-        } else {
-            response.getWriter().print("{\"responseCode\":\"SUCCESS\"}");
-            response.getWriter().flush();
-        }
+        response.getWriter().print("{\"responseCode\":\"SUCCESS\"}");
+        response.getWriter().flush();
     }
 
 }

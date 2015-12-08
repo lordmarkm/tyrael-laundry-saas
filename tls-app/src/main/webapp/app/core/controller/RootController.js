@@ -1,5 +1,5 @@
 define(function () {
-  return ['$scope', '$rootScope', '$state', 'auth', function ($scope, $rootScope, $state, auth) {
+  return ['$scope', '$rootScope', '$state', 'AuthenticationService', function ($scope, $rootScope, $state, AuthenticationService) {
     $scope.contextPath = 'laundry';
     $scope.isAuthorized = function (permission) {
       if (!$scope.principal) {
@@ -14,12 +14,24 @@ define(function () {
     };
 
     //Check user authorities and redirect where appropriate
-    auth.then(function(authentication) {
-      if (!authentication.principal) {
+    AuthenticationService.get(function (auth) {
+      if (!auth.principal) {
         $state.go('default.login');
       }
-      $scope.principal = authentication.principal;
+      $scope.principal = auth.principal;
     });
+
+    $scope.onLogin = function () {
+      $scope.principal = AuthenticationService.get(function (auth) {
+        if (!auth.principal) {
+          $state.go('default.login');
+        }
+        if ($scope.isAuthorized('ROLE_ADMIN')) {
+          $state.go('default.admin.dashboard');
+        }
+        $scope.principal = auth.principal;
+      });
+    };
 
     $rootScope.$on('$stateChangeStart', function (event, toState) {
       if (typeof toState.access != 'undefined' && !$scope.isAuthorized(toState.access)) {

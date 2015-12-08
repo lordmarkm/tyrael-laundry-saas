@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mysema.query.types.Predicate;
 import com.tyrael.laundry.commons.dto.PageInfo;
@@ -15,6 +16,7 @@ import com.tyrael.laundry.commons.model.BaseEntity;
  * @author Mark Martinez, created Nov 29, 2015
  *
  */
+@Transactional
 public abstract class TyraelJpaServiceCustomImpl<E extends BaseEntity, D, R extends TyraelJpaService<E>>
     extends MappingService<E, D> implements TyraelJpaServiceCustom<E, D> {
 

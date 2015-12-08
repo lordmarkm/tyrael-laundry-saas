@@ -3,7 +3,7 @@ define(function () {
     $scope.params = $stateParams;
     $scope.authenticate = function () {
       LoginService.save({username: $scope.username, password: $scope.password}, function(resp) {
-        console.debug(resp);
+        $scope.onLogin();
       }, function (errorResp) {
         $scope.error = errorResp.data.error || 'Authentication failed';
       })
