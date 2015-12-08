@@ -4,6 +4,8 @@ import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -22,21 +24,26 @@ import com.tyrael.laundry.commons.service.TyraelJpaServiceCustom;
  */
 public abstract class BaseResource<E extends BaseEntity, D, S extends TyraelJpaServiceCustom<E, D>> {
 
+    private static Logger LOG = LoggerFactory.getLogger(BaseResource.class);
+
     @Autowired
-    private S service;
+    protected S service;
 
     @RequestMapping(method = GET)
     public ResponseEntity<PageInfo<D>> getPage(Pageable page) {
+        LOG.debug("Page request. page={}", page);
         return new ResponseEntity<>(service.pageInfo(page), OK);
     }
 
     @RequestMapping(value = "/{id}", method = GET)
     public ResponseEntity<D> findOne(@PathVariable Long id) {
+        LOG.debug("Find by id request. id={}", id);
         return new ResponseEntity<>(service.findOneInfo(id), OK);
     }
 
     @RequestMapping(method = POST)
     public ResponseEntity<D> save(@RequestBody D dto) {
+        LOG.debug("Save request. dto={}", dto);
         return new ResponseEntity<>(service.saveInfo(dto), OK);
     }
 

@@ -11,4 +11,6 @@ import com.tyrael.laundry.model.branch.Brand;
  */
 public interface BrandServiceCustom extends TyraelJpaServiceCustom<Brand, BrandDto> {
 
+    BrandDto findInfoByCode(String brandCode);
+
 }

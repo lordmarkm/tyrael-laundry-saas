@@ -23,4 +23,20 @@ public class BranchDto extends BaseNamedDto {
                 .append("minimum", minimumJobOrderAmount);
     }
 
+    public BrandDto getBrand() {
+        return brand;
+    }
+
+    public void setBrand(BrandDto brand) {
+        this.brand = brand;
+    }
+
+    public BigDecimal getMinimumJobOrderAmount() {
+        return minimumJobOrderAmount;
+    }
+
+    public void setMinimumJobOrderAmount(BigDecimal minimumJobOrderAmount) {
+        this.minimumJobOrderAmount = minimumJobOrderAmount;
+    }
+
 }

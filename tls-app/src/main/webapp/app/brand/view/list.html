@@ -1,0 +1,25 @@
+<h3 class="page-header">All brands</h3>
+
+<table ng-table="tableParams" show-filter="true" class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name
+      <th>Code
+      <th>Created Date
+      <th>Expiration Date
+      <th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="brand in $data">
+      <td><a ui-sref="default.brand.view({brandCode: brand.code, urlSlug: brand.slug})">{{brand.name}}</a>
+      <td>{{brand.code}}
+      <td>{{brand.dateCreated | date: 'yyyy-MM-dd hh:mm:ss a'}}
+      <td>
+      <td>
+    </tr>
+    <tr ng-if="!$data.length">
+      <td colspan="2">No items available</td>
+    </tr>
+  </tbody>
+</table>

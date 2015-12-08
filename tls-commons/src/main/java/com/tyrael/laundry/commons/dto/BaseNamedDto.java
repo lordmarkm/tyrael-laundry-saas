@@ -2,6 +2,8 @@ package com.tyrael.laundry.commons.dto;
 
 import org.springframework.core.style.ToStringCreator;
 
+import com.tyrael.laundry.commons.util.SlugUtil;
+
 /**
  * 
  * @author Mark Martinez, created Nov 29, 2015
@@ -19,6 +21,9 @@ public class BaseNamedDto extends BaseDto {
                 .append("desc", description);
     }
 
+    public String getSlug() {
+        return SlugUtil.toSlug(name);
+    }
     public String getName() {
         return name;
     }
