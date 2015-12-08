@@ -16,6 +16,9 @@ body {
   background: -moz-linear-gradient(#eafaff, white); /* For Firefox 3.6 to 15 */
   background: linear-gradient(#eafaff, white); /* Standard syntax */
 }
+.container#container-angular {
+  min-height: 1000px;
+}
 
 img.tls-fit {
  max-width: 100%;

@@ -1,19 +1,19 @@
 require.config({
   paths: {
-    'angular': 'lib/angular/angular',
-    'angular-animate': 'lib/angular-animate/angular-animate.min',
-    'angular-ui-router': 'lib/angular-ui-router/release/angular-ui-router',
-    'angular-resource': 'lib/angular-resource/angular-resource.min',
-    'angular-ngtable': 'lib/ng-table/dist/ng-table.min',
-    'angular-ui-select': 'lib/angular-ui-select/dist/select',
-    'angular-sanitize': 'lib/angular-sanitize/angular-sanitize.min',
-    'angular-bootstrap': 'lib/angular-bootstrap/ui-bootstrap-tpls.min',
-    'toaster': 'lib/angularjs-toaster/toaster',
-    'bootstrap': 'lib/bootstrap/dist/js/bootstrap',
-    'jquery': 'lib/jquery/dist/jquery.min',
-    'metisMenu': 'lib/metisMenu/dist/metisMenu.min',
-    'moment': 'lib/moment/min/moment.min',
-    'angular-moment': 'lib/angular-moment/angular-moment.min'
+    'angular': '../lib/angular/angular',
+    'angular-animate': '../lib/angular-animate/angular-animate.min',
+    'angular-ui-router': '../lib/angular-ui-router/release/angular-ui-router',
+    'angular-resource': '../lib/angular-resource/angular-resource.min',
+    'angular-ngtable': '../lib/ng-table/dist/ng-table.min',
+    'angular-ui-select': '../lib/angular-ui-select/dist/select',
+    'angular-sanitize': '../lib/angular-sanitize/angular-sanitize.min',
+    'angular-bootstrap': '../lib/angular-bootstrap/ui-bootstrap-tpls.min',
+    'toaster': '../lib/angularjs-toaster/toaster',
+    'bootstrap': '../lib/bootstrap/dist/js/bootstrap',
+    'jquery': '../lib/jquery/dist/jquery.min',
+    'metisMenu': '../lib/metisMenu/dist/metisMenu.min',
+    'moment': '../lib/moment/min/moment.min',
+    'angular-moment': '../lib/angular-moment/angular-moment.min'
   },
   shim: {
     'angular': {

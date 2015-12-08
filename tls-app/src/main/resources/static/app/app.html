@@ -5,25 +5,30 @@
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 <meta content="utf-8" http-equiv="encoding">
 <title>Gina's Laundry</title>
-<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
-<!-- 
-<link rel="stylesheet" href="lib/bootstrap-flat-css/bootstrap-flat.css" />
- -->
-<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />
-<link rel="stylesheet" href="lib/angularjs-toaster/toaster.css" />
-<link rel="stylesheet" href="lib/app.css" />
+<link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="../lib/font-awesome/css/font-awesome.min.css" />
+<link rel="stylesheet" href="../lib/angularjs-toaster/toaster.css" />
+<link rel="stylesheet" href="../css/app.css" />
 
-<link rel="stylesheet" href="lib/metisMenu/dist/metisMenu.css" />
-<link rel="stylesheet" href="lib/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css" />
-<link rel="stylesheet" href="lib/angular-ui-select/dist/select.min.css">
+<link rel="stylesheet" href="../lib/metisMenu/dist/metisMenu.css" />
+<link rel="stylesheet" href="../lib/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css" />
+<link rel="stylesheet" href="../lib/angular-ui-select/dist/select.min.css">
 
-<script data-main="main.js" src="lib/requirejs/require.js"></script>
+<script data-main="main.js" src="../lib/requirejs/require.js"></script>
 
 </head>
 
 <body>
   <!-- Main Content -->
-  <div class="container">
+  <div class="container container-main" id="container-angular">
+    <div class="row">
+      <div class="col-sm-4">
+        <img src="../img/nav-brand.png" class="tls-fit" />
+      </div>
+      <div class="col-sm-4 tet">
+        <img src="../img/nav-contact.png" class="tls-fit" />
+      </div>
+    </div>
     <toaster-container toaster-options="{'time-out': 4000, 'limit' : 3}"></toaster-container>
     <div class="row">
       <div class="main">
