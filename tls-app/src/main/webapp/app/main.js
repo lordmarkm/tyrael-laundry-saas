@@ -73,7 +73,8 @@ require([
     'angular-moment',
     'core/core.module.js',
     'admin/admin.module.js',
-    'brand/brand.module.js'
+    'brand/brand.module.js',
+    'branch/branch.module.js'
   ], function (angular) {
   angular.element().ready(function () {
     angular.bootstrap(document, [
@@ -88,7 +89,8 @@ require([
       'angularMoment',
       'core.module',
       'admin.module',
-      'brand.module'
+      'brand.module',
+      'branch.module'
     ]);
   });
 });

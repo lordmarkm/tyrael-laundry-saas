@@ -7,11 +7,14 @@ import javax.annotation.PostConstruct;
 
 import org.dozer.DozerBeanMapper;
 import org.dozer.loader.api.BeanMappingBuilder;
+import org.dozer.loader.api.TypeMappingOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.tyrael.laundry.commons.dto.BaseDto;
 import com.tyrael.laundry.commons.model.BaseEntity;
+import com.tyrael.laundry.core.api.dto.BranchDto;
+import com.tyrael.laundry.model.branch.Branch;
 
 /**
  * 
@@ -35,6 +38,8 @@ public class MapperConfig {
                         .fields("dateCreated", "dateCreated", copyByReference(), oneWay())
                         .fields("dateUpdated", "dateUpdated", copyByReference(), oneWay());
 
+                mapping(BranchDto.class, Branch.class, TypeMappingOptions.oneWay())
+                    .exclude("brand");
             }
         });
     }

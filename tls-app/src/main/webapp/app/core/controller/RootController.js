@@ -12,6 +12,9 @@ define(function () {
       }
       return false;
     };
+    $scope.isAuthenticated = function () {
+      return null != $scope.principal;
+    }
 
     //Check user authorities and redirect where appropriate
     AuthenticationService.get(function (auth) {

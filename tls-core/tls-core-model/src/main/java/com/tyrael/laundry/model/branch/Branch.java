@@ -21,6 +21,9 @@ public class Branch extends BaseNamedEntity {
     @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
 
+    @Column(name = "branch_code")
+    private String code;
+
     /**
      * Job orders that don't reach this amount will still be charged this
      * amount.
@@ -42,6 +45,14 @@ public class Branch extends BaseNamedEntity {
 
     public void setBrand(Brand brand) {
         this.brand = brand;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
 }

@@ -1,0 +1,23 @@
+<h3 ng-if="branch.code" class="page-header">{{brand.name}} - Update {{branch.name}}</h3>
+<h3 ng-if="!branch.code" class="page-header">{{brand.name}} - Add new branch</h3>
+
+<form class="form form-horizontal" ng-submit="save()">
+  <div class="form-group">
+    <label class="control-label col-sm-2">Name</label>
+    <div class="col-sm-4">
+      <input type="text" ng-model="branch.name" required class="form-control" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">Description</label>
+    <div class="col-sm-4">
+      <input type="text" ng-model="branch.description" class="form-control" />
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-4 col-sm-push-2">
+      <input ng-if="branch.code" type="submit" value="Update branch" class="btn btn-primary" />
+      <input ng-if="!branch.code" type="submit" value="Create branch" class="btn btn-primary" />
+    </div>
+  </div>
+</form>

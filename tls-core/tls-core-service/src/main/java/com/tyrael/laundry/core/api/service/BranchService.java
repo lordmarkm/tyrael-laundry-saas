@@ -11,4 +11,6 @@ import com.tyrael.laundry.model.branch.Branch;
  */
 public interface BranchService extends BranchServiceCustom, TyraelJpaService<Branch> {
 
+    Branch findByCode(String code);
+
 }

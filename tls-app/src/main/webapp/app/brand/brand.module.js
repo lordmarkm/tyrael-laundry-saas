@@ -35,6 +35,13 @@ define([
         resolve: BrandUpdateResolve,
         access: 'ROLE_ADMIN'
       })
+      .state('default.brand.update', {
+        url: '/update/{brandCode}/{urlSlug}',
+        templateUrl: 'brand/view/update.html',
+        controller: BrandUpdateController,
+        resolve: BrandUpdateResolve,
+        access: 'ROLE_ADMIN'
+      })
       .state('default.brand.view', {
         url: '/{brandCode}/{urlSlug}',
         templateUrl: 'brand/view/view.html',

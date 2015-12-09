@@ -1,5 +1,7 @@
 package com.tyrael.laundry.core.api.dto;
 
+import java.util.List;
+
 import com.tyrael.laundry.commons.dto.BaseNamedDto;
 
 /**
@@ -10,6 +12,7 @@ import com.tyrael.laundry.commons.dto.BaseNamedDto;
 public class BrandDto extends BaseNamedDto {
 
     private String code;
+    private List<BranchDto> branches;
 
     public String getCode() {
         return code;
@@ -17,6 +20,14 @@ public class BrandDto extends BaseNamedDto {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public List<BranchDto> getBranches() {
+        return branches;
+    }
+
+    public void setBranches(List<BranchDto> branches) {
+        this.branches = branches;
     }
 
 }

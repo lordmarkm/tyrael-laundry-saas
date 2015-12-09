@@ -11,6 +11,8 @@ import javax.persistence.PreUpdate;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import com.tyrael.laundry.commons.util.AuthenticationUtil;
+
 /**
  * 
  * @author Mark Martinez, created Nov 28, 2015
@@ -45,11 +47,14 @@ public abstract class BaseEntity {
     public void create() {
         this.dateCreated = DateTime.now();
         this.dateUpdated = DateTime.now();
+        this.createdBy = AuthenticationUtil.getLoggedInUsername();
+        this.updatedBy = AuthenticationUtil.getLoggedInUsername();
     }
 
     @PreUpdate
     public void update() {
         this.dateUpdated = DateTime.now();
+        this.updatedBy = AuthenticationUtil.getLoggedInUsername();
     }
 
     public Long getId() {

@@ -1,7 +1,10 @@
 package com.tyrael.laundry.model.branch;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 import com.tyrael.laundry.commons.model.BaseNamedEntity;
 
@@ -15,6 +18,9 @@ public class Brand extends BaseNamedEntity {
 
     @Column(name = "brand_code")
     private String code;
+
+    @OneToMany(mappedBy = "brand")
+    private List<Branch> branches;
 
     public String getCode() {
         return code;

@@ -15,11 +15,13 @@ public class BranchDto extends BaseNamedDto {
 
     private BrandDto brand;
     private BigDecimal minimumJobOrderAmount;
+    private String code;
 
     @Override
     protected ToStringCreator toStringCreator() {
         return new ToStringCreator(this)
                 .append("brand", brand)
+                .append("branchCode", code)
                 .append("minimum", minimumJobOrderAmount);
     }
 
@@ -37,6 +39,14 @@ public class BranchDto extends BaseNamedDto {
 
     public void setMinimumJobOrderAmount(BigDecimal minimumJobOrderAmount) {
         this.minimumJobOrderAmount = minimumJobOrderAmount;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
 }
