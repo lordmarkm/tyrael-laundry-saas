@@ -5,6 +5,8 @@ define(function () {
     $scope.save = function () {
       $scope.branch.brand = $scope.brand;
       BranchService.save($scope.branch, function (saved) {
+        $scope.branch = saved;
+        console.debug('going to state ' + JSON.stringify({brandCode: brand.code, branchCode: saved.code, urlSlug: saved.slug}));
         $state.go('default.branch.view', {brandCode: brand.code, branchCode: saved.code, urlSlug: saved.slug});
       });
     };

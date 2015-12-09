@@ -1,5 +1,6 @@
 define(function () {
-  return ['$scope', 'brand', function ($scope, brand) {
+  return ['$scope', 'brand', 'branch', function ($scope, brand, branch) {
     $scope.brand = brand;
+    $scope.branch = branch;
   }];
 });
