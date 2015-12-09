@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import org.springframework.core.style.ToStringCreator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tyrael.laundry.commons.dto.BaseNamedDto;
 
 /**
@@ -13,6 +14,7 @@ import com.tyrael.laundry.commons.dto.BaseNamedDto;
  */
 public class BranchDto extends BaseNamedDto {
 
+    @JsonIgnore
     private BrandDto brand;
     private BigDecimal minimumJobOrderAmount;
     private String code;

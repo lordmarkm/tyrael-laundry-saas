@@ -1,10 +1,15 @@
 define(function () {
   return {
-    brand: ['$stateParams', 'BrandService', function ($stateParams, BrandService) {
-      
-    }]
+    brand: ['BrandService', '$stateParams', function (BrandService, $stateParams) {
+      return BrandService.get({brandCode: $stateParams.brandCode});
+    }],
     branch: ['BranchService', '$stateParams', function (BranchService, $stateParams) {
-      return BrandService.get({brandCode: $stateParams.brandCode, branchCode: $stateParams.branchCode});
+      //Blank branchCode means it's an add operation. Non blank means update
+      if ($stateParams.branchCode) {
+        return BranchService.get({brandCode: $stateParams.brandCode, branchCode: $stateParams.branchCode});
+      } else {
+        return {};
+      }
     }]
   };
 });

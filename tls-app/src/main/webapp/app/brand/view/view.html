@@ -1,1 +1,47 @@
-{{brand}}
+<h3 class="page-header">
+  <strong>{{brand.name}}</strong>
+  <br><small>View Brand Details</small>
+</h3>
+
+<dl>
+  <dt>Date created
+  <dd>{{brand.dateCreated | date}}
+  <dt>Description
+  <dd>{{brand.description}}
+</dl>
+
+<h3 class="page-header"><small>Branches</small></h3>
+<div ng-if="brand.branches.length" ng-repeat="branch in brand.branches" class="row">
+  <div class="col-sm-10">
+    <h4>{{branch.name}}</h4>
+    <dl>
+      <dt>Address
+      <dd>{{brand.address ? brand.address : 'Not set'}}
+      <dt>Contact number
+      <dd>{{brand.contactNumber ? brand.contactNumber : 'Not set'}}
+      <dt>Email
+      <dd>{{brand.email ? brand.email : 'Not set'}}
+      <dt>Minimum job order amount
+      <dd>{{brand.minimumJobOrderAmount ? brand.minimumJobOrderAmount : 'Not set'}}
+    </dl>
+  </div>
+</div>
+<div ng-if="!brand.branches.length" class="row">
+  <div class="col-sm-12">No branches</div>
+</div>
+
+<h3 class="page-header"><small>Users</small></h3>
+<div ng-if="brand.users.length" ng-repeat="user in brand.users" class="row">
+  <div class="col-sm-10">
+    <h4>{{user.name}}</h4>
+    <dl>
+      <dt>Roles
+      <dd>{{user.roles}}
+    </dl>
+  </div>
+</div>
+<div ng-if="!brand.users.length" class="row">
+  <div class="col-sm-12">No users</div>
+</div>
+
+<br><br><br><br><br><br>{{brand}}

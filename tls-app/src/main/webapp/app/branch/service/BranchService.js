@@ -1,5 +1,5 @@
 define(function () {
   return ['$resource', function ($resource) {
-    return $resource('/branch');
+    return $resource('/branch/:brandCode');
   }];
 });

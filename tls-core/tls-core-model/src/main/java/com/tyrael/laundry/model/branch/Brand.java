@@ -30,4 +30,12 @@ public class Brand extends BaseNamedEntity {
         this.code = code;
     }
 
+    public List<Branch> getBranches() {
+        return branches;
+    }
+
+    public void setBranches(List<Branch> branches) {
+        this.branches = branches;
+    }
+
 }

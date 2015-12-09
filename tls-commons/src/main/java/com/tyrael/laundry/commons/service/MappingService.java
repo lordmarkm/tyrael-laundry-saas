@@ -3,17 +3,22 @@ package com.tyrael.laundry.commons.service;
 import java.util.List;
 
 import org.dozer.Mapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.GenericTypeResolver;
 
 import com.google.common.collect.Lists;
+import com.tyrael.laundry.commons.model.BaseEntity;
 
 /**
  * 
  * @author Mark Martinez, created Nov 29, 2015
  *
  */
-public abstract class MappingService<E, D> {
+public abstract class MappingService<E extends BaseEntity, D> {
+
+    private static Logger LOG = LoggerFactory.getLogger(MappingService.class);
 
     @Autowired
     protected Mapper mapper;
@@ -29,10 +34,12 @@ public abstract class MappingService<E, D> {
     }
 
     protected D toDto(E entity) {
+        LOG.debug("Perform mapping. src={}, target={}", entity.getClass().getSimpleName(), dtoClass.getSimpleName());
         return null == entity ? null : mapper.map(entity, dtoClass);
     }
 
     protected E toEntity(D dto) {
+        LOG.debug("Perform mapping. src={}, target={}", dtoClass.getSimpleName(), entityClass.getSimpleName());
         return null == dto ? null : mapper.map(dto, entityClass);
     }
 

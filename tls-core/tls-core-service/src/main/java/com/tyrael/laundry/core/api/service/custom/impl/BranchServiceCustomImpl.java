@@ -57,4 +57,9 @@ public class BranchServiceCustomImpl
         return toDto(repo.save(branch));
     }
 
+    @Override
+    public BranchDto findInfoByBrandCodeAndCode(String brandCode, String branchCode) {
+        return toDto(repo.findByBrandCodeAndCode(brandCode, branchCode));
+    }
+
 }

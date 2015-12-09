@@ -12,11 +12,6 @@
   <dependencies>
     <dependency>
       <groupId>tls</groupId>
-      <artifactId>tls-commons</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>tls</groupId>
       <artifactId>tls-core-model</artifactId>
       <version>${project.version}</version>
     </dependency>
