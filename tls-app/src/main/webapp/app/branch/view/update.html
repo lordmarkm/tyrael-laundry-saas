@@ -15,11 +15,28 @@
     </div>
   </div>
   <div class="form-group">
+    <label class="control-label col-sm-2">Contact number</label>
+    <div class="col-sm-4">
+      <input type="text" ng-model="branch.contactNumber" class="form-control" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">Email</label>
+    <div class="col-sm-4">
+      <input type="email" ng-model="branch.email" class="form-control" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">Minimum Job order amount</label>
+    <div class="col-sm-4">
+      <input type="number" min="0" step="0.01" ng-model="branch.minimumJobOrderAmount" class="form-control" />
+      <p class="help-block">Job orders that would cost less than this amount will be charged this amount</p>
+    </div>
+  </div>
+  <div class="form-group">
     <div class="col-sm-4 col-sm-push-2">
       <input ng-if="branch.code" type="submit" value="Update branch" class="btn btn-primary" />
       <input ng-if="!branch.code" type="submit" value="Create branch" class="btn btn-primary" />
     </div>
   </div>
 </form>
-
-<a ui-sref="default.branch.view({brandCode: brand.code, branchCode: branch.code, urlSlug: 'someslug'})">view branch</a>

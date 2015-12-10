@@ -6,8 +6,18 @@ define(function () {
         return false;
       }
       for (var i in $scope.principal.authorities) {
-        if ($scope.principal.authorities[i].authority === permission) {
-          return true;
+        if (angular.isArray(permission)) {
+          //Checking for array permission set for states with access: ['ROLE_ADMIN', 'ROLE_BRANCH_MANAGER']
+          for (var j in permission) {
+            if ($scope.principal.authorities[i].authority === permission[j]) {
+              return true;
+            }
+          }
+        } else {
+          //Checking for string permission such as isAuthorized('ROLE_ADMIN')
+          if ($scope.principal.authorities[i].authority === permission) {
+            return true;
+          }
         }
       }
       return false;

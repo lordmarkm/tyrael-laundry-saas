@@ -1,5 +1,6 @@
 package com.tyrael.laundry.commons.util;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
@@ -9,8 +10,24 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 public class AuthenticationUtil {
 
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+    public static final String ROLE_BRAND_MANAGER = "ROLE_BRAND_MANAGER";
+    public static final String ROLE_POS = "ROLE_POS";
+
     public static String getLoggedInUsername() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
+        if (null == SecurityContextHolder.getContext().getAuthentication()) {
+            return "SYSTEM";
+        } else {
+            return SecurityContextHolder.getContext().getAuthentication().getName();
+        }
     }
 
+    public static boolean isAuthorized(String role) {
+        for(GrantedAuthority auth : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+            if (auth.getAuthority().equals(role)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

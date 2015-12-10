@@ -24,6 +24,15 @@ public class Branch extends BaseNamedEntity {
     @Column(name = "branch_code")
     private String code;
 
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "contact_number")
+    private String contactNumber;
+
+    @Column(name = "email")
+    private String email;
+
     /**
      * Job orders that don't reach this amount will still be charged this
      * amount.
@@ -53,6 +62,30 @@ public class Branch extends BaseNamedEntity {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

@@ -4,9 +4,12 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.tyrael.laundry.commons.model.BaseNamedEntity;
+import com.tyrael.laundry.model.user.User;
 
 /**
  * 
@@ -22,6 +25,10 @@ public class Brand extends BaseNamedEntity {
     @OneToMany(mappedBy = "brand")
     private List<Branch> branches;
 
+    @ManyToMany
+    @JoinTable(name = "brand_users")
+    private List<User> users;
+
     public String getCode() {
         return code;
     }
@@ -36,6 +43,14 @@ public class Brand extends BaseNamedEntity {
 
     public void setBranches(List<Branch> branches) {
         this.branches = branches;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
 }

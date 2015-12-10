@@ -2,6 +2,7 @@ package com.tyrael.laundry.model.user;
 
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -16,9 +17,10 @@ import com.tyrael.laundry.commons.model.BaseNamedEntity;
  *
  */
 @Entity(name = "user")
+@AttributeOverride(name = "name", column = @Column(name = "name", nullable = false, unique = true))
 public class User extends BaseNamedEntity {
 
-    @Column(name = "pw")
+    @Column(name = "pw", nullable = false)
     private String password;
 
     @ElementCollection
@@ -27,6 +29,9 @@ public class User extends BaseNamedEntity {
     })
     @Column(name = "role")
     private Set<String> roles;
+
+    @Column(name = "user_code")
+    private String code;
 
     public String getPassword() {
         return password;
@@ -42,6 +47,14 @@ public class User extends BaseNamedEntity {
 
     public void setRoles(Set<String> roles) {
         this.roles = roles;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
 

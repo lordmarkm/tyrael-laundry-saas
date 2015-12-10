@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import org.springframework.core.style.ToStringCreator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tyrael.laundry.commons.dto.BaseNamedDto;
 
 /**
@@ -14,23 +15,36 @@ import com.tyrael.laundry.commons.dto.BaseNamedDto;
  */
 public class BranchDto extends BaseNamedDto {
 
+    /**
+     * @JsonIgnore here and on getter, @JsonProperty on setter in order to use property
+     * on deserialize only.
+     */
     @JsonIgnore
     private BrandDto brand;
+
     private BigDecimal minimumJobOrderAmount;
     private String code;
+    private String address;
+    private String contactNumber;
+    private String email;
 
     @Override
     protected ToStringCreator toStringCreator() {
         return new ToStringCreator(this)
                 .append("brand", brand)
                 .append("branchCode", code)
+                .append("address", address)
+                .append("contact num", contactNumber)
+                .append("email", email)
                 .append("minimum", minimumJobOrderAmount);
     }
 
+    @JsonIgnore
     public BrandDto getBrand() {
         return brand;
     }
 
+    @JsonProperty
     public void setBrand(BrandDto brand) {
         this.brand = brand;
     }
@@ -49,6 +63,30 @@ public class BranchDto extends BaseNamedDto {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

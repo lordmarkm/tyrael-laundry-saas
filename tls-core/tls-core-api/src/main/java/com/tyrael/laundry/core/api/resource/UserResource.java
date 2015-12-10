@@ -1,5 +1,6 @@
 package com.tyrael.laundry.core.api.resource;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,5 +16,10 @@ import com.tyrael.laundry.model.user.User;
 @RestController
 @RequestMapping("/user")
 public class UserResource extends BaseResource<User, UserDto, UserService> {
+
+    @RequestMapping(value = "/update", method = POST)
+    public ResponseEntity<UserDto> updateUser(UpdateUserRequest updateUserRequest) {
+        
+    }
 
 }

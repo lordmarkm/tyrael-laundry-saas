@@ -1,19 +1,41 @@
 package com.tyrael.laundry.core.api.service.custom.impl;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.base.Preconditions;
+import com.tyrael.laundry.commons.dto.PageInfo;
 import com.tyrael.laundry.commons.service.TyraelJpaServiceCustomImpl;
+import com.tyrael.laundry.commons.util.AuthenticationUtil;
 import com.tyrael.laundry.core.api.dto.BrandDto;
 import com.tyrael.laundry.core.api.service.BrandService;
+import com.tyrael.laundry.core.api.service.UserService;
 import com.tyrael.laundry.core.api.service.custom.BrandServiceCustom;
 import com.tyrael.laundry.model.branch.Brand;
+import com.tyrael.laundry.model.user.User;
 
 @Transactional
 public class BrandServiceCustomImpl
     extends TyraelJpaServiceCustomImpl<Brand, BrandDto, BrandService>
     implements BrandServiceCustom {
+
+    @Autowired
+    private UserService userService;
+
+    @Override
+    public PageInfo<BrandDto> pageInfo(Pageable page) {
+        if (AuthenticationUtil.isAuthorized(AuthenticationUtil.ROLE_ADMIN)) {
+            return super.pageInfo(page);
+        } else {
+            User user = userService.findByName(AuthenticationUtil.getLoggedInUsername());
+            Preconditions.checkNotNull(user);
+            Page<Brand> brands = repo.findByUsersContains(user, page);
+            return toPageInfo(brands);
+        }
+    }
 
     @Override
     public BrandDto saveInfo(BrandDto dto) {

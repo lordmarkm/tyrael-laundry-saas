@@ -35,6 +35,12 @@ define([
         controller: BranchUpdateController,
         resolve: BranchUpdateResolve
       })
+      .state('default.branch.update', {
+        url: '/update/{branchCode}/{urlSlug}',
+        templateUrl: 'branch/view/update.html',
+        controller: BranchUpdateController,
+        resolve: BranchUpdateResolve
+      })
       .state('default.branch.view', {
         url: '/{branchCode}/{urlSlug}',
         templateUrl: 'branch/view/view.html',

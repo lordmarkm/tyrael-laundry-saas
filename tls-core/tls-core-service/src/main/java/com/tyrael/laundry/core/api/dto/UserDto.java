@@ -12,6 +12,7 @@ import com.tyrael.laundry.commons.dto.BaseNamedDto;
 public class UserDto extends BaseNamedDto {
 
     private String password;
+    private String code;
     private Set<String> roles;
 
     public String getPassword() {
@@ -25,6 +26,12 @@ public class UserDto extends BaseNamedDto {
     }
     public void setRoles(Set<String> roles) {
         this.roles = roles;
+    }
+    public String getCode() {
+        return code;
+    }
+    public void setCode(String code) {
+        this.code = code;
     }
 
 }

@@ -1,0 +1,37 @@
+<h3 ng-if="user.code" class="page-header">Update {{user.name}}</h3>
+<h3 ng-if="!user.code" class="page-header">Add new user</h3>
+
+<form class="form form-horizontal" ng-submit="save()">
+  <div class="form-group">
+    <label class="control-label col-sm-2">Name</label>
+    <div class="col-sm-4">
+      <input type="text" ng-model="user.name" required class="form-control" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">Password</label>
+    <div ng-if="user.code" class="col-sm-4">
+      <input type="text" ng-model="user.password" placeholder="Leave blank to retain existing" class="form-control" />
+    </div>
+    <div ng-if="!user.code" class="col-sm-4">
+      <input type="text" ng-model="user.password" required class="form-control" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">Brand</label>
+    <div class="col-sm-4">
+      <select ng-model="user.brand" ng-options="brand as brand.name + ' - ' + brand.code for brand in brands" required class="form-control"></select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">Role</label>
+    <div class="col-sm-4">
+      <select ng-model="user.role" ng-options="role as role for role in roles" required class="form-control"></select>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-4 col-sm-push-2">
+      <input type="submit" value="{{user.code ? 'Update user' : 'Create user'}}" class="btn btn-primary" />
+    </div>
+  </div>
+</form>

@@ -74,7 +74,8 @@ require([
     'core/core.module.js',
     'admin/admin.module.js',
     'brand/brand.module.js',
-    'branch/branch.module.js'
+    'branch/branch.module.js',
+    'user/user.module.js'
   ], function (angular) {
   angular.element().ready(function () {
     angular.bootstrap(document, [
@@ -90,7 +91,8 @@ require([
       'core.module',
       'admin.module',
       'brand.module',
-      'branch.module'
+      'branch.module',
+      'user.module'
     ]);
   });
 });
