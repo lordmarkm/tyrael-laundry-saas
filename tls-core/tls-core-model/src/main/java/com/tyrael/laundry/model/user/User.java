@@ -30,7 +30,7 @@ public class User extends BaseNamedEntity {
     @Column(name = "role")
     private Set<String> roles;
 
-    @Column(name = "user_code")
+    @Column(name = "user_code", unique = true)
     private String code;
 
     public String getPassword() {

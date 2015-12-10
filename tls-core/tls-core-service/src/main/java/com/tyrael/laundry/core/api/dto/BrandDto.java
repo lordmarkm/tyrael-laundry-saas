@@ -13,6 +13,7 @@ public class BrandDto extends BaseNamedDto {
 
     private String code;
     private List<BranchDto> branches;
+    private List<UserDto> users;
 
     public String getCode() {
         return code;
@@ -28,6 +29,14 @@ public class BrandDto extends BaseNamedDto {
 
     public void setBranches(List<BranchDto> branches) {
         this.branches = branches;
+    }
+
+    public List<UserDto> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserDto> users) {
+        this.users = users;
     }
 
 }

@@ -21,7 +21,7 @@ public class Branch extends BaseNamedEntity {
     @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
 
-    @Column(name = "branch_code")
+    @Column(name = "branch_code", unique = true, nullable = false)
     private String code;
 
     @Column(name = "address")

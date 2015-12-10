@@ -19,7 +19,7 @@ import com.tyrael.laundry.model.user.User;
 @Entity(name = "brand")
 public class Brand extends BaseNamedEntity {
 
-    @Column(name = "brand_code")
+    @Column(name = "brand_code", unique = true, nullable = false)
     private String code;
 
     @OneToMany(mappedBy = "brand")

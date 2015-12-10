@@ -7,14 +7,6 @@ define(function () {
         brands.resolve(response.data);
       });
       return brands.promise;
-    }],
-    user: ['UserService', '$stateParams', function (UserService, $stateParams) {
-      //Blank userCode means it's an add operation. Non blank means update
-      if ($stateParams.userCode) {
-        return UserService.get({userCode: $stateParams.userCode});
-      } else {
-        return {};
-      }
     }]
   };
 });

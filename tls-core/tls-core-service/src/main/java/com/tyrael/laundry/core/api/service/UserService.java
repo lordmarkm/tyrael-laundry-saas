@@ -12,5 +12,6 @@ import com.tyrael.laundry.model.user.User;
 public interface UserService extends UserServiceCustom, TyraelJpaService<User> {
 
     User findByName(String username);
+    User findByCode(String candidateCode);
 
 }

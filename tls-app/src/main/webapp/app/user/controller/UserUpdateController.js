@@ -1,18 +1,18 @@
 define(function () {
-  return ['$scope', '$state', 'user', 'brands', 'UserService', function ($scope, $state, user, brands, UserService) {
-      $scope.user = user;
-      $scope.roles = $scope.isAuthorized('ROLE_ADMIN') ? [
-        'ROLE_BRAND_MANAGER',
-        'ROLE_POS'
-      ] : [
-        'ROLE_POS'
-      ];
-      $scope.brands = brands;
-      console.debug(brands);
+  return ['$scope', '$state', 'brands', 'UserService', function ($scope, $state, brands, UserService) {
 
-      $scope.save = function () {
-      UserService.save($scope.user, function (saved) {
-        $state.go('default.user.view', {userCode: saved.code, urlSlug: saved.slug});
+    $scope.user = {
+      roles: ['ROLE_POS']
+    };
+    $scope.updateUserRequest = {
+        user: $scope.user
+    };
+    $scope.roles = $scope.isAuthorized('ROLE_ADMIN') ? ['ROLE_BRAND_MANAGER', 'ROLE_POS'] : ['ROLE_POS'];
+    $scope.brands = brands;
+
+    $scope.save = function () {
+      UserService.create($scope.updateUserRequest, function (savedUser) {
+        $state.go('default.user.view', {userCode: savedUser.code, urlSlug: savedUser.slug});
       });
     };
   }];
