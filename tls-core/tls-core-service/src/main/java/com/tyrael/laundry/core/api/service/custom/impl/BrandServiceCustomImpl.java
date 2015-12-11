@@ -1,5 +1,7 @@
 package com.tyrael.laundry.core.api.service.custom.impl;
 
+import java.util.List;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -7,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.base.Preconditions;
+import com.mysema.query.types.Predicate;
 import com.tyrael.laundry.commons.dto.PageInfo;
 import com.tyrael.laundry.commons.service.TyraelJpaServiceCustomImpl;
 import com.tyrael.laundry.commons.util.AuthenticationUtil;
@@ -15,6 +18,7 @@ import com.tyrael.laundry.core.api.service.BrandService;
 import com.tyrael.laundry.core.api.service.UserService;
 import com.tyrael.laundry.core.api.service.custom.BrandServiceCustom;
 import com.tyrael.laundry.model.branch.Brand;
+import com.tyrael.laundry.model.branch.QBrand;
 import com.tyrael.laundry.model.user.User;
 
 @Transactional
@@ -32,7 +36,8 @@ public class BrandServiceCustomImpl
         } else {
             User user = userService.findByName(AuthenticationUtil.getLoggedInUsername());
             Preconditions.checkNotNull(user);
-            Page<Brand> brands = repo.findByUsersContains(user, page);
+            Predicate predicate = QBrand.brand.users.contains(user);
+            Page<Brand> brands = repo.findAll(predicate, page);
             return toPageInfo(brands);
         }
     }
@@ -63,6 +68,23 @@ public class BrandServiceCustomImpl
     @Override
     public BrandDto findInfoByCode(String brandCode) {
         return toDto(repo.findByCode(brandCode));
+    }
+
+    @Override
+    public List<BrandDto> findInfoByUserCode(String userCode) {
+        User user = userService.findByCode(userCode);
+        Preconditions.checkNotNull(user);
+        Predicate predicate = QBrand.brand.users.contains(user);
+        List<Brand> brands = (List<Brand>) repo.findAll(predicate);
+        return toDto(brands);
+    }
+
+    @Override
+    public List<Brand> findByUser(User user) {
+        Preconditions.checkNotNull(user);
+        Predicate predicate = QBrand.brand.users.contains(user);
+        List<Brand> brands = (List<Brand>) repo.findAll(predicate);
+        return brands;
     }
 
 }

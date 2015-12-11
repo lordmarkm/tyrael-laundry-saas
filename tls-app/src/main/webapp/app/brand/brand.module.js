@@ -26,7 +26,7 @@ define([
         url: '',
         templateUrl: 'brand/view/list.html',
         controller: BrandListController,
-        access: 'ROLE_ADMIN'
+        access: ['ROLE_ADMIN', 'ROLE_BRAND_MANAGER']
       })
       .state('default.brand.add', {
         url: '/add',

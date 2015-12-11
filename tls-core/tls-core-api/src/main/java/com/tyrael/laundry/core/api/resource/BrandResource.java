@@ -3,6 +3,8 @@ package com.tyrael.laundry.core.api.resource;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,4 +28,8 @@ public class BrandResource extends BaseResource<Brand, BrandDto, BrandService> {
         return new ResponseEntity<>(service.findInfoByCode(brandCode), OK);
     }
 
+    @RequestMapping(method = GET, params = "userCode")
+    public ResponseEntity<List<BrandDto>> findByUserCode(@RequestParam String userCode) {
+        return new ResponseEntity<>(service.findInfoByUserCode(userCode), OK);
+    }
 }

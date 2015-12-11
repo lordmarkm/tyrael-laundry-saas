@@ -9,6 +9,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,13 +20,17 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.mysema.query.types.Predicate;
+import com.tyrael.laundry.commons.dto.PageInfo;
 import com.tyrael.laundry.commons.service.TyraelJpaServiceCustomImpl;
+import com.tyrael.laundry.commons.util.AuthenticationUtil;
 import com.tyrael.laundry.core.api.dto.CreateUserRequest;
 import com.tyrael.laundry.core.api.dto.UserDto;
 import com.tyrael.laundry.core.api.service.BrandService;
 import com.tyrael.laundry.core.api.service.UserService;
 import com.tyrael.laundry.core.api.service.custom.UserServiceCustom;
 import com.tyrael.laundry.model.branch.Brand;
+import com.tyrael.laundry.model.user.QUser;
 import com.tyrael.laundry.model.user.User;
 
 /**
@@ -111,4 +117,22 @@ public class UserServiceCustomImpl
         return toDto(repo.findByCode(userCode));
     }
 
+    @Override
+    public PageInfo<UserDto> pageInfo(Pageable page) {
+        if (AuthenticationUtil.isAuthorized(AuthenticationUtil.ROLE_ADMIN)) {
+            return super.pageInfo(page);
+        } else {
+            User user = repo.findByName(AuthenticationUtil.getLoggedInUsername());
+            List<Brand> brands = brandService.findByUser(user);
+
+            //This is a truly, truly awful implementation
+            List<User> users = Lists.newArrayList();
+            for (Brand brand : brands) {
+                users.addAll(brand.getUsers());
+            }
+            Predicate filter = QUser.user.in(users);
+            Page<User> results = repo.findAll(filter, page);
+            return toPageInfo(results);
+        }
+    }
 }
