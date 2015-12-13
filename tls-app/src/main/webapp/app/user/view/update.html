@@ -18,15 +18,15 @@
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-sm-2">Brand</label>
-    <div class="col-sm-4">
-      <select ng-model="updateUserRequest.brand" ng-options="brand as brand.name + ' - ' + brand.code for brand in brands" required class="form-control"></select>
-    </div>
-  </div>
-  <div class="form-group">
     <label class="control-label col-sm-2">Role</label>
     <div class="col-sm-4">
       <select ng-model="updateUserRequest.user.roles[0]" ng-options="role as role for role in roles" required class="form-control"></select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">Brand</label>
+    <div class="col-sm-4">
+      <select ng-model="updateUserRequest.brand" ng-options="brand as brand.name + ' - ' + brand.code for brand in brands" required class="form-control"></select>
     </div>
   </div>
   <div class="form-group">
@@ -35,3 +35,5 @@
     </div>
   </div>
 </form>
+
+{{user}}
