@@ -18,7 +18,7 @@ public interface UserServiceCustom extends TyraelJpaServiceCustom<User, UserDto>
     /**
      * This can only be create user because of annoying things like having to set user brand and also encoding user password.
      */
-    UserDto createUser(CreateUserRequest updateUserRequest);
+    UserDto updateUser(CreateUserRequest updateUserRequest);
     UserDto findInfoByCode(String userCode);
 
 }

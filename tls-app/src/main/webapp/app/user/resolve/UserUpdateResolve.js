@@ -21,11 +21,11 @@ define(function () {
       if (!$stateParams.userCode) {
         brands.resolve([]);
       } else {
-        BrandService.query({userCode: $stateParams.userCode, page: 1, count: 9999}, function (response) {
+        BrandService.query({userCode: $stateParams.userCode}, function (response) {
           brands.resolve(response);
         });
       }
-      return brands.$promise;
+      return brands.promise;
     }]
   };
 });

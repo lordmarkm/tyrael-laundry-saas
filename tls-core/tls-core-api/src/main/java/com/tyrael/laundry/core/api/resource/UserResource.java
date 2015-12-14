@@ -29,7 +29,7 @@ public class UserResource extends BaseResource<User, UserDto, UserService> {
 
     @RequestMapping(value = "/create", method = POST)
     public ResponseEntity<UserDto> createUser(@RequestBody CreateUserRequest createUserRequest) {
-        return new ResponseEntity<>(service.createUser(createUserRequest), OK);
+        return new ResponseEntity<>(service.updateUser(createUserRequest), OK);
     }
 
 }

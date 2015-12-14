@@ -85,29 +85,51 @@ public class UserServiceCustomImpl
     }
 
     @Override
-    public UserDto createUser(CreateUserRequest createUserRequest) {
-        //Make sure brand exists first
-        Brand brand = brandService.findByCode(createUserRequest.getBrand().getCode());
-        Preconditions.checkNotNull(brand);
+    public UserDto updateUser(CreateUserRequest createUserRequest) {
+        //Make sure brands exists first
+        List<Brand> brands = Lists.newArrayList();
+        for (String brandCode : createUserRequest.getBrandCodes()) {
+            brands.add(brandService.findByCode(brandCode));
+        }
+        Preconditions.checkArgument(!brands.isEmpty(), "User must be assigned to at least 1 brand");
 
         //Save the user
         UserDto userDto = createUserRequest.getUser();
-        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        User user = repo.saveInfoAndGetEntity(createUserRequest.getUser());
+        User user = null;
+        if (StringUtils.isEmpty(userDto.getCode())) {
+            //New user (create operation)
+            userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+            user = repo.saveInfoAndGetEntity(createUserRequest.getUser());
 
-        //Give user a code if necessary
-        if (StringUtils.isEmpty(user.getCode())) {
-            User existing;
-            String candidateCode;
-            do {
-                candidateCode = RandomStringUtils.randomAlphanumeric(5).toLowerCase();
-                existing = repo.findByCode(candidateCode);
-            } while (null != existing);
-            user.setCode(candidateCode);
+            //Give user a code
+            if (StringUtils.isEmpty(user.getCode())) {
+                User existing;
+                String candidateCode;
+                do {
+                    candidateCode = RandomStringUtils.randomAlphanumeric(5).toLowerCase();
+                    existing = repo.findByCode(candidateCode);
+                } while (null != existing);
+                user.setCode(candidateCode);
+            }
+        } else {
+            //Existing user (update operation)
+            user = repo.findByCode(userDto.getCode());
+            user.setName(userDto.getName());
+            user.setRoles(Sets.newHashSet(userDto.getRoles()));
+            if (createUserRequest.isResetPassword()) {
+                user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+            }
         }
 
-        //Add the user to the brand users
-        brand.getUsers().add(user);
+        //Remove the user from any existing brands he already has first
+        for (Brand brand : brandService.findByUser(user)) {
+            brand.getUsers().remove(user);
+        }
+
+        //Add the user to the brands' users
+        for (Brand brand : brands) {
+            brand.getUsers().add(user);
+        }
 
         return toDto(user);
     }
