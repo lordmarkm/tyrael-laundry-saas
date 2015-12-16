@@ -38,11 +38,21 @@ define(function () {
       $scope.principal = AuthenticationService.get(function (auth) {
         if (!auth.principal) {
           $state.go('default.login');
-        }
-        if ($scope.isAuthorized('ROLE_ADMIN')) {
-          $state.go('default.admin.dashboard');
+          return;
         }
         $scope.principal = auth.principal;
+        if ($scope.isAuthorized('ROLE_ADMIN')) {
+          $state.go('default.admin.dashboard');
+          return;
+        }
+        if ($scope.isAuthorized('ROLE_BRAND_MANAGER')) {
+          $state.go('default.brandmgr.dashboard');
+          return;
+        }
+        if ($scope.isAuthorized('ROLE_POS')) {
+          $state.go('default.pos.dashboard');
+          return;
+        }
       });
     };
 

@@ -26,5 +26,10 @@ img.tls-fit {
  max-width: 100%;
 }
 
+img.carousel {
+  max-height: 350px;
+  margin: auto;
+}
+
 .mt20 {margin-top: 20px;}
 .mb20 {margin-bottom: 20px;}

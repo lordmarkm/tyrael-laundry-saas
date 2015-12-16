@@ -73,6 +73,8 @@ require([
     'angular-moment',
     'core/core.module.js',
     'admin/admin.module.js',
+    'brandmgr/brandmgr.module.js',
+    'pos/pos.module.js',
     'brand/brand.module.js',
     'branch/branch.module.js',
     'user/user.module.js'
@@ -90,6 +92,8 @@ require([
       'angularMoment',
       'core.module',
       'admin.module',
+      'brandmgr.module',
+      'pos.module',
       'brand.module',
       'branch.module',
       'user.module'

@@ -7,7 +7,7 @@ define([
     .config(['$stateProvider', function ($stateProvider) {
       $stateProvider.state('default.admin', {
         url: 'admin',
-        templateUrl: 'admin/view/admin.html',
+        template: '<ui-view></ui-view>',
         controller: AdminRootController,
         abstract: true
       }).state('default.admin.dashboard', {
