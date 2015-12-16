@@ -13,18 +13,18 @@ import com.tyrael.laundry.reference.JobItemType;
 /**
  * @author mbmartinez
  */
-@Entity(name = "JOB_ITEM")
+@Entity(name = "job_item")
 public class JobItem extends BaseEntity {
 
-    @Column(name = "ITEM_TYPE", nullable = false)
+    @Column(name = "item_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private JobItemType jobItemType;
 
-    @Column(name = "QTY", nullable = false)
+    @Column(name = "qty", nullable = false)
     private int quantity;
 
     @ManyToOne
-    @JoinColumn(name = "JOB_ID", nullable = false)
+    @JoinColumn(name = "job_order_id", nullable = false)
     private JobOrder jobOrder;
 
     public int getQuantity() {

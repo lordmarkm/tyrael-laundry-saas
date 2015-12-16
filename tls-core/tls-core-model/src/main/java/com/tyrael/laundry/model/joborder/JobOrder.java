@@ -16,15 +16,17 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.tyrael.laundry.commons.model.BaseEntity;
+import com.tyrael.laundry.model.customer.Customer;
+import com.tyrael.laundry.reference.JobOrderStatus;
 
 /**
  * @author mbmartinez
  */
-@Entity(name = "JOB_ORDER")
+@Entity(name = "job_order")
 public class JobOrder extends BaseEntity {
 
     @ManyToOne
-    @JoinColumn(name = "CUSTOMER_ID", nullable = false)
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
     @Column(name = "date_received", nullable = false)
@@ -43,7 +45,7 @@ public class JobOrder extends BaseEntity {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime dateClaimed;
 
-    @Column(name = "TRACKING_NO", nullable = false, unique = true)
+    @Column(name = "tracking_no", nullable = false, unique = true)
     private String trackingNo;
 
     @OneToMany(mappedBy = "jobOrder", cascade = CascadeType.ALL)
@@ -52,21 +54,15 @@ public class JobOrder extends BaseEntity {
     @OneToMany(mappedBy = "jobOrder", cascade = CascadeType.ALL)
     private List<JobItem> jobItems;
 
-    @OneToMany(mappedBy = "jobOrder", cascade = CascadeType.ALL)
-    private List<LostAndFoundItem> lostAndFoundItems;
-
-    @Column(name = "TOTAL_AMT", nullable = false)
+    @Column(name = "total_amt", nullable = false)
     private BigDecimal totalAmount;
 
-    @Column(name = "TOTAL_AMT_PAID", nullable = false)
+    @Column(name = "total_amt_paid", nullable = false)
     private BigDecimal totalAmountPaid;
 
     @Column(name = "STATUS", nullable = false)
     @Enumerated(EnumType.STRING)
     private JobOrderStatus status;
-
-    @Column(name = "DELIVERY_STATUS")
-    private TransportRequestStatus deliveryStatus;
 
     public Customer getCustomer() {
         return customer;
@@ -154,30 +150,6 @@ public class JobOrder extends BaseEntity {
 
     public void setStatus(JobOrderStatus status) {
         this.status = status;
-    }
-
-    public List<LostAndFoundItem> getLostAndFoundItems() {
-        return lostAndFoundItems;
-    }
-
-    public void setLostAndFoundItems(List<LostAndFoundItem> lostAndFoundItems) {
-        this.lostAndFoundItems = lostAndFoundItems;
-    }
-
-    public TransportRequestStatus getDeliveryStatus() {
-        return deliveryStatus;
-    }
-
-    public void setDeliveryStatus(TransportRequestStatus deliveryStatus) {
-        this.deliveryStatus = deliveryStatus;
-    }
-
-    public String getJobCode() {
-        return jobCode;
-    }
-
-    public void setJobCode(String jobCode) {
-        this.jobCode = jobCode;
     }
 
 }

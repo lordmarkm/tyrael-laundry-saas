@@ -7,16 +7,16 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.baldy.commons.models.BaseEntity;
+import com.tyrael.laundry.commons.model.BaseEntity;
 
 /**
  * @author mbmartinez
  */
-@Entity(name = "JOB_SERVICE")
+@Entity(name = "job_service")
 public class JobService extends BaseEntity {
 
     @ManyToOne
-    @JoinColumn(name = "SERVICE_TYPE", nullable = false)
+    @JoinColumn(name = "service_type", nullable = false)
     private ServiceType serviceType;
 
     @Column(name = "WT_KG", nullable = false)
