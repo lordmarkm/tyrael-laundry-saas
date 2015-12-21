@@ -1,0 +1,63 @@
+<h3 ng-if="customer.code" class="page-header">Update {{customer.formattedName}} <br><small>Update customer</small></h3>
+<h3 ng-if="!customer.code" class="page-header">Add new customer <br><small>Add new customer</small></h3>
+
+<form class="form form-horizontal" ng-submit="save()">
+  <div class="form-group">
+    <label class="control-label col-sm-2">Surname</label>
+    <div class="col-sm-4">
+      <input type="text" ng-model="customer.name.surname" required class="form-control" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">Given Name</label>
+    <div class="col-sm-4">
+      <input type="text" ng-model="customer.name.givenName" required class="form-control" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">Middle Name</label>
+    <div class="col-sm-4">
+      <input type="text" ng-model="customer.name.middleName" class="form-control" />
+    </div>
+  </div>
+
+  <h4 class="page-header">Address</h4>
+  <div class="form-group">
+    <label class="control-label col-sm-2">Address Line 1</label>
+    <div class="col-sm-4">
+      <input type="text" ng-model="customer.address.addressLine1" class="form-control" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">Address Line 2</label>
+    <div class="col-sm-4">
+      <input type="text" ng-model="customer.address.addressLine2" class="form-control" />
+    </div>
+  </div>
+
+  <h4 class="page-header">Contact Details</h4>
+  <div class="form-group">
+    <label class="control-label col-sm-2">Cellphone</label>
+    <div class="col-sm-4">
+      <input type="text" ng-model="customer.contactDetails.cellphone" class="form-control" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">Landline</label>
+    <div class="col-sm-4">
+      <input type="text" ng-model="customer.contactDetails.landline" class="form-control" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">Email</label>
+    <div class="col-sm-4">
+      <input type="email" ng-model="customer.contactDetails.email" class="form-control" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-4 col-sm-push-2">
+      <input type="submit" value="{{customer.code ? 'Update customer' : 'Create customer'}}" class="btn btn-primary" />
+    </div>
+  </div>
+</form>

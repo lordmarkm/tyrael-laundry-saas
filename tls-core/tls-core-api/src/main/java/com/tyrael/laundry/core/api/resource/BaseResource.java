@@ -35,6 +35,9 @@ public abstract class BaseResource<E extends BaseEntity, D, S extends TyraelJpaS
         return new ResponseEntity<>(getPageImpl(page), OK);
     }
 
+    /**
+     * Override this to override getPage behavior
+     */
     protected PageInfo<D> getPageImpl(Pageable page) {
         return service.pageInfo(page);
     }

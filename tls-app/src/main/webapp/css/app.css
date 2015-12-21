@@ -10,6 +10,7 @@ body {
 }
 
 .pointer {cursor: pointer;}
+.nowrap {white-space: nowrap;}
 
 .container.container-main {
   background: white; /* For browsers that do not support gradients */

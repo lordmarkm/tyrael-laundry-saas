@@ -1,0 +1,46 @@
+<h3 class="page-header">All Customers <a ui-sref="default.customer.add" class="btn btn-default btn-xs">Create New Customer</a>
+  <br><small>View customer list</small>
+</h3>
+
+<span ng-click="showFilters = !showFilters" ng-init="showFilters = false" class="btn btn-default btn-xs" style="font-family: monospace;">
+  [{{showFilters ? '-' : '+'}}] Filter
+</span>
+
+<table ng-table="tableParams" show-filter="true" class="table table-striped mt20">
+  <thead>
+    <tr>
+      <th>Name
+      <th>Address
+      <th>Contact Number
+      <th>Code
+      <th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="customer in $data">
+      <td><a ui-sref="default.customer.view({customerCode: customer.code, urlSlug: customer.slug})">{{customer.formattedName}}</a>
+      <td>{{customer.formattedAddress || 'No address provided'}}
+      <td>
+        <div ng-if="customer.contactDetails.cellphone" class="nowrap"><i class="fa fa-mobile fa-fw"></i> {{customer.contactDetails.cellphone}}</div>
+        <div ng-if="customer.contactDetails.landline" class="nowrap"><i class="fa fa-phone fa-fw"></i> {{customer.contactDetails.landline}}</div>
+        <div ng-if="customer.contactDetails.email" class="nowrap"><i class="fa fa-envelope fa-fw"></i> {{customer.contactDetails.email}}</div>
+      </td>
+      <td>{{customer.code}}
+      <td>
+        <div class="dropdown">
+          <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu-{{$index}}"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Actions
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu-{{$index}}">
+            <li><a ui-sref="default.customer.update({customerCode: customer.code, urlSlug: customer.slug})"><i class="fa fa-user fa-fw"></i> <small>Update customer</small></a>
+          </ul>
+        </div>
+      </td>
+    </tr>
+    <tr ng-if="!$data.length">
+      <td colspan="2">No items available</td>
+    </tr>
+  </tbody>
+</table>

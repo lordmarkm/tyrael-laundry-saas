@@ -1,11 +1,8 @@
 package com.tyrael.laundry.core.service;
 
-import java.util.List;
-
 import com.tyrael.laundry.commons.service.TyraelJpaService;
 import com.tyrael.laundry.core.service.custom.BrandServiceCustom;
 import com.tyrael.laundry.model.branch.Brand;
-import com.tyrael.laundry.model.user.User;
 
 /**
  * 

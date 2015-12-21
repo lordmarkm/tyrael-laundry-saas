@@ -1,5 +1,6 @@
 package com.tyrael.laundry.model.customer;
 
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
@@ -19,6 +20,9 @@ public class Customer extends BaseEntity {
 
     @Embedded
     private ContactDetails contactDetails;
+
+    @Column(name = "code", nullable = false, unique = true)
+    private String code;
 
     public Name getName() {
         return name;
@@ -42,6 +46,14 @@ public class Customer extends BaseEntity {
 
     public void setContactDetails(ContactDetails contactDetails) {
         this.contactDetails = contactDetails;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
 }

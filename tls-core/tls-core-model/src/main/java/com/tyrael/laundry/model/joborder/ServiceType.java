@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import org.hibernate.annotations.Type;
+
 import com.tyrael.laundry.commons.model.BaseEntity;
 
 /**
@@ -23,6 +25,7 @@ public class ServiceType extends BaseEntity {
     private String icon;
 
     @Column(name = "enabled", nullable = false)
+    @Type(type = "yes_no")
     private boolean enabled = true;
 
     @Column(name = "price_per_kilo", nullable = false)

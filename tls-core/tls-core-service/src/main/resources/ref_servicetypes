@@ -1,0 +1,8 @@
+CODE,LABEL,ICON,PRICE_PER_KILO
+WASH_DRY_FOLD,"Wash, Dry, Fold",washing11.png,30
+WASH_DRY_PRESS,"Wash, Dry, Press",symbol11.png,70
+PRESS_ONLY,Press Only,symbol11.png,40
+SHEETS,"Curtains, Blankets, Towels, Bedsheets",washing38.png,70
+COMFORTERS,Comforters,washing38.png,70
+HANDWASH,Handwash,hand268.png,40
+HANDWASH_PRESS,"Handwash, Press",washing2.png,80

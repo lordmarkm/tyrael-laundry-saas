@@ -3,6 +3,7 @@ package com.tyrael.laundry.commons.dto.customer;
 import org.springframework.core.style.ToStringCreator;
 
 import com.tyrael.laundry.commons.dto.BaseDto;
+import com.tyrael.laundry.commons.util.SlugUtil;
 
 /**
  * @author mbmartinez
@@ -12,13 +13,15 @@ public class CustomerInfo extends BaseDto {
     private NameInfo name;
     private AddressInfo address;
     private ContactDetailsInfo contactDetails;
+    private String code;
 
     @Override
     protected ToStringCreator toStringCreator() {
         return super.toStringCreator()
             .append("name", name)
             .append("address", address)
-            .append("contact", contactDetails);
+            .append("contact", contactDetails)
+            .append("code", code);
     }
 
     public String getFormattedAddress() {
@@ -65,6 +68,10 @@ public class CustomerInfo extends BaseDto {
         return sb.toString();
     }
 
+    public String getSlug() {
+        return SlugUtil.toSlug(getFormattedName());
+    }
+
     public NameInfo getName() {
         return name;
     }
@@ -87,6 +94,14 @@ public class CustomerInfo extends BaseDto {
 
     public void setContactDetails(ContactDetailsInfo contactDetails) {
         this.contactDetails = contactDetails;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
 }
