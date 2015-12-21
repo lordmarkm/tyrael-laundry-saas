@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.tyrael.laundry.authentication.CustomUsernamePasswordAuthenticationFilter;
-import com.tyrael.laundry.core.api.service.UserService;
+import com.tyrael.laundry.core.service.UserService;
 
 /**
  * 
@@ -56,7 +56,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests()
                 //Webapp urls
-//                .antMatchers("/public/**").permitAll()
                 .antMatchers("/**").permitAll()
                 .and()
             .logout()
@@ -66,16 +65,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
             .addFilterBefore(jsonAuthFilter, UsernamePasswordAuthenticationFilter.class);
-//            .formLogin()
-//                .loginPage("/login")
-//                .usernameParameter("username")
-//                .passwordParameter("password")
-//                .loginProcessingUrl("/login/authenticate")
-//                .failureUrl("/login?msg=bad_credentials")
-//                .permitAll();
-//                .and()
-//            .rememberMe()
-//                .key(env.getProperty("remember.me.key"));
     }
 
     @Bean

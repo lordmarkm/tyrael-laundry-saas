@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tyrael.laundry.core.api.dto.CreateUserRequest;
-import com.tyrael.laundry.core.api.dto.UserDto;
-import com.tyrael.laundry.core.api.service.UserService;
+import com.tyrael.laundry.commons.dto.UserDto;
+import com.tyrael.laundry.core.service.UserService;
+import com.tyrael.laundry.core.service.dto.CreateUserRequest;
 import com.tyrael.laundry.model.user.User;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 import static org.springframework.http.HttpStatus.*;

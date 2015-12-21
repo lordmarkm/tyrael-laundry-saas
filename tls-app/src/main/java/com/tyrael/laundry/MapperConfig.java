@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.tyrael.laundry.commons.dto.BaseDto;
+import com.tyrael.laundry.commons.dto.BranchDto;
 import com.tyrael.laundry.commons.model.BaseEntity;
-import com.tyrael.laundry.core.api.dto.BranchDto;
 import com.tyrael.laundry.model.branch.Branch;
 
 /**

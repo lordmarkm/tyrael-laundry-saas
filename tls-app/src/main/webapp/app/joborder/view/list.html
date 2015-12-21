@@ -1,0 +1,37 @@
+<h3 class="page-header">All Job Orders <a ui-sref="default.joborder.add" class="btn btn-default btn-xs">Create New Job Order</a></h3>
+
+<table ng-table="tableParams" show-filter="true" class="table table-striped">
+  <thead>
+    <tr>
+      <th>Customer
+      <th>Tracking No.
+      <th>Amount Due
+      <th>Date created
+      <th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="joborder in $data">
+      <td><a ui-sref="default.joborder.view({joborderCode: joborder.code, urlSlug: joborder.slug})">{{joborder.customer}}</a>
+      <td>{{brand.trackingNo}}
+      <td>{{joborder.totalAmount}}
+      <td>{{brand.dateCreated | date: 'yyyy-MM-dd hh:mm:ss a'}}
+      <td>
+        <div class="dropdown">
+          <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu-{{$index}}"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Actions
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu-{{$index}}">
+            <li><a ui-sref="default.branch.add({brandCode: brand.code, urlSlug: brand.slug})"><i class="fa fa-institution fa-fw"></i> <small>Add branch</small></a>
+            <li><a ui-sref="default.brand.users({brandCode: brand.code, urlSlug: brand.slug})"><i class="fa fa-user fa-fw"></i> <small>Manage users</small></a></li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+    <tr ng-if="!$data.length">
+      <td colspan="2">No items available</td>
+    </tr>
+  </tbody>
+</table>

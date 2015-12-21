@@ -32,7 +32,11 @@ public abstract class BaseResource<E extends BaseEntity, D, S extends TyraelJpaS
     @RequestMapping(method = GET)
     public ResponseEntity<PageInfo<D>> getPage(Pageable page) {
         LOG.debug("Page request. page={}", page);
-        return new ResponseEntity<>(service.pageInfo(page), OK);
+        return new ResponseEntity<>(getPageImpl(page), OK);
+    }
+
+    protected PageInfo<D> getPageImpl(Pageable page) {
+        return service.pageInfo(page);
     }
 
     @RequestMapping(value = "/{id}", method = GET)

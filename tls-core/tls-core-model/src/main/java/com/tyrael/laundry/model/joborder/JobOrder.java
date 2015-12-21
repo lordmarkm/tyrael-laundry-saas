@@ -16,6 +16,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.tyrael.laundry.commons.model.BaseEntity;
+import com.tyrael.laundry.model.branch.Branch;
 import com.tyrael.laundry.model.customer.Customer;
 import com.tyrael.laundry.reference.JobOrderStatus;
 
@@ -28,6 +29,10 @@ public class JobOrder extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "branch_id", nullable = false)
+    private Branch branch;
 
     @Column(name = "date_received", nullable = false)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -150,6 +155,14 @@ public class JobOrder extends BaseEntity {
 
     public void setStatus(JobOrderStatus status) {
         this.status = status;
+    }
+
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
     }
 
 }

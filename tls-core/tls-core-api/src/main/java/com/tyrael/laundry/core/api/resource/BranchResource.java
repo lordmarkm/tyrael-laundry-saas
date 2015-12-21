@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tyrael.laundry.core.api.dto.BranchDto;
-import com.tyrael.laundry.core.api.service.BranchService;
+import com.tyrael.laundry.commons.dto.BranchDto;
+import com.tyrael.laundry.core.service.BranchService;
 import com.tyrael.laundry.model.branch.Branch;
 
 /**

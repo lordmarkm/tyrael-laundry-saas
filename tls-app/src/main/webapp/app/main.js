@@ -77,7 +77,8 @@ require([
     'pos/pos.module.js',
     'brand/brand.module.js',
     'branch/branch.module.js',
-    'user/user.module.js'
+    'user/user.module.js',
+    'joborder/joborder.module.js'
   ], function (angular) {
   angular.element().ready(function () {
     angular.bootstrap(document, [
@@ -96,7 +97,8 @@ require([
       'pos.module',
       'brand.module',
       'branch.module',
-      'user.module'
+      'user.module',
+      'joborder.module'
     ]);
   });
 });
