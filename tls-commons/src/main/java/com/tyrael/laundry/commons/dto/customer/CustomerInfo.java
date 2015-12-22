@@ -15,13 +15,21 @@ public class CustomerInfo extends BaseDto {
     private ContactDetailsInfo contactDetails;
     private String code;
 
+    /**
+     * The code and name of the brand the customer is assigned to
+     */
+    private String brandCode;
+    private String brandName;
+
     @Override
     protected ToStringCreator toStringCreator() {
         return super.toStringCreator()
             .append("name", name)
             .append("address", address)
             .append("contact", contactDetails)
-            .append("code", code);
+            .append("code", code)
+            .append("brandCode", brandCode)
+            .append("brandName", brandName);
     }
 
     public String getFormattedAddress() {
@@ -102,6 +110,22 @@ public class CustomerInfo extends BaseDto {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getBrandCode() {
+        return brandCode;
+    }
+
+    public void setBrandCode(String brandCode) {
+        this.brandCode = brandCode;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
 }

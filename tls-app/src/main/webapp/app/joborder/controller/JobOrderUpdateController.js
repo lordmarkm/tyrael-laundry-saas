@@ -1,11 +1,11 @@
 define(function () {
-  return ['$scope', '$modal', '$filter', 'confirm', 'toaster', 'serviceTypes', 'jobItemTypes', 'CustomerService', 'ServiceTypeService', 'JobOrderService',
-    function ($scope, $modal, $filter, confirm, toaster, serviceTypes, jobItemTypes, CustomerService, ServiceTypeService, JobOrderService) {
+  return ['$scope', '$modal', '$filter', 'confirm', 'toaster', 'serviceTypes', 'jobItemTypes', 'CustomerService', 'ServiceTypeService', 'JobOrderService', 'BranchService',
+    function ($scope, $modal, $filter, confirm, toaster, serviceTypes, jobItemTypes, CustomerService, ServiceTypeService, JobOrderService, BranchService) {
 
     function resetPage() {
       $scope.customerHolder = {};
       ServiceTypeService.query().$promise.then(function (serviceTypes) {
-        $scope.serviceTypes = serviceTypes;
+        $scope.serviceTypes = serviceTypes.data;
         $scope.serviceTypeHolder = {
             serviceType: $scope.serviceTypes[0]
         };
@@ -36,13 +36,25 @@ define(function () {
     };
 
     //Initialize/process service types
-    $scope.serviceTypes = serviceTypes;
-    $scope.serviceTypeHolder = {
+    serviceTypes.$promise.then(function () {
+      $scope.serviceTypes = serviceTypes.data;
+      $scope.serviceTypeHolder = {
         serviceType: $scope.serviceTypes[0]
-    };
+      };
+    });
     $scope.setWeight = function (weight) {
       $scope.serviceTypeHolder.serviceType.weight = weight;
       toaster.pop('success', 'Service added', $scope.serviceTypeHolder.serviceType.label + ': ' + weight + ' Kg');
+    };
+
+    //Update branch options on customer select
+    $scope.onCustomerSelect = function () {
+      BranchService.query({brandCode: $scope.customerHolder.customer.brandCode, byBrandCode: true}, function (response) {
+        $scope.branches = response;
+        if (response.length) {
+          $scope.branch = response[0];
+        }
+      });
     };
 
     //Validate & Submit job order
@@ -53,6 +65,10 @@ define(function () {
       }
       if (!validateJobOrder()) {
         return;
+      }
+      if (!$scope.branch) {
+        toaster.pop('error', 'Branch required', 'Job orders must be assigned to a branch');
+        return false;
       }
 
       showConfirmJobOrderDialog().result.then(function(jobOrder) {
@@ -91,8 +107,8 @@ define(function () {
           background: 'static',
           controller: ['$scope', '$modalInstance', 'jobOrder', function($modalScope, $modalInstance, jobOrder) {
 
-            if (jobOrder.totalAmount < $scope.branchInfo.minimumJobOrderAmount) {
-              confirm.confirm('Confirm minimum amount', 'This job order does not exceed the minimum job order amount of ' + $filter('currency')($scope.branchInfo.minimumJobOrderAmount, 'Php ') + '. The minimum amount will be charged.')
+            if (jobOrder.totalAmount < $scope.branch.minimumJobOrderAmount) {
+              confirm.confirm('Confirm minimum amount', 'This job order does not exceed the minimum job order amount of ' + $filter('currency')($scope.branch.minimumJobOrderAmount, 'Php ') + '. The minimum amount will be charged.')
                 .result.then(function (ok) {
                   if (ok) {
                     jobOrder.totalAmount = $scope.branchInfo.minimumJobOrderAmount;
@@ -119,7 +135,8 @@ define(function () {
                   lostAndFoundItems: [],
                   totalAmount: 0,
                   totalAmountPaid: 0,
-                  status: 'NEW'
+                  status: 'NEW',
+                  branchInfo: $scope.branch
               };
               for (var i in $scope.serviceTypes) {
                 var serviceType = $scope.serviceTypes[i];

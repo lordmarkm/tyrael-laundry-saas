@@ -3,6 +3,8 @@ package com.tyrael.laundry.core.api.resource;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,4 +29,8 @@ public class BranchResource extends BaseResource<Branch, BranchDto, BranchServic
         return new ResponseEntity<>(service.findInfoByBrandCodeAndCode(brandCode, branchCode), OK);
     }
 
+    @RequestMapping(method = GET, params = "byBrandCode")
+    public ResponseEntity<List<BranchDto>> findByBrandCode(@PathVariable String brandCode, @RequestParam boolean byBrandCode) {
+        return new ResponseEntity<>(service.findInfoByBrandCode(brandCode), OK);
+    }
 }

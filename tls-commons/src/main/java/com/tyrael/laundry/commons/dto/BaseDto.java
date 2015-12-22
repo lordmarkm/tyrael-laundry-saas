@@ -10,6 +10,7 @@ import org.springframework.core.style.ToStringCreator;
  */
 public class BaseDto {
 
+    protected Long id;
     protected DateTime dateCreated;
     protected DateTime dateUpdated;
     protected boolean deleted;
@@ -21,6 +22,7 @@ public class BaseDto {
 
     protected ToStringCreator toStringCreator() {
         return new ToStringCreator(this)
+                .append("id", id)
                 .append("created", dateCreated)
                 .append("updated", dateCreated)
                 .append("deleted", deleted);
@@ -48,6 +50,14 @@ public class BaseDto {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

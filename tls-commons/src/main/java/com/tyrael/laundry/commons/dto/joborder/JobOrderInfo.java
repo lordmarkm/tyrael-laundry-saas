@@ -9,6 +9,7 @@ import org.springframework.core.style.ToStringCreator;
 import com.tyrael.laundry.commons.dto.BaseDto;
 import com.tyrael.laundry.commons.dto.BranchDto;
 import com.tyrael.laundry.commons.dto.customer.CustomerInfo;
+import com.tyrael.laundry.commons.util.DateUtil;
 import com.tyrael.laundry.reference.JobOrderStatus;
 import com.tyrael.laundry.reference.TransportRequestStatus;
 
@@ -23,7 +24,6 @@ public class JobOrderInfo extends BaseDto {
     private DateTime dateCompleted;
     private DateTime dateClaimed;
     private String trackingNo;
-    private String jobCode;
     private List<JobServiceInfo> jobServices;
     private List<JobItemInfo> jobItems;
     private BigDecimal totalAmount;
@@ -36,7 +36,6 @@ public class JobOrderInfo extends BaseDto {
     protected ToStringCreator toStringCreator() {
         return super.toStringCreator()
             .append("tracking no.", trackingNo)
-            .append("job code", jobCode)
             .append("customer", customer)
             .append("date rcvd", dateReceived)
             .append("date due", dateDue)
@@ -49,6 +48,13 @@ public class JobOrderInfo extends BaseDto {
             .append("status", status)
             .append("deliveryStatus", deliveryStatus)
             .append("branch", branchInfo);
+    }
+
+    public String getSlug() {
+        return new StringBuilder(customer.getSlug())
+                .append("-")
+                .append(dateReceived.toString(DateUtil.DATE_FORMAT))
+                .toString();
     }
 
     public CustomerInfo getCustomer() {
@@ -145,14 +151,6 @@ public class JobOrderInfo extends BaseDto {
 
     public void setDeliveryStatus(TransportRequestStatus deliveryStatus) {
         this.deliveryStatus = deliveryStatus;
-    }
-
-    public String getJobCode() {
-        return jobCode;
-    }
-
-    public void setJobCode(String jobCode) {
-        this.jobCode = jobCode;
     }
 
     public BranchDto getBranchInfo() {

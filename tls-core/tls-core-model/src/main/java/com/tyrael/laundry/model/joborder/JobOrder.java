@@ -53,10 +53,10 @@ public class JobOrder extends BaseEntity {
     @Column(name = "tracking_no", nullable = false, unique = true)
     private String trackingNo;
 
-    @OneToMany(mappedBy = "jobOrder", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "jobOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<JobService> jobServices;
 
-    @OneToMany(mappedBy = "jobOrder", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "jobOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<JobItem> jobItems;
 
     @Column(name = "total_amt", nullable = false)

@@ -4,18 +4,26 @@
   <thead>
     <tr>
       <th>Customer
-      <th>Tracking No.
-      <th>Amount Due
+      <th>Services
+      <th>Total Amt Due
+      <th>Balance
       <th>Date created
+      <th>Date due
+      <th>Status
       <th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="joborder in $data">
-      <td><a ui-sref="default.joborder.view({joborderCode: joborder.code, urlSlug: joborder.slug})">{{joborder.customer}}</a>
-      <td>{{brand.trackingNo}}
-      <td>{{joborder.totalAmount}}
-      <td>{{brand.dateCreated | date: 'yyyy-MM-dd hh:mm:ss a'}}
+      <td><a ui-sref="default.joborder.view({joborderCode: joborder.code, urlSlug: joborder.slug})">{{joborder.customer.formattedName}}</a>
+      <td>
+        <div ng-repeat="service in joborder.jobServices"><img ng-src="images/icons/{{service.serviceType.icon}}" class="img-sixteen" title="{{service.serviceType.label}}" /> {{service.weightInKilos}} ({{service.amount | currency: '₱'}})</div>
+      </td>
+      <td>{{joborder.totalAmount | currency: '₱'}}
+      <td ng-class="colorizeBalance(joborder)">{{joborder.totalAmount - joborder.totalAmountPaid | currency: '₱'}}
+      <td>{{joborder.dateCreated | date: 'yyyy-MM-dd hh:mm a'}}
+      <td>{{joborder.dateDue | date: 'MMM-dd'}}
+      <td>{{josLabel(joborder.status)}}
       <td>
         <div class="dropdown">
           <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu-{{$index}}"
@@ -24,8 +32,12 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu-{{$index}}">
-            <li><a ui-sref="default.branch.add({brandCode: brand.code, urlSlug: brand.slug})"><i class="fa fa-institution fa-fw"></i> <small>Add branch</small></a>
-            <li><a ui-sref="default.brand.users({brandCode: brand.code, urlSlug: brand.slug})"><i class="fa fa-user fa-fw"></i> <small>Manage users</small></a></li>
+            <li><a ui-sref="default.joborder.view({joborderCode: joborder.trackingNo, urlSlug: joborder.slug})"><i class="fa fa-search fa-fw"></i> <small>View details</small></a></li>
+            <li ng-if="joborder.totalAmount > joborder.totalAmountPaid"><a href="javascript:;" ng-click="makePayment(joborder)"><i class="fa fa-money fa-fw"></i> <small>Make payment</small></a></li>
+            <li ng-if="joborder.totalAmount < joborder.totalAmountPaid"><a href="javascript:;" ng-click="giveChange(joborder)"><i class="fa fa-money fa-fw"></i> <small>Give change</small></a></li>
+            <li><a href="javascript:;" ng-click="updateStatus(joborder)"><i class="fa fa-check-square-o fa-fw"></i> <small>Update status</small></a></li>
+            <li><a href="/print/{{joborder.trackingNo}}" target="_blank"><i class="fa fa-print fa-fw"></i> <small>Print invoice</small></a>
+            <li><a ui-sref="default.joborder.update({joborderCode: joborder.trackingNo, urlSlug: joborder.slug})"><i class="fa fa-list fa-fw"></i> <small>Update Job Order</small></a>
           </ul>
         </div>
       </td>

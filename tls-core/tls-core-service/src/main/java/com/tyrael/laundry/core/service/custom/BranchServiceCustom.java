@@ -1,5 +1,7 @@
 package com.tyrael.laundry.core.service.custom;
 
+import java.util.List;
+
 import com.tyrael.laundry.commons.dto.BranchDto;
 import com.tyrael.laundry.commons.service.TyraelJpaServiceCustom;
 import com.tyrael.laundry.model.branch.Branch;
@@ -12,5 +14,6 @@ import com.tyrael.laundry.model.branch.Branch;
 public interface BranchServiceCustom extends TyraelJpaServiceCustom<Branch, BranchDto> {
 
     BranchDto findInfoByBrandCodeAndCode(String brandCode, String branchCode);
+    List<BranchDto> findInfoByBrandCode(String brandCode);
 
 }

@@ -1,5 +1,27 @@
 <h3 class="page-header">
-  <strong>{{branch.name}}</strong> (<a ui-sref="default.brand.view({brandCode: brand.code, urlSlug: brand.slug})">{{brand.name}}</a>)
-  <br><small>View Branch Details</small>
+  <strong>{{customer.formattedName}}</strong> <span ng-if="customer.brandName">({{customer.brandName}})</span>
+  <br><small>View Customer Details</small>
 </h3>
-<br>{{branch}}
+
+<dl class="dl-horizontal">
+  <dt>Date created
+  <dd>{{customer.dateCreated | date}}
+</dl>
+
+<h4 class="page-header">Address</h4>
+<dl class="dl-horizontal">
+  <dt>Line 1
+  <dd>{{customer.address.addressLine1 || 'Not specified'}}
+  <dt>Line 2
+  <dd>{{customer.address.addressLine2 || 'Not specified'}}
+</dl>
+
+<h4 class="page-header">Contact details</h4>
+<dl class="dl-horizontal">
+  <dt>Cellphone
+  <dd>{{customer.contactDetails.cellphone || 'Not specified'}}
+  <dt>Landline
+  <dd>{{customer.contactDetails.landline || 'Not specified'}}
+  <dt>Email
+  <dd>{{customer.contactDetails.email || 'Not specified'}}
+</dl>

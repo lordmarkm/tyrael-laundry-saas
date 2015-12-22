@@ -1,0 +1,47 @@
+<div class="modal-header modal-primary">
+  <button type="button" class="close" ng-click="cancel()">&times;</button>
+  <h3 class="modal-title">Update Job Order Status</h3>
+</div>
+
+<form name="customerForm" ng-submit="proceed()" class="form-horizontal">
+<div class="modal-body">
+  <div class="row">
+  <div class="col-sm-12">
+    <div class="form-group col-sm-12">
+      <label class="col-sm-4 control-label">Customer</label>
+      <div class="col-sm-8">
+        <p class="form-control-static">{{joborder.customer.formattedName}}
+      </div>
+    </div>
+    <div class="form-group col-sm-12">
+      <label class="col-sm-4 control-label">Created date</label>
+      <div class="col-sm-8">
+        <p class="form-control-static">{{joborder.dateCreated | date: 'yyyy-MM-dd hh:mm a'}}
+      </div>
+    </div>
+    <div class="form-group col-sm-12">
+      <label class="col-sm-4 control-label">Current Status</label>
+      <div class="col-sm-8">
+        <p class="form-control-static">{{josLabel(joborder.status)}}
+      </div>
+    </div>
+    <div class="form-group col-sm-12">
+      <label class="col-sm-4 control-label">New Status</label>
+      <div class="col-sm-8">
+        <select ng-model="newStatus" class="form-control">
+          <option value="NEW">New</option>
+          <option value="CLEANED">Cleaned</option>
+          <option value="PAID_CLAIMED">Claimed</option>
+          <option value="CANCELLED">Cancelled</option>
+          <option value="CLOSED">Closed</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <input type="submit" ng-disabled="customerForm.$invalid" value="OK" class="btn btn-primary btn-s-xs" />
+  <span class="btn btn-default btn-s-xs" ng-click="cancel()">Cancel</span>
+</div>
+</form>

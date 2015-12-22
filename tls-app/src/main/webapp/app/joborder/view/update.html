@@ -1,22 +1,38 @@
 <h3 class="page-header">Create Job Order</h3>
 <form class="form-horizontal" name="createJobOrderForm">
   <div class="panel panel-default">
-  <div class="panel-heading">Customer</div>
+  <div class="panel-heading">Customer and Location</div>
   <div class="panel-body">
     <div class="form-group">
-      <label class="control-label col-sm-2">Customer</label>
+      <label class="control-label col-sm-2 req">Customer</label>
       <div class="col-sm-7">
-        <ui-select ng-model="customerHolder.customer">
+        <ui-select ng-model="customerHolder.customer" ng-change="onCustomerSelect()">
           <ui-select-match placeholder="Select a customer...">{{$select.selected.formattedName}}</ui-select-match>
           <ui-select-choices repeat="customer in customers track by $index"
                refresh="refreshCustomers($select.search)"
                refresh-delay="0">
-               <div ng-bind-html="customer.formattedName | highlight: $select.search"></div>
+               <div ng-bind-html="customer.formattedName + (customer.brandName ? (' (' + customer.brandName + ')') : '') | highlight: $select.search"></div>
           </ui-select-choices>
         </ui-select>
       </div>
-      <div class="col-sm-1">
+      <!-- div class="col-sm-1">
         <span ng-click="createNewCustomer()" title="Create new customer" class="btn btn-success"><i class="fa fa-plus"></i></span>
+      </div-->
+    </div>
+
+    <!-- Get brand from customer -->
+    <div class="form-group" ng-if="customerHolder.customer.brandName">
+      <label class="control-label col-sm-2">Brand</label>
+      <div class="col-sm-7">
+        <p class="form-control-static">{{customerHolder.customer.brandName}}</p>
+      </div>
+    </div>
+
+    <!-- Select branch from brand, backend decides likely branch -->
+    <div class="form-group" ng-if="customerHolder.customer.brandName">
+      <label class="control-label col-sm-2 req">Branch</label>
+      <div class="col-sm-7">
+        <select ng-model="branch" ng-options="branch as branch.name for branch in branches" required class="form-control"></select>
       </div>
     </div>
   </div>

@@ -1,5 +1,7 @@
 package com.tyrael.laundry.core.service.custom.impl;
 
+import java.util.List;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,6 +62,11 @@ public class BranchServiceCustomImpl
     @Override
     public BranchDto findInfoByBrandCodeAndCode(String brandCode, String branchCode) {
         return toDto(repo.findByBrandCodeAndCode(brandCode, branchCode));
+    }
+
+    @Override
+    public List<BranchDto> findInfoByBrandCode(String brandCode) {
+        return toDto(repo.findByBrandCode(brandCode));
     }
 
 }

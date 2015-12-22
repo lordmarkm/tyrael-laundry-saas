@@ -3,8 +3,11 @@ package com.tyrael.laundry.model.customer;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.tyrael.laundry.commons.model.BaseEntity;
+import com.tyrael.laundry.model.branch.Brand;
 
 /**
  * @author mbmartinez
@@ -23,6 +26,10 @@ public class Customer extends BaseEntity {
 
     @Column(name = "code", nullable = false, unique = true)
     private String code;
+
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
     public Name getName() {
         return name;
@@ -54,6 +61,14 @@ public class Customer extends BaseEntity {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
 }

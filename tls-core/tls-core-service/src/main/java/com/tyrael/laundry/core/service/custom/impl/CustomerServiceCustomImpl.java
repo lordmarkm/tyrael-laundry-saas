@@ -5,6 +5,7 @@ import static com.tyrael.laundry.model.customer.QCustomer.customer;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,8 +14,10 @@ import com.mysema.query.types.Predicate;
 import com.tyrael.laundry.commons.dto.PageInfo;
 import com.tyrael.laundry.commons.dto.customer.CustomerInfo;
 import com.tyrael.laundry.commons.service.TyraelJpaServiceCustomImpl;
+import com.tyrael.laundry.core.service.BrandService;
 import com.tyrael.laundry.core.service.CustomerService;
 import com.tyrael.laundry.core.service.custom.CustomerServiceCustom;
+import com.tyrael.laundry.model.branch.Brand;
 import com.tyrael.laundry.model.customer.Customer;
 
 /**
@@ -28,6 +31,9 @@ public class CustomerServiceCustomImpl
     implements CustomerServiceCustom {
 
     private static final Logger LOG = LoggerFactory.getLogger(CustomerServiceCustomImpl.class);
+
+    @Autowired
+    private BrandService brandService;
 
     @Override
     public PageInfo<CustomerInfo> pageInfo(String term, Pageable page) {
@@ -51,14 +57,28 @@ public class CustomerServiceCustomImpl
                 existing = repo.findByCode(candidateCode);
             } while (null != existing);
     
-            //Use the generated code as default brand code
+            //Use the generated code as default customer code
             dto.setCode(candidateCode);
-            return super.saveInfo(dto);
+
+            Customer saved = saveInfoAndGetEntity(dto);
+
+            //Assign the customer to the set brand
+            Brand brand = brandService.findByCode(dto.getBrandCode());
+            Preconditions.checkNotNull(brand);
+            saved.setBrand(brand);
+
+            return toDto(saved);
         } else {
             //UPDATE operation
             Customer existing = repo.findByCode(dto.getCode());
             Preconditions.checkNotNull(existing);
             mapper.map(dto, existing);
+
+            //Assign the customer to the set brand
+            Brand brand = brandService.findByCode(dto.getBrandCode());
+            Preconditions.checkNotNull(brand);
+            existing.setBrand(brand);
+
             return toDto(existing);
         }
     }

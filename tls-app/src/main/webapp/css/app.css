@@ -3,6 +3,8 @@
   -moz-border-radius: 0 !important;
 }
 
+html {
+}
 body {
   background: url("../img/bubbles.jpg");
   background-size: 100% 100%;
@@ -11,6 +13,7 @@ body {
 
 .pointer {cursor: pointer;}
 .nowrap {white-space: nowrap;}
+.text-strong {font-weight: bolder;}
 
 .container.container-main {
   background: white; /* For browsers that do not support gradients */
@@ -34,3 +37,34 @@ img.carousel {
 
 .mt20 {margin-top: 20px;}
 .mb20 {margin-bottom: 20px;}
+
+.img-thumbnail {
+  max-height: 64px;
+  max-width: 64px;
+  width: 64px;
+  height: 64px;
+}
+.img-thirtytwo {
+  max-height: 32px;
+  max-width: 32px;
+  width: 32px;
+  height: 32px;
+}
+.img-twentyfour {
+  max-height: 24px;
+  max-width: 24px;
+  width: 24px;
+  height: 24px;
+}
+.img-sixteen {
+  max-height: 16px;
+  max-width: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.req:after {
+    color: red;
+    content: ' *';
+    display:inline;
+}

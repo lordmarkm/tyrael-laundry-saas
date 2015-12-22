@@ -5,16 +5,18 @@ define([
    'joborder/controller/JobOrderViewController',
    'joborder/controller/JobOrderUpdateController',
    'joborder/service/JobOrderService',
+   'joborder/service/JobOrderStatusService',
    'joborder/resolve/JobOrderListResolve',
    'joborder/resolve/JobOrderViewResolve',
    'joborder/resolve/JobOrderUpdateResolve'
 ], function (angular, JobOrderRootController, JobOrderListController, JobOrderViewController, JobOrderUpdateController,
-    JobOrderService,
+    JobOrderService, JobOrderStatusService,
     JobOrderListResolve, JobOrderViewResolve, JobOrderUpdateResolve) {
 
   console.debug('Configuring joborder.module');
   angular.module('joborder.module', [])
     .service('JobOrderService', JobOrderService)
+    .service('JobOrderStatusService', JobOrderStatusService)
     .config(['$stateProvider', function ($stateProvider) {
 
       $stateProvider.state('default.joborder', {
@@ -42,7 +44,7 @@ define([
         resolve: JobOrderUpdateResolve
       })
       .state('default.joborder.view', {
-        url: '/{joborderCode}',
+        url: '/{joborderCode}/{urlSlug}',
         templateUrl: 'joborder/view/view.html',
         controller: JobOrderViewController,
         resolve: JobOrderViewResolve
