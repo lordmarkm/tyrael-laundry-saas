@@ -10,6 +10,7 @@ public class JobItemInfo extends BaseDto {
 
     private JobItemType jobItemType;
     private int quantity;
+    private String iconPath;
 
     public JobItemType getJobItemType() {
         return jobItemType;
@@ -22,6 +23,12 @@ public class JobItemInfo extends BaseDto {
     }
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+    public String getIconPath() {
+        return iconPath;
+    }
+    public void setIconPath(String iconPath) {
+        this.iconPath = iconPath;
     }
 
 }

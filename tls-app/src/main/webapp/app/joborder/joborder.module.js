@@ -38,7 +38,7 @@ define([
         resolve: JobOrderUpdateResolve
       })
       .state('default.joborder.update', {
-        url: '/update/{joborderCode}',
+        url: '/update/{joborderCode}/{urlSlug}',
         templateUrl: 'joborder/view/update.html',
         controller: JobOrderUpdateController,
         resolve: JobOrderUpdateResolve

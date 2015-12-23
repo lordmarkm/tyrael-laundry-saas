@@ -29,7 +29,7 @@ public abstract class BaseEntity {
     @Type(type = "yes_no")
     protected boolean deleted = false;
 
-    @Column(name = "created_date")
+    @Column(name = "created_date", updatable = false)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     protected DateTime dateCreated;
 
@@ -37,7 +37,7 @@ public abstract class BaseEntity {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     protected DateTime dateUpdated;
 
-    @Column(name = "created_by")
+    @Column(name = "created_by", updatable = false)
     protected String createdBy;
 
     @Column(name = "updated_by")

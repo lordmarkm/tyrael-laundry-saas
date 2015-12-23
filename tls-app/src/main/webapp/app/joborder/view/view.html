@@ -1,10 +1,13 @@
 <h3 class="page-header">
   <strong>{{joborder.customer.formattedName}} {{joborder.dateReceived | date: 'yyyy-MM-dd'}}</strong> ({{joborder.customer.brandName}} - {{joborder.branchInfo.name}})
+  <a href="/print/{{joborder.trackingNo}}" target="_blank" class="btn btn-default btn-xs">Print</a>
   <br><small>View Job Order Details</small>
 </h3>
 <br>
 
 <dl>
+  <dt>Branch
+  <dd>{{joborder.branchInfo.name}}
   <dt>Date Received
   <dd>{{joborder.dateReceived | date: 'yyyy-MM-dd hh:mm a'}}
   <dt>Date Due

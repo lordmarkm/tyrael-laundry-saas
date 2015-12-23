@@ -16,11 +16,13 @@ import com.tyrael.laundry.commons.dto.BaseDto;
 import com.tyrael.laundry.commons.dto.BranchDto;
 import com.tyrael.laundry.commons.dto.EnumInfo;
 import com.tyrael.laundry.commons.dto.customer.CustomerInfo;
+import com.tyrael.laundry.commons.dto.joborder.JobItemInfo;
 import com.tyrael.laundry.commons.dto.joborder.JobOrderInfo;
 import com.tyrael.laundry.commons.model.BaseEntity;
 import com.tyrael.laundry.converter.EnumInfoConverter;
 import com.tyrael.laundry.model.branch.Branch;
 import com.tyrael.laundry.model.customer.Customer;
+import com.tyrael.laundry.model.joborder.JobItem;
 import com.tyrael.laundry.model.joborder.JobOrder;
 
 /**
@@ -61,6 +63,8 @@ public class MapperConfig {
                 mapping(Customer.class, CustomerInfo.class)
                     .fields("brand.name", "brandName", oneWay())
                     .fields("brand.code", "brandCode", oneWay());
+                mapping(JobItem.class, JobItemInfo.class)
+                    .fields("jobItemType.iconPath", "iconPath", oneWay());
             }
         });
     }

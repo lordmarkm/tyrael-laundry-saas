@@ -1,7 +1,9 @@
 define(function () {
   return {
     joborder: ['JobOrderService', '$stateParams', function (JobOrderService, $stateParams) {
-      return JobOrderService.get({joborderCode: $stateParams.joborderCode});
+      if ($stateParams.joborderCode) {
+        return JobOrderService.get({trackingNo: $stateParams.joborderCode});
+      }
     }],
     serviceTypes: ['$q', 'ServiceTypeService', function ($q, ServiceTypeService) {
       var data = $q.defer();

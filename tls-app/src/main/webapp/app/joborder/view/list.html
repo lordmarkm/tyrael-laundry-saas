@@ -21,7 +21,10 @@
       </td>
       <td>{{joborder.totalAmount | currency: '₱'}}
       <td ng-class="colorizeBalance(joborder)">{{joborder.totalAmount - joborder.totalAmountPaid | currency: '₱'}}
-      <td>{{joborder.dateCreated | date: 'yyyy-MM-dd hh:mm a'}}
+      <td>
+        <div>{{joborder.dateCreated | date: 'yyyy-MM-dd hh:mm a'}}</div>
+        <div><small class="text-muted">@{{joborder.customer.brandName}} - {{joborder.branchInfo.name}}</small></div>
+      </td>
       <td>{{joborder.dateDue | date: 'MMM-dd'}}
       <td>{{josLabel(joborder.status)}}
       <td>
@@ -43,7 +46,7 @@
       </td>
     </tr>
     <tr ng-if="!$data.length">
-      <td colspan="2">No items available</td>
+      <td colspan="8" align="center">No items available</td>
     </tr>
   </tbody>
 </table>

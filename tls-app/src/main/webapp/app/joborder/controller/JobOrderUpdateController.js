@@ -1,10 +1,11 @@
 define(function () {
-  return ['$scope', '$modal', '$filter', 'confirm', 'toaster', 'serviceTypes', 'jobItemTypes', 'CustomerService', 'ServiceTypeService', 'JobOrderService', 'BranchService',
-    function ($scope, $modal, $filter, confirm, toaster, serviceTypes, jobItemTypes, CustomerService, ServiceTypeService, JobOrderService, BranchService) {
+  return ['$scope', '$q', '$modal', '$filter', 'confirm', 'toaster', 'joborder', 'serviceTypes', 'jobItemTypes', 'CustomerService', 'ServiceTypeService', 'JobOrderService', 'BranchService',
+    function ($scope, $q, $modal, $filter, confirm, toaster, joborder, serviceTypes, jobItemTypes, CustomerService, ServiceTypeService, JobOrderService, BranchService) {
 
     function resetPage() {
+      delete $scope.joborder;
       $scope.customerHolder = {};
-      ServiceTypeService.query().$promise.then(function (serviceTypes) {
+      ServiceTypeService.get().$promise.then(function (serviceTypes) {
         $scope.serviceTypes = serviceTypes.data;
         $scope.serviceTypeHolder = {
             serviceType: $scope.serviceTypes[0]
@@ -36,11 +37,13 @@ define(function () {
     };
 
     //Initialize/process service types
+    var serviceTypesPromise = $q.defer();
     serviceTypes.$promise.then(function () {
       $scope.serviceTypes = serviceTypes.data;
       $scope.serviceTypeHolder = {
         serviceType: $scope.serviceTypes[0]
       };
+      serviceTypesPromise.resolve($scope.serviceTypes);
     });
     $scope.setWeight = function (weight) {
       $scope.serviceTypeHolder.serviceType.weight = weight;
@@ -48,14 +51,46 @@ define(function () {
     };
 
     //Update branch options on customer select
+    $scope.branchHolder = {};
     $scope.onCustomerSelect = function () {
       BranchService.query({brandCode: $scope.customerHolder.customer.brandCode, byBrandCode: true}, function (response) {
         $scope.branches = response;
         if (response.length) {
-          $scope.branch = response[0];
+          $scope.branchHolder.branch = response[0];
         }
       });
     };
+
+    //Initialize values if update operation
+    $scope.joborder = joborder;
+    if (joborder) {
+      joborder.$promise.then(function (jo) {
+        //Initialize customer and location
+        $scope.customerHolder.customer = jo.customer;
+        BranchService.query({brandCode: $scope.customerHolder.customer.brandCode, byBrandCode: true}, function (response) {
+          $scope.branches = response;
+          $scope.branchHolder.branch = jo.branchInfo;
+        });
+
+        //Initialize services
+        serviceTypesPromise.promise.then(function (serviceTypes) {
+          for (var i in joborder.jobServices) {
+            for (var j in serviceTypes) {
+              if (serviceTypes[j].code === joborder.jobServices[i].serviceType.code) {
+                console.debug('setting wt');
+                serviceTypes[j].weight = joborder.jobServices[i].weightInKilos;
+                continue;
+              }
+            }
+          }
+        });
+
+        //Initialize job items
+        for (var i in joborder.jobItems) {
+          $scope.jobItems[joborder.jobItems[i].jobItemType] = joborder.jobItems[i].quantity;
+        }
+      });
+    }
 
     //Validate & Submit job order
     $scope.createJobOrder = function (valid) {
@@ -66,7 +101,7 @@ define(function () {
       if (!validateJobOrder()) {
         return;
       }
-      if (!$scope.branch) {
+      if (!$scope.branchHolder.branch) {
         toaster.pop('error', 'Branch required', 'Job orders must be assigned to a branch');
         return false;
       }
@@ -107,11 +142,11 @@ define(function () {
           background: 'static',
           controller: ['$scope', '$modalInstance', 'jobOrder', function($modalScope, $modalInstance, jobOrder) {
 
-            if (jobOrder.totalAmount < $scope.branch.minimumJobOrderAmount) {
-              confirm.confirm('Confirm minimum amount', 'This job order does not exceed the minimum job order amount of ' + $filter('currency')($scope.branch.minimumJobOrderAmount, 'Php ') + '. The minimum amount will be charged.')
+            if (jobOrder.totalAmount < $scope.branchHolder.branch.minimumJobOrderAmount) {
+              confirm.confirm('Confirm minimum amount', 'This job order does not exceed the minimum job order amount of ' + $filter('currency')($scope.branchHolder.branch.minimumJobOrderAmount, 'Php ') + '. The minimum amount will be charged.')
                 .result.then(function (ok) {
                   if (ok) {
-                    jobOrder.totalAmount = $scope.branchInfo.minimumJobOrderAmount;
+                    jobOrder.totalAmount = $scope.branchHolder.branch.minimumJobOrderAmount;
                   } else {
                     $modalInstance.close(false);
                   }
@@ -128,15 +163,19 @@ define(function () {
           }],
           resolve: {
             jobOrder: function () {
+              console.debug('$scope.branch=' + $scope.branchHolder.branch.name);
               var jobOrder = {
+                  id: joborder ? joborder.id : null,
+                  dateReceived: joborder ? joborder.dateReceived : null,
+                  dateCompleted: joborder ? joborder.dateCompleted : null,
+                  dateClaimed: joborder ? joborder.dateClaimed : null,
                   customer: $scope.customerHolder.customer,
                   jobServices: [],
                   jobItems: [],
-                  lostAndFoundItems: [],
                   totalAmount: 0,
-                  totalAmountPaid: 0,
-                  status: 'NEW',
-                  branchInfo: $scope.branch
+                  totalAmountPaid: joborder ? joborder.totalAmountPaid : 0,
+                  status: joborder ? joborder.status : 'NEW',
+                  branchInfo: $scope.branchHolder.branch
               };
               for (var i in $scope.serviceTypes) {
                 var serviceType = $scope.serviceTypes[i];
@@ -172,13 +211,13 @@ define(function () {
           templateUrl: 'modal-create-success',
           controller: ['$scope', '$state', '$modalInstance', function($scope, $state, $modalInstance) {
             $scope.jobOrder = savedJob;
-            $scope.backToDashboard = function () {
+            $scope.backToList = function () {
               $modalInstance.close();
-              $state.go('default.pos.splash');
+              $state.go('default.joborder.list');
             };
             $scope.viewJobOrder = function () {
               $modalInstance.close();
-              $state.go('default.pos.joborder_view', {trackingNo: savedJob.trackingNo});
+              $state.go('default.joborder.view', {joborderCode: savedJob.trackingNo, urlSlug: savedJob.slug});
             };
             $scope.createNew = function () {
               $modalInstance.close();

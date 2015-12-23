@@ -1,0 +1,13 @@
+<form name="genericConfirmForm" ng-submit="ok()">
+<div class="modal-header modal-primary">
+  <button type="button" class="close" ng-click="cancel()">&times;</button>
+  <h3 class="modal-title">{{title}}</h3>
+</div>
+<div class="modal-body">
+  <p>{{msg}}
+</div>
+<div class="modal-footer">
+  <input type="submit" class="btn btn-primary btn-s-xs" ng-click="ok()" value="{{okBtn || 'OK'}}" />
+  <span class="btn btn-default btn-s-xs" ng-click="cancel()">{{cancelBtn || 'Cancel'}}</span>
+</div>
+</form>

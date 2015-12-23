@@ -1,4 +1,5 @@
-<h3 class="page-header">Create Job Order</h3>
+<h3 ng-if="!joborder" class="page-header">Create Job Order</h3>
+<h3 ng-if="joborder" class="page-header">Update Job Order</h3>
 <form class="form-horizontal" name="createJobOrderForm">
   <div class="panel panel-default">
   <div class="panel-heading">Customer and Location</div>
@@ -32,7 +33,7 @@
     <div class="form-group" ng-if="customerHolder.customer.brandName">
       <label class="control-label col-sm-2 req">Branch</label>
       <div class="col-sm-7">
-        <select ng-model="branch" ng-options="branch as branch.name for branch in branches" required class="form-control"></select>
+        <select ng-model="branchHolder.branch" ng-options="branch as branch.name for branch in branches track by branch.id" required class="form-control"></select>
       </div>
     </div>
   </div>
@@ -100,7 +101,7 @@
   </accordion>
   <div class="col-sm-12 text-right">
     <div class="row">
-      <span ng-click="createJobOrder(createJobOrderForm.$valid)" class="btn btn-primary">Create Job Order</span>
+      <span ng-click="createJobOrder(createJobOrderForm.$valid)" class="btn btn-primary">{{joborder ? 'Update' : 'Create'}} Job Order</span>
     </div>
   </div>
 </form>
@@ -144,9 +145,9 @@
     </dl>
   </div>
   <div class="modal-footer">
-    <a href="/joborder/print/{{jobOrder.trackingNo}}" target="_blank" class="btn btn-primary btn-s-xs">Print</a>
+    <a href="/print/{{jobOrder.trackingNo}}" target="_blank" class="btn btn-primary btn-s-xs">Print</a>
     <button ng-click="viewJobOrder()" class="btn btn-primary btn-s-xs">View Job Order</button>
     <button ng-click="createNew()" class="btn btn-primary btn-s-xs">Create new</button>
-    <button ng-click="backToDashboard()" class="btn btn-primary btn-s-xs">Back to dashboard</button>
+    <button ng-click="backToList()" class="btn btn-primary btn-s-xs">Back to Job Order List</button>
   </div>
 </script>

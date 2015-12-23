@@ -2,6 +2,9 @@ package com.tyrael.laundry;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.PageRequest;
@@ -13,10 +16,19 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 @EnableWebMvc
 @Configuration
 public class WebappConfig extends WebMvcConfigurerAdapter {
+
+    @Autowired
+    private FreeMarkerViewResolver fmvr;
+
+    @PostConstruct
+    public void init() {
+        fmvr.setOrder(1);
+    }
 
     //Enable direct access to .html, .css, etc
     @Override
@@ -29,6 +41,7 @@ public class WebappConfig extends WebMvcConfigurerAdapter {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setPrefix("/");
         resolver.setSuffix(".html");
+        resolver.setOrder(99);
         return resolver;
     }
 

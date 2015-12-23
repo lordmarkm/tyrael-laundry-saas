@@ -18,8 +18,12 @@ define(function () {
         return 'Cleaned';
       case 'PAID_CLAIMED':
         return 'Claimed';
+      case 'CANCELLED':
+        return 'Cancelled';
+      case 'CLOSED':
+        return 'Closed';
       default:
-        return 'Not new';
+        return 'Unknown code: ' + code;
       }
     }
     return this;
