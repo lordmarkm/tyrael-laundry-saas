@@ -4,10 +4,13 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
 
 import com.tyrael.laundry.commons.model.BaseEntity;
+import com.tyrael.laundry.model.branch.Branch;
 
 /**
  * @author mbmartinez
@@ -30,6 +33,10 @@ public class ServiceType extends BaseEntity {
 
     @Column(name = "price_per_kilo", nullable = false)
     private BigDecimal pricePerKilo;
+
+    @ManyToOne
+    @JoinColumn(name = "branch_id")
+    private Branch branch;
 
     public String getCode() {
         return code;
@@ -69,6 +76,14 @@ public class ServiceType extends BaseEntity {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
     }
 
 }

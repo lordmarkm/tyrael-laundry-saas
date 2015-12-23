@@ -11,7 +11,6 @@ import com.tyrael.laundry.commons.dto.BranchDto;
 import com.tyrael.laundry.commons.dto.customer.CustomerInfo;
 import com.tyrael.laundry.commons.util.DateUtil;
 import com.tyrael.laundry.reference.JobOrderStatus;
-import com.tyrael.laundry.reference.TransportRequestStatus;
 
 /**
  * @author mbmartinez
@@ -29,7 +28,6 @@ public class JobOrderInfo extends BaseDto {
     private BigDecimal totalAmount;
     private BigDecimal totalAmountPaid;
     private JobOrderStatus status;
-    private TransportRequestStatus deliveryStatus;
     private BranchDto branchInfo;
 
     @Override
@@ -46,7 +44,6 @@ public class JobOrderInfo extends BaseDto {
             .append("total amt", totalAmount)
             .append("total amt paid", totalAmountPaid)
             .append("status", status)
-            .append("deliveryStatus", deliveryStatus)
             .append("branch", branchInfo);
     }
 
@@ -143,14 +140,6 @@ public class JobOrderInfo extends BaseDto {
 
     public void setStatus(JobOrderStatus status) {
         this.status = status;
-    }
-
-    public TransportRequestStatus getDeliveryStatus() {
-        return deliveryStatus;
-    }
-
-    public void setDeliveryStatus(TransportRequestStatus deliveryStatus) {
-        this.deliveryStatus = deliveryStatus;
     }
 
     public BranchDto getBranchInfo() {

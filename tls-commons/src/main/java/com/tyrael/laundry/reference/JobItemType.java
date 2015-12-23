@@ -16,7 +16,12 @@ public enum JobItemType {
     SHIRT_COLLAR("T-shirt w/ collar", "singles/tie8.png"),
     SHIRT_SS("Shirt, short sleeves", "shopping/png/tshirt18.png"),
     SHIRT_LS("Shirt, long sleeves", "singles/longshirts.png"),
-    SLACKS("Slacks, pants, trousers", "singles/jeans.png");
+    SLACKS("Slacks, pants, trousers", "singles/jeans.png"),
+    SWIMSUIT("Swimwear", "singles/beach35.png"),
+    SCARVES("Scarves & shawls", "singles/scarf1.png"),
+    SKIRT("Skirts", "singles/skirt.png"),
+    HOODIES("Hooded shirts", "singles/winter-clothes.png"),
+    OTHERS("Others", "singles/question30.png");
 
     private String label;
     private String iconPath;

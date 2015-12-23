@@ -4,17 +4,15 @@ define([
    'core/controller/AuthenticationController',
    'core/service/AuthenticationService',
    'core/service/LoginService',
-   'core/service/ServiceTypeService',
    'core/service/JobItemTypeService',
    'core/service/GenericConfirmService'
 ], function (angular, RootController, AuthenticationController, AuthenticationService, LoginService,
-    ServiceTypeService, JobItemTypeService,
+    JobItemTypeService,
     GenericConfirmService) {
   console.debug('Configuring core.module');
   angular.module('core.module', [])
     .service('AuthenticationService', AuthenticationService)
     .service('LoginService', LoginService)
-    .service('ServiceTypeService', ServiceTypeService)
     .service('JobItemTypeService', JobItemTypeService)
     .service('confirm', GenericConfirmService)
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {

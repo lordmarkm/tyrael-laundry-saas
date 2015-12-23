@@ -1,5 +1,7 @@
 package com.tyrael.laundry.core.api.resource;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.dozer.Mapper;
@@ -25,6 +27,12 @@ public class JobItemTypeResource {
         for (JobItemType type : JobItemType.values()) {
             infos.add(mapper.map(type, EnumInfo.class));
         }
+        Collections.sort(infos, new Comparator<EnumInfo>() {
+            @Override
+            public int compare(EnumInfo o1, EnumInfo o2) {
+                return o1.getLabel().compareTo(o2.getLabel());
+            }
+        });
         return infos;
     }
 

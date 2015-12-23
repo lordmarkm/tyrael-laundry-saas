@@ -15,7 +15,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="joborder in $data">
-      <td><a ui-sref="default.joborder.view({joborderCode: joborder.code, urlSlug: joborder.slug})">{{joborder.customer.formattedName}}</a>
+      <td><a ui-sref="default.customer.view({customerCode: joborder.customer.code, urlSlug: joborder.customer.slug})">{{joborder.customer.formattedName}}</a>
       <td>
         <div ng-repeat="service in joborder.jobServices"><img ng-src="images/icons/{{service.serviceType.icon}}" class="img-sixteen" title="{{service.serviceType.label}}" /> {{service.weightInKilos}} ({{service.amount | currency: '₱'}})</div>
       </td>

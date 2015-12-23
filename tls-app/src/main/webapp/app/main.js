@@ -79,7 +79,8 @@ require([
     'branch/branch.module.js',
     'user/user.module.js',
     'joborder/joborder.module.js',
-    'customer/customer.module.js'
+    'customer/customer.module.js',
+    'servicetype/servicetype.module.js'
   ], function (angular) {
   angular.element().ready(function () {
     angular.bootstrap(document, [
@@ -100,7 +101,8 @@ require([
       'branch.module',
       'user.module',
       'joborder.module',
-      'customer.module'
+      'customer.module',
+      'servicetype.module'
     ]);
   });
 });
