@@ -2,7 +2,7 @@ define(function () {
   return ['$scope', 'toaster', 'confirm', 'serviceTypes', 'ServiceTypeService',
     function ($scope, toaster, confirm, serviceTypes, ServiceTypeService) {
 
-    $scope.serviceTypes = serviceTypes.data;
+    $scope.serviceTypes = serviceTypes;
     $scope.save = function (servicesForm) {
       if (!servicesForm.$valid) {
         toaster.pop('error', 'Invalid price values');
@@ -24,7 +24,7 @@ define(function () {
     $scope.reset = function (servicesForm) {
       confirm.confirm('Reset services', 'This will discard all unsaved changes. Proceed?').result.then(function (proceed) {
         if (proceed) {
-          ServiceTypeService.queryAll(function (page) {
+          ServiceTypeService.get({page: 1}, function (page) {
             $scope.serviceTypes = page.data;
             servicesForm.$setPristine(true);
           });

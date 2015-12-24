@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tyrael.laundry.commons.dto.PageInfo;
@@ -25,7 +26,12 @@ public class ServiceTypeResource extends BaseResource<ServiceType, ServiceTypeIn
 
     @Override
     protected PageInfo<ServiceTypeInfo> getPageImpl(Pageable page) {
-        return service.findInfoByEnabled(page);
+        return service.pageInfo(page);
+    }
+
+    @RequestMapping("/enabled")
+    protected PageInfo<ServiceTypeInfo> findEnabled(@RequestParam String branchCode, Pageable page) {
+        return service.findInfoByBranchCodeAndEnabled(branchCode, page);
     }
 
     @RequestMapping(value = "/batch", method = POST)

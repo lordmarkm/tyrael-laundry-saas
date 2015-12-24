@@ -1,7 +1,11 @@
 define(function () {
   return {
-    serviceTypes: ['ServiceTypeService', function (ServiceTypeService) {
-      return ServiceTypeService.queryAll().$promise;
+    serviceTypes: ['$q', 'ServiceTypeService', function ($q, ServiceTypeService) {
+      var servicetypes = $q.defer();
+      ServiceTypeService.get({page: 1}, function (results) {
+        servicetypes.resolve(results.data);
+      });
+      return servicetypes.promise;
     }]
   };
 });

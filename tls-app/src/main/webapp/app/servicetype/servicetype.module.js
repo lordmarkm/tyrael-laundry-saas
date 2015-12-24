@@ -13,7 +13,7 @@ define([
     .config(['$stateProvider', function ($stateProvider) {
 
       $stateProvider.state('default.pricemanagement', {
-        url: '',
+        url: 'price-mgt',
         templateUrl: 'servicetype/view/price-management.html',
         controller: PriceManagementController,
         resolve: PriceManagementResolve,

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.base.Preconditions;
@@ -11,9 +12,11 @@ import com.tyrael.laundry.commons.dto.BranchDto;
 import com.tyrael.laundry.commons.service.TyraelJpaServiceCustomImpl;
 import com.tyrael.laundry.core.service.BranchService;
 import com.tyrael.laundry.core.service.BrandService;
+import com.tyrael.laundry.core.service.ServiceTypeService;
 import com.tyrael.laundry.core.service.custom.BranchServiceCustom;
 import com.tyrael.laundry.model.branch.Branch;
 import com.tyrael.laundry.model.branch.Brand;
+import com.tyrael.laundry.model.joborder.ServiceType;
 
 /**
  * 
@@ -28,9 +31,13 @@ public class BranchServiceCustomImpl
     @Autowired
     private BrandService brandService;
 
+    @Autowired
+    private ServiceTypeService serviceTypeService;
+
     @Override
     public BranchDto saveInfo(BranchDto dto) {
         Branch branch;
+        boolean newBranch = false;
         if (null == dto.getCode()) {
             //CREATE operation, Generate random candidate brand codes until we find a unique one
             Branch existing = null;
@@ -43,6 +50,7 @@ public class BranchServiceCustomImpl
             //Use the generated code as default brand code
             dto.setCode(candidateCode);
             branch = toEntity(dto);
+            newBranch = true;
         } else {
             //UPDATE operation
             Branch existing = repo.findByCode(dto.getCode());
@@ -56,7 +64,21 @@ public class BranchServiceCustomImpl
         Preconditions.checkNotNull(brand);
         branch.setBrand(brand);
 
-        return toDto(repo.save(branch));
+        Branch saved = repo.save(branch);
+
+        if (newBranch) {
+            //Clone the original service types and copy them for this branch
+//            Page<ServiceType> serviceTypes = serviceTypeService.findByBranchCodeAndEnabled(null, true, null);
+            List<ServiceType> serviceTypes = serviceTypeService.findByBranchCode(null);
+            for (ServiceType originalSt : serviceTypes) {
+                ServiceType clone = mapper.map(originalSt, ServiceType.class);
+                clone.setId(null);
+                clone.setBranch(saved);
+                serviceTypeService.save(clone);
+            }
+        }
+
+        return toDto(saved);
     }
 
     @Override

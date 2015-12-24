@@ -33,7 +33,9 @@
     <div class="form-group" ng-if="customerHolder.customer.brandName">
       <label class="control-label col-sm-2 req">Branch</label>
       <div class="col-sm-7">
-        <select ng-model="branchHolder.branch" ng-options="branch as branch.name for branch in branches track by branch.id" required class="form-control"></select>
+        <select ng-model="branchHolder.branch"
+          ng-change="updateServiceTypes(branchHolder.branch.code)"
+          ng-options="branch as branch.name for branch in branches track by branch.id" required class="form-control"></select>
       </div>
     </div>
   </div>

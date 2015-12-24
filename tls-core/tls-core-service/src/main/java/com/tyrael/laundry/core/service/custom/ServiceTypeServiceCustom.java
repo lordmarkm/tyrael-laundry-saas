@@ -12,6 +12,6 @@ import com.tyrael.laundry.model.joborder.ServiceType;
  */
 public interface ServiceTypeServiceCustom extends TyraelJpaServiceCustom<ServiceType, ServiceTypeInfo> {
 
-    PageInfo<ServiceTypeInfo> findInfoByEnabled(Pageable page);
+    PageInfo<ServiceTypeInfo> findInfoByBranchCodeAndEnabled(String branchCode, Pageable page);
 
 }

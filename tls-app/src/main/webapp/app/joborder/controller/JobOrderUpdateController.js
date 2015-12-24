@@ -1,6 +1,6 @@
 define(function () {
-  return ['$scope', '$q', '$modal', '$filter', 'confirm', 'toaster', 'joborder', 'serviceTypes', 'jobItemTypes', 'CustomerService', 'ServiceTypeService', 'JobOrderService', 'BranchService',
-    function ($scope, $q, $modal, $filter, confirm, toaster, joborder, serviceTypes, jobItemTypes, CustomerService, ServiceTypeService, JobOrderService, BranchService) {
+  return ['$scope', '$q', '$modal', '$filter', 'confirm', 'toaster', 'joborder', 'jobItemTypes', 'CustomerService', 'ServiceTypeService', 'JobOrderService', 'BranchService',
+    function ($scope, $q, $modal, $filter, confirm, toaster, joborder, jobItemTypes, CustomerService, ServiceTypeService, JobOrderService, BranchService) {
 
     function resetPage() {
       delete $scope.joborder;
@@ -37,14 +37,27 @@ define(function () {
     };
 
     //Initialize/process service types
-    var serviceTypesPromise = $q.defer();
-    serviceTypes.$promise.then(function () {
-      $scope.serviceTypes = serviceTypes.data;
-      $scope.serviceTypeHolder = {
-        serviceType: $scope.serviceTypes[0]
-      };
-      serviceTypesPromise.resolve($scope.serviceTypes);
-    });
+//    var serviceTypesPromise = $q.defer();
+//    serviceTypes.$promise.then(function () {
+//      $scope.serviceTypes = serviceTypes.data;
+//      $scope.serviceTypeHolder = {
+//        serviceType: $scope.serviceTypes[0]
+//      };
+//      serviceTypesPromise.resolve($scope.serviceTypes);
+//    });
+
+    //Instead of loading on startup, provide a callable function on branch update
+    $scope.updateServiceTypes = function (branchCode) {
+      var p = $q.defer();
+      ServiceTypeService.findEnabled({branchCode: branchCode, page: 1}, function (serviceTypes) {
+        $scope.serviceTypes = serviceTypes.data;
+        $scope.serviceTypeHolder = {
+          serviceType: $scope.serviceTypes[0]
+        };
+        p.resolve($scope.serviceTypes);
+      });
+      return p;
+    }
     $scope.setWeight = function (weight) {
       $scope.serviceTypeHolder.serviceType.weight = weight;
       toaster.pop('success', 'Service added', $scope.serviceTypeHolder.serviceType.label + ': ' + weight + ' Kg');
@@ -57,6 +70,7 @@ define(function () {
         $scope.branches = response;
         if (response.length) {
           $scope.branchHolder.branch = response[0];
+          $scope.updateServiceTypes(response[0].code);
         }
       });
     };
@@ -70,19 +84,25 @@ define(function () {
         BranchService.query({brandCode: $scope.customerHolder.customer.brandCode, byBrandCode: true}, function (response) {
           $scope.branches = response;
           $scope.branchHolder.branch = jo.branchInfo;
-        });
 
-        //Initialize services
-        serviceTypesPromise.promise.then(function (serviceTypes) {
-          for (var i in joborder.jobServices) {
-            for (var j in serviceTypes) {
-              if (serviceTypes[j].code === joborder.jobServices[i].serviceType.code) {
-                console.debug('setting wt');
-                serviceTypes[j].weight = joborder.jobServices[i].weightInKilos;
-                continue;
+          //Initialize services
+          $scope.updateServiceTypes(jo.branchInfo.code).promise.then(function (serviceTypes) {
+            for (var i in joborder.jobServices) {
+              var matched = false;
+              for (var j in serviceTypes) {
+                if (serviceTypes[j].code === joborder.jobServices[i].serviceType.code) {
+                  serviceTypes[j].weight = joborder.jobServices[i].weightInKilos;
+                  matched = true;
+                  continue;
+                }
+              }
+              if (!matched) {
+                //Handle case where servicetype was disabled after it was added to current job order
+                joborder.jobServices[i].serviceType.weight = joborder.jobServices[i].weightInKilos;
+                serviceTypes.push(joborder.jobServices[i].serviceType);
               }
             }
-          }
+          });
         });
 
         //Initialize job items

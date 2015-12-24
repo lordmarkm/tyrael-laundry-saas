@@ -16,6 +16,9 @@ public class ServiceTypeInfo extends BaseDto {
     private String icon;
     private boolean enabled;
     private BigDecimal pricePerKilo;
+    private Long branchId;
+    private String brandName;
+    private String branchName;
 
     @Override
     public ToStringCreator toStringCreator() {
@@ -58,6 +61,30 @@ public class ServiceTypeInfo extends BaseDto {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    public String getBranchName() {
+        return branchName;
+    }
+
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
+    }
+
+    public Long getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(Long branchId) {
+        this.branchId = branchId;
     }
 
 }
