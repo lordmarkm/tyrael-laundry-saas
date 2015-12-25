@@ -14,15 +14,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.google.common.collect.Lists;
 import com.tyrael.laundry.commons.dto.PageInfo;
 import com.tyrael.laundry.commons.dto.joborder.ServiceTypeInfo;
 import com.tyrael.laundry.commons.service.TyraelJpaServiceCustomImpl;
+import com.tyrael.laundry.commons.util.AuthenticationUtil;
 import com.tyrael.laundry.core.service.BranchService;
+import com.tyrael.laundry.core.service.BrandService;
 import com.tyrael.laundry.core.service.ServiceTypeService;
 import com.tyrael.laundry.core.service.custom.ServiceTypeServiceCustom;
+import com.tyrael.laundry.model.branch.Brand;
 import com.tyrael.laundry.model.joborder.ServiceType;
 
 /**
@@ -37,6 +41,9 @@ public class ServiceTypeServiceCustomImpl
     private static final String LABEL = "LABEL";
     private static final String ICON = "ICON";
     private static final String PPK = "PRICE_PER_KILO";
+
+    @Autowired
+    private BrandService brandService;
 
     @Autowired
     private BranchService branchService;
@@ -67,6 +74,20 @@ public class ServiceTypeServiceCustomImpl
     public PageInfo<ServiceTypeInfo> findInfoByBranchCodeAndEnabled(String branchCode, Pageable page) {
         LOG.debug("Find info by enabled. page={}", page);
         return toPageInfo(repo.findByBranchCodeAndEnabled(branchCode, true, page));
+    }
+
+    /**
+     * Override page query to display only prices for branches current user has access to
+     */
+    public PageInfo<ServiceTypeInfo> pageInfo(Pageable page) {
+        Page<ServiceType> results;
+        if (AuthenticationUtil.isAuthorized(AuthenticationUtil.ROLE_ADMIN)) {
+            results = repo.findAll(page);
+        } else {
+            List<Brand> brands = brandService.findByUserUsername(AuthenticationUtil.getLoggedInUsername());
+            results = repo.findByBranchBrandIn(brands, page);
+        }
+        return toPageInfo(results);
     }
 
     /**

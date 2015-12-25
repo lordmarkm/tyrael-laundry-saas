@@ -87,4 +87,12 @@ public class BrandServiceCustomImpl
         return brands;
     }
 
+    @Override
+    public List<Brand> findByUserUsername(String username) {
+        Preconditions.checkNotNull(username);
+        Predicate predicate = QBrand.brand.users.any().name.eq(username);
+        List<Brand> brands = (List<Brand>) repo.findAll(predicate);
+        return brands;
+    }
+
 }

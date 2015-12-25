@@ -1,26 +1,36 @@
 package com.tyrael.laundry.core.service.custom.impl;
 
+import static com.tyrael.laundry.model.customer.QCustomer.customer;
 import static com.tyrael.laundry.reference.JobOrderStatus.CANCELLED;
 import static com.tyrael.laundry.reference.JobOrderStatus.CLOSED;
 import static com.tyrael.laundry.reference.JobOrderStatus.PAID_CLAIMED;
+import static com.tyrael.laundry.model.joborder.QJobOrder.jobOrder;
+
+import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.mysema.query.types.expr.BooleanExpression;
 import com.tyrael.laundry.commons.dto.PageInfo;
 import com.tyrael.laundry.commons.dto.joborder.JobOrderInfo;
 import com.tyrael.laundry.commons.service.TyraelJpaServiceCustomImpl;
+import com.tyrael.laundry.commons.util.AuthenticationUtil;
+import com.tyrael.laundry.core.service.BrandService;
 import com.tyrael.laundry.core.service.JobOrderService;
 import com.tyrael.laundry.core.service.custom.JobOrderServiceCustom;
 import com.tyrael.laundry.core.service.rql.RsqlParserVisitor;
+import com.tyrael.laundry.model.branch.Brand;
 import com.tyrael.laundry.model.joborder.JobItem;
 import com.tyrael.laundry.model.joborder.JobOrder;
 import com.tyrael.laundry.model.joborder.JobService;
+import com.tyrael.laundry.model.joborder.QJobOrder;
 
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
@@ -34,6 +44,26 @@ public class JobOrderServiceCustomImpl extends TyraelJpaServiceCustomImpl<JobOrd
     implements JobOrderServiceCustom {
 
     private static final Logger LOG = LoggerFactory.getLogger(JobOrderServiceCustomImpl.class);
+
+    @Autowired
+    private BrandService brandService;
+
+    private BooleanExpression addBrandFilter(final BooleanExpression predicate) {
+        if (AuthenticationUtil.isAuthorized(AuthenticationUtil.ROLE_ADMIN)) {
+            return predicate;
+        } else {
+            List<Brand> brands = brandService.findByUserUsername(AuthenticationUtil.getLoggedInUsername());
+            return predicate.and(jobOrder.branch.brand.in(brands));
+        }
+    }
+
+    @Override
+    public PageInfo<JobOrderInfo> pageInfo(Pageable page) {
+        BooleanExpression query = QJobOrder.jobOrder.deleted.isFalse();
+        query = addBrandFilter(query);
+        Page<JobOrder> results = repo.findAll(query, page);
+        return toPageInfo(results);
+    }
 
     @Override
     public JobOrderInfo findByTrackinNoInfo(String trackingNo) {

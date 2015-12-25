@@ -2,6 +2,8 @@ package com.tyrael.laundry.core.service.custom.impl;
 
 import static com.tyrael.laundry.model.customer.QCustomer.customer;
 
+import java.util.List;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,10 +12,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.base.Preconditions;
-import com.mysema.query.types.Predicate;
+import com.mysema.query.types.expr.BooleanExpression;
 import com.tyrael.laundry.commons.dto.PageInfo;
 import com.tyrael.laundry.commons.dto.customer.CustomerInfo;
 import com.tyrael.laundry.commons.service.TyraelJpaServiceCustomImpl;
+import com.tyrael.laundry.commons.util.AuthenticationUtil;
 import com.tyrael.laundry.core.service.BrandService;
 import com.tyrael.laundry.core.service.CustomerService;
 import com.tyrael.laundry.core.service.custom.CustomerServiceCustom;
@@ -35,13 +38,24 @@ public class CustomerServiceCustomImpl
     @Autowired
     private BrandService brandService;
 
+    private BooleanExpression addBrandFilter(final BooleanExpression predicate) {
+        if (AuthenticationUtil.isAuthorized(AuthenticationUtil.ROLE_ADMIN)) {
+            return predicate;
+        } else {
+            List<Brand> brands = brandService.findByUserUsername(AuthenticationUtil.getLoggedInUsername());
+            return predicate.and(customer.brand.in(brands));
+        }
+    }
+
     @Override
     public PageInfo<CustomerInfo> pageInfo(String term, Pageable page) {
         LOG.debug("Searching customers. term={}", term);
 
-        Predicate nameSearch = customer.name.surname.startsWithIgnoreCase(term)
+        BooleanExpression nameSearch = customer.name.surname.startsWithIgnoreCase(term)
             .or(customer.name.surname.startsWithIgnoreCase(term))
             .or(customer.name.middleName.startsWithIgnoreCase(term));
+
+        nameSearch = addBrandFilter(nameSearch).and(customer.deleted.isFalse());
 
         return super.pageInfo(nameSearch, page);
     }

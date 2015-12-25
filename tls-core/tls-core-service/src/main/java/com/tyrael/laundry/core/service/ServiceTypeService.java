@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.tyrael.laundry.commons.service.TyraelJpaService;
 import com.tyrael.laundry.core.service.custom.ServiceTypeServiceCustom;
+import com.tyrael.laundry.model.branch.Brand;
 import com.tyrael.laundry.model.joborder.ServiceType;
 
 /**
@@ -17,5 +18,6 @@ public interface ServiceTypeService extends TyraelJpaService<ServiceType>, Servi
     ServiceType findByCode(String code);
     Page<ServiceType> findByBranchCodeAndEnabled(String branchCode, boolean enabled, Pageable page);
     List<ServiceType> findByBranchCode(String branchCode);
+    Page<ServiceType> findByBranchBrandIn(List<Brand> brands, Pageable page);
 
 }

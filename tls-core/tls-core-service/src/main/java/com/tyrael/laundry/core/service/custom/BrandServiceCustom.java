@@ -16,6 +16,7 @@ public interface BrandServiceCustom extends TyraelJpaServiceCustom<Brand, BrandD
 
     BrandDto findInfoByCode(String brandCode);
     List<Brand> findByUser(User user);
+    List<Brand> findByUserUsername(String username);
     List<BrandDto> findInfoByUserCode(String userCode);
 
 }
