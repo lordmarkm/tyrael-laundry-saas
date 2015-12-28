@@ -59,7 +59,11 @@ define(function () {
     $rootScope.$on('$stateChangeStart', function (event, toState) {
       if (typeof toState.access != 'undefined' && !$scope.isAuthorized(toState.access)) {
         event.preventDefault();
-        $state.go('default.login', {msg: "unauthorized"});
+        $state.go('default.login', {msg: 'unauthorized'});
+      } else if (typeof toState.data != 'undefined' && typeof toState.data.access != 'undefined' && !$scope.isAuthorized(toState.data.access)) {
+        //Also check parentState.data.access
+        event.preventDefault();
+        $state.go('default.login', {msg: 'unauthorized'});
       }
     });
   }];

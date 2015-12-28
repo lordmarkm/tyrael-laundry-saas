@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tyrael.laundry.commons.dto.PageInfo;
 import com.tyrael.laundry.commons.dto.customer.CustomerInfo;
+import com.tyrael.laundry.commons.resource.BaseResource;
 import com.tyrael.laundry.core.service.CustomerService;
 import com.tyrael.laundry.model.customer.Customer;
 

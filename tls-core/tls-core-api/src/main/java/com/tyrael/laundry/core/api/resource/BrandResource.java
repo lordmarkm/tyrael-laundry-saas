@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tyrael.laundry.commons.dto.BrandDto;
+import com.tyrael.laundry.commons.resource.BaseResource;
 import com.tyrael.laundry.core.service.BrandService;
 import com.tyrael.laundry.model.branch.Brand;
 

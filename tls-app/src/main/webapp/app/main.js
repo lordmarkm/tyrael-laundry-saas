@@ -80,7 +80,8 @@ require([
     'user/user.module.js',
     'joborder/joborder.module.js',
     'customer/customer.module.js',
-    'servicetype/servicetype.module.js'
+    'servicetype/servicetype.module.js',
+    'inventory/inventory.module.js'
   ], function (angular) {
   angular.element().ready(function () {
     angular.bootstrap(document, [
@@ -102,7 +103,8 @@ require([
       'user.module',
       'joborder.module',
       'customer.module',
-      'servicetype.module'
+      'servicetype.module',
+      'inventory.module'
     ]);
   });
 });

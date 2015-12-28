@@ -68,3 +68,7 @@ img.carousel {
     content: ' *';
     display:inline;
 }
+
+label.table-label {
+  width: 80px;
+}

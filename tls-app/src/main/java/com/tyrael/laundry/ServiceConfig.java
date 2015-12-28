@@ -9,7 +9,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  *
  */
 @Configuration
-@EnableJpaRepositories(basePackages={"com.tyrael.laundry.core.service"}, repositoryImplementationPostfix = "CustomImpl")
+@EnableJpaRepositories(basePackages = {
+        "com.tyrael.laundry.core.service",
+        "com.tyrael.laundry.pos.service"
+    },
+    repositoryImplementationPostfix = "CustomImpl")
 public class ServiceConfig {
 
 }

@@ -48,6 +48,13 @@ public class CustomerServiceCustomImpl
     }
 
     @Override
+    public PageInfo<CustomerInfo> pageInfo(Pageable page) {
+        BooleanExpression query = customer.deleted.isFalse();
+        query = addBrandFilter(query);
+        return super.pageInfo(query, page);
+    }
+
+    @Override
     public PageInfo<CustomerInfo> pageInfo(String term, Pageable page) {
         LOG.debug("Searching customers. term={}", term);
 

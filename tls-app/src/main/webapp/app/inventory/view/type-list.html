@@ -1,0 +1,64 @@
+<h3 class="page-header">All Inventory Item Types <a ui-sref="default.inv_item_type.add" class="btn btn-default btn-xs">Create New Inventory Item Type</a>
+  <br><small>View inventory item type list</small>
+</h3>
+
+<span ng-click="showFilters = !showFilters" ng-init="showFilters = false" class="btn btn-default btn-xs" style="font-family: monospace;">
+  [{{showFilters ? '-' : '+'}}] Filter
+</span>
+
+<form ng-show="showFilters" ng-submit="doFilter()" class="form-horizontal mt20">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Name filter</label>
+    <div class="col-sm-4">
+      <input type="text" ng-model="namefilter" placeholder="Filter by name" class="form-control" />
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-4 col-sm-push-2">
+      <input type="submit" class="btn btn-primary btn-xs" value="Apply filter" />
+      <span ng-click="clearFilter()" class="btn btn-default btn-xs">Clear filters</span>
+    </div>
+  </div>
+</form>
+
+<table ng-table="tableParams" show-filter="true" class="table table-striped mt20">
+  <thead>
+    <tr>
+      <th>Name
+      <th>Desc
+      <th>Brand
+      <th>Defaults
+      <th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="iit in $data">
+      <td>
+        <a ui-sref="default.inv_item_type.view({invItemTypeCode: iit.code, urlSlug: iit.slug})">{{iit.name}}</a>
+        <br>by {{iit.uom}}
+      </td>
+      <td>{{iit.description}}
+      <td>{{iit.brandName}}
+      <td>
+        <div><label class="table-label">Buy</label> {{iit.defaultBuyingPrice || 0 | currency: '₱'}}</div>
+        <div ng-if="iit.forSale"><label class="table-label">Sell</label> {{iit.defaultSellingPrice || 0 | currency: '₱'}}</div>
+        <div><label class="table-label">Supplier</label> {{iit.defaultSupplierName || 'Not specified'}}</div>
+      </td>
+      <td>
+        <div class="dropdown">
+          <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu-{{$index}}"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Actions
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu-{{$index}}">
+            <li><a ui-sref="default.inv_item_type.update({invItemTypeCode: iit.code, urlSlug: iit.slug})"><i class="fa fa-list fa-fw"></i> <small>Update inventory item type</small></a>
+          </ul>
+        </div>
+      </td>
+    </tr>
+    <tr ng-if="!$data.length">
+      <td colspan="2">No items available</td>
+    </tr>
+  </tbody>
+</table>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tyrael.laundry.commons.dto.PageInfo;
 import com.tyrael.laundry.commons.dto.joborder.JobOrderInfo;
+import com.tyrael.laundry.commons.resource.BaseResource;
 import com.tyrael.laundry.core.service.JobOrderService;
 import com.tyrael.laundry.model.joborder.JobOrder;
 
