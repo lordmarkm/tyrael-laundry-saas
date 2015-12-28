@@ -12,7 +12,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="service in serviceTypes">
-      <td><img src="/app/images/icons/{{service.icon}}" class="img-thirtytwo" />
+      <td><img ng-attr-src="/app/images/icons/{{service.icon}}" class="img-thirtytwo" />
       <td>
         <div>{{service.label}}</div>
         <div>{{service.branchName ? service.branchName + ' (' + service.brandName + ')' : 'Admin default'}}</div>

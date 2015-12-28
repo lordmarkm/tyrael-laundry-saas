@@ -1,5 +1,5 @@
 define(function () {
-  return ['$scope', 'ngTableParams', 'InventoryItemTypeService', function ($scope, ngTableParams, InventoryItemTypeService) {
+  return ['$scope', 'ngTableParams', 'InventoryItemService', function ($ascope, ngTableParams, InventoryItemService) {
 
     //List
     var table = $scope.tableParams = new ngTableParams({
@@ -16,7 +16,7 @@ define(function () {
         } else {
           delete params.$params.term;
         }
-        InventoryItemTypeService.get(params.$params, function(response) {
+        InventoryItemService.get(params.$params, function(response) {
           params.total(response.total);
           $defer.resolve(response.data);
         });

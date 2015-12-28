@@ -16,10 +16,11 @@ define([
    'inventory/resolve/InventoryItemViewResolve',
    'inventory/resolve/InventoryItemUpdateResolve'
 ], function (angular, InventoryItemTypeRootController, InventoryItemTypeListController, InventoryItemTypeViewController, InventoryItemTypeUpdateController,
-    InventoryItemRootController, InventoryItemListController, InventoryItemViewController, InventoryItemUpdateController,
     InventoryItemTypeService,
-    InventoryItemService,
     InventoryItemTypeViewResolve, InventoryItemTypeUpdateResolve,
+
+    InventoryItemRootController, InventoryItemListController, InventoryItemViewController, InventoryItemUpdateController,
+    InventoryItemService,
     InventoryItemViewResolve, InventoryItemUpdateResolve) {
 
   console.debug('Configuring inventory.module');
