@@ -21,17 +21,20 @@ import com.tyrael.laundry.model.branch.Branch;
 public class InventoryItem extends BaseEntity {
 
     @ManyToOne
-    @JoinColumn(name = "item_type_id")
+    @JoinColumn(name = "item_type_id", nullable = false)
     private InventoryItemType itemType;
 
     @ManyToOne
-    @JoinColumn(name = "branch_id")
+    @JoinColumn(name = "branch_id", nullable = false)
     private Branch branch;
 
-    @Column(name = "qty")
+    @Column(name = "code", nullable = false, unique = true)
+    private String code;
+
+    @Column(name = "qty", nullable = false)
     private BigDecimal quantity;
 
-    @Column(name = "buy_price")
+    @Column(name = "buy_price", nullable = false)
     private BigDecimal buyingPrice;
 
     @Column(name = "sell_price")
@@ -40,7 +43,7 @@ public class InventoryItem extends BaseEntity {
     @Column(name = "supplier_name")
     private String supplierName;
 
-    @Column(name = "for_sale")
+    @Column(name = "for_sale", nullable = false)
     @Type(type = "yes_no")
     private boolean forSale;
 
@@ -98,6 +101,14 @@ public class InventoryItem extends BaseEntity {
 
     public void setBranch(Branch branch) {
         this.branch = branch;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
 }

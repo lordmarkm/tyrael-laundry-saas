@@ -37,7 +37,7 @@ public class InventoryItemType extends BaseNamedEntity {
     @Column(name = "uom")
     private String uom;
 
-    @Column(name = "code")
+    @Column(name = "code", nullable = false, unique = true)
     private String code;
 
     public Brand getBrand() {

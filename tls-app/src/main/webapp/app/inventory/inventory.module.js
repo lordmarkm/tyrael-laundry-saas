@@ -7,9 +7,20 @@ define([
    'inventory/service/InventoryItemTypeService',
    'inventory/resolve/InventoryItemTypeViewResolve',
    'inventory/resolve/InventoryItemTypeUpdateResolve',
+
+   'inventory/controller/InventoryItemRootController',
+   'inventory/controller/InventoryItemListController',
+   'inventory/controller/InventoryItemViewController',
+   'inventory/controller/InventoryItemUpdateController',
+   'inventory/service/InventoryItemService',
+   'inventory/resolve/InventoryItemViewResolve',
+   'inventory/resolve/InventoryItemUpdateResolve'
 ], function (angular, InventoryItemTypeRootController, InventoryItemTypeListController, InventoryItemTypeViewController, InventoryItemTypeUpdateController,
+    InventoryItemRootController, InventoryItemListController, InventoryItemViewController, InventoryItemUpdateController,
     InventoryItemTypeService,
-    InventoryItemTypeViewResolve, InventoryItemTypeUpdateResolve) {
+    InventoryItemService,
+    InventoryItemTypeViewResolve, InventoryItemTypeUpdateResolve,
+    InventoryItemViewResolve, InventoryItemUpdateResolve) {
 
   console.debug('Configuring inventory.module');
   angular.module('inventory.module', [])
