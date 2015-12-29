@@ -1,15 +1,21 @@
 package com.tyrael.laundry.core.service.custom.impl;
 
+import static com.tyrael.laundry.model.branch.QBranch.branch;
+
 import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.base.Preconditions;
+import com.mysema.query.types.expr.BooleanExpression;
 import com.tyrael.laundry.commons.dto.BranchDto;
+import com.tyrael.laundry.commons.dto.PageInfo;
 import com.tyrael.laundry.commons.service.TyraelJpaServiceCustomImpl;
+import com.tyrael.laundry.commons.util.AuthenticationUtil;
 import com.tyrael.laundry.core.service.BranchService;
 import com.tyrael.laundry.core.service.BrandService;
 import com.tyrael.laundry.core.service.ServiceTypeService;
@@ -33,6 +39,23 @@ public class BranchServiceCustomImpl
 
     @Autowired
     private ServiceTypeService serviceTypeService;
+
+    private BooleanExpression addBrandFilter(final BooleanExpression predicate) {
+        if (AuthenticationUtil.isAuthorized(AuthenticationUtil.ROLE_ADMIN)) {
+            return predicate;
+        } else {
+            List<Brand> brands = brandService.findByUserUsername(AuthenticationUtil.getLoggedInUsername());
+            return predicate.and(branch.brand.in(brands));
+        }
+    }
+
+    @Override
+    public PageInfo<BranchDto> pageInfo(Pageable page) {
+        BooleanExpression query = branch.deleted.isFalse();
+        query = addBrandFilter(query);
+        Page<Branch> results = repo.findAll(query, page);
+        return toPageInfo(results);
+    }
 
     @Override
     public BranchDto saveInfo(BranchDto dto) {

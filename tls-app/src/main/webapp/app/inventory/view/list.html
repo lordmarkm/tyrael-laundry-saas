@@ -1,0 +1,66 @@
+<h3 class="page-header">All Inventory Items <a ui-sref="default.inv_item.add" class="btn btn-default btn-xs">Create New Inventory Item</a>
+  <br><small>View inventory item list</small>
+</h3>
+
+<span ng-click="showFilters = !showFilters" ng-init="showFilters = false" class="btn btn-default btn-xs" style="font-family: monospace;">
+  [{{showFilters ? '-' : '+'}}] Filter
+</span>
+
+<form ng-show="showFilters" ng-submit="doFilter()" class="form-horizontal mt20">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Name filter</label>
+    <div class="col-sm-4">
+      <input type="text" ng-model="namefilter" placeholder="Filter by name" class="form-control" />
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-4 col-sm-push-2">
+      <input type="submit" class="btn btn-primary btn-xs" value="Apply filter" />
+      <span ng-click="clearFilter()" class="btn btn-default btn-xs">Clear filters</span>
+    </div>
+  </div>
+</form>
+
+<table ng-table="tableParams" show-filter="true" class="table table-striped mt20">
+  <thead>
+    <tr>
+      <th>Item Type Name
+      <th>Quantity Available
+      <th>Location
+      <th>Pricing
+      <th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="inventoryItem in $data">
+      <td>{{inventoryItem.inventoryItemTypeName}}
+      <td>{{inventoryItem.quantity}}
+      <td>
+        {{inventoryItem.branchName}}
+        <br><small class="text-muted">{{inventoryItem.brandName}}</small>
+      </td>
+      <td>
+        <div><label class="table-label">Buy</label> {{inventoryItem.buyingPrice || 0 | currency: '₱'}}</div>
+        <div ng-if="inventoryItem.forSale"><label class="table-label">Sell</label> {{inventoryItem.sellingPrice || 0 | currency: '₱'}}</div>
+        <div><label class="table-label">Supplier</label> {{inventoryItem.supplierName || 'Not specified'}}</div>
+      </td>
+      <td>
+        <div class="dropdown">
+          <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu-{{$index}}"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Actions
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu-{{$index}}">
+            <li ng-if="isAuthorized(['ROLE_ADMIN', 'ROLE_BRAND_MANAGER'])"><a ui-sref="default.inv_item.update({invItemCode: iit.code, urlSlug: inventoryItem.slug})"><i class="fa fa-archive fa-fw"></i> <small>Update inventory item</small></a>
+            <li><a ui-sref="default.inv_item.restock"><i class="fa fa-archive fa-fw"></i> <small>Restock inventory item</small></a></li>
+            <li><a ui-sref="default.inv_item.consume"><i class="fa fa-archive fa-fw"></i> <small>Consume inventory item</small></a></li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+    <tr ng-if="!$data.length">
+      <td colspan="5" align="center">No items available</td>
+    </tr>
+  </tbody>
+</table>

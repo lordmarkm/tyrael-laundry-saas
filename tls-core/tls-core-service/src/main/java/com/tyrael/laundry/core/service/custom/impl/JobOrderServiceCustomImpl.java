@@ -1,10 +1,9 @@
 package com.tyrael.laundry.core.service.custom.impl;
 
-import static com.tyrael.laundry.model.customer.QCustomer.customer;
+import static com.tyrael.laundry.model.joborder.QJobOrder.jobOrder;
 import static com.tyrael.laundry.reference.JobOrderStatus.CANCELLED;
 import static com.tyrael.laundry.reference.JobOrderStatus.CLOSED;
 import static com.tyrael.laundry.reference.JobOrderStatus.PAID_CLAIMED;
-import static com.tyrael.laundry.model.joborder.QJobOrder.jobOrder;
 
 import java.util.List;
 

@@ -1,5 +1,5 @@
 define(function () {
-  return ['$scope', 'ngTableParams', 'InventoryItemService', function ($ascope, ngTableParams, InventoryItemService) {
+  return ['$scope', 'ngTableParams', 'InventoryItemService', function ($scope, ngTableParams, InventoryItemService) {
 
     //List
     var table = $scope.tableParams = new ngTableParams({
@@ -10,7 +10,7 @@ define(function () {
       counts: [2,5,10,25,50,100], //determines pager
       getData: function($defer, params) {
         //search
-        params.$params.sort = 'name,ASC';
+        params.$params.sort = 'itemType.name,ASC';
         if ($scope.namefilter) {
           params.$params.term = $scope.namefilter;
         } else {

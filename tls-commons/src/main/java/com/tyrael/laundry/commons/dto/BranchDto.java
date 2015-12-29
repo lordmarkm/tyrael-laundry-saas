@@ -21,6 +21,8 @@ public class BranchDto extends BaseNamedDto {
      */
     @JsonIgnore
     private BrandDto brand;
+    private String brandName;
+    private String brandCode;
 
     private BigDecimal minimumJobOrderAmount;
     private String code;
@@ -87,6 +89,22 @@ public class BranchDto extends BaseNamedDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    public String getBrandCode() {
+        return brandCode;
+    }
+
+    public void setBrandCode(String brandCode) {
+        this.brandCode = brandCode;
     }
 
 }

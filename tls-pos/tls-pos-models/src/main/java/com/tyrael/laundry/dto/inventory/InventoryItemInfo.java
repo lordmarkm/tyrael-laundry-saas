@@ -11,9 +11,12 @@ import com.tyrael.laundry.commons.dto.BaseDto;
  */
 public class InventoryItemInfo extends BaseDto {
 
+    private String brandName;
+    private String brandCode;
+    private String branchName;
+    private String branchCode;
     private String inventoryItemTypeCode;
     private String inventoryItemTypeName;
-    private String branchCode;
     private String code;
     private BigDecimal quantity;
     private BigDecimal buyingPrice;
@@ -74,6 +77,24 @@ public class InventoryItemInfo extends BaseDto {
     }
     public void setForSale(boolean forSale) {
         this.forSale = forSale;
+    }
+    public String getBrandName() {
+        return brandName;
+    }
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+    public String getBrandCode() {
+        return brandCode;
+    }
+    public void setBrandCode(String brandCode) {
+        this.brandCode = brandCode;
+    }
+    public String getBranchName() {
+        return branchName;
+    }
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
     }
 
 }

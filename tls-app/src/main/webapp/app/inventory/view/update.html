@@ -1,0 +1,56 @@
+<h3 ng-if="inventoryItem.code" class="page-header">Update {{inventoryItem.inventoryItemTypeName}} <br><small>Update inventory item</small></h3>
+<h3 ng-if="!inventoryItem.code" class="page-header">Add new inventory item <br><small>Add new inventory item</small></h3>
+
+<form class="form form-horizontal" name="inventoryItemForm" ng-submit="save(inventoryItemForm.$valid)">
+  <h4 class="page-header">Branch and type assignment</h4>
+  <div class="form-group">
+    <label class="control-label col-sm-2 req">Branch</label>
+    <div class="col-sm-4">
+      <select ng-model="inventoryItem.branchCode" ng-options="branch.code as branch.name + ' (' + branch.brandName + ')' for branch in branches"
+        ng-change="updateItemTypes()"
+        required class="form-control">
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2 req">Type</label>
+    <div class="col-sm-4">
+      <select ng-model="inventoryItem.inventoryItemType" ng-options="inventoryItemType as inventoryItemType.name for inventoryItemType in inventoryItemTypes"
+        ng-change="setInventoryItemTypeProperties(inventoryItem.inventoryItemType)"
+        required class="form-control">
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2 req">Supplier name</label>
+    <div class="col-sm-4">
+      <input type="text" ng-model="inventoryItem.supplierName" required class="form-control" />
+    </div>
+  </div>
+
+  <h4 class="page-header">Pricing</h4>
+  <div class="form-group">
+    <label class="control-label col-sm-2 req">Buying price</label>
+    <div class="col-sm-4">
+      <input type="number" min="0" step="0.01" ng-model="inventoryItem.buyingPrice" required class="form-control" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" ng-class="{req: inventoryItem.forSale}">Selling price</label>
+    <div class="col-sm-4">
+      <input type="number" min="0" step="0.01" ng-model="inventoryItem.sellingPrice" ng-required="inventoryItem.forSale" class="form-control" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">For sale</label>
+    <div class="col-sm-4">
+      <p class="form-control-static"><input type="checkbox" ng-model="inventoryItem.forSale" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-4 col-sm-push-2">
+      <input type="submit" value="{{inventoryItem.code ? 'Update Inventory Item' : 'Create Inventory Item'}}" class="btn btn-primary" />
+    </div>
+  </div>
+</form>

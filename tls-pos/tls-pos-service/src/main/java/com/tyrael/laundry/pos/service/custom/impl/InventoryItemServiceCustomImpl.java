@@ -2,6 +2,7 @@ package com.tyrael.laundry.pos.service.custom.impl;
 
 import static com.tyrael.laundry.model.inventory.QInventoryItem.inventoryItem;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -20,7 +21,9 @@ import com.tyrael.laundry.dto.inventory.InventoryItemInfo;
 import com.tyrael.laundry.model.branch.Branch;
 import com.tyrael.laundry.model.branch.Brand;
 import com.tyrael.laundry.model.inventory.InventoryItem;
+import com.tyrael.laundry.model.inventory.InventoryItemType;
 import com.tyrael.laundry.pos.service.InventoryItemService;
+import com.tyrael.laundry.pos.service.InventoryItemTypeService;
 import com.tyrael.laundry.pos.service.custom.InventoryItemServiceCustom;
 /**
  * 
@@ -37,6 +40,9 @@ public class InventoryItemServiceCustomImpl
 
     @Autowired
     private BranchService branchService;
+
+    @Autowired
+    private InventoryItemTypeService inventoryItemTypeService;
 
     private BooleanExpression addBrandFilter(final BooleanExpression predicate) {
         if (AuthenticationUtil.isAuthorized(AuthenticationUtil.ROLE_ADMIN)) {
@@ -70,10 +76,18 @@ public class InventoryItemServiceCustomImpl
 
             InventoryItem entity = toEntity(dto);
 
-            //Assign the customer to the set brand
+            //Assign the inventory item to the set type
+            InventoryItemType inventoryItemType = inventoryItemTypeService.findByCode(dto.getInventoryItemTypeCode());
+            Preconditions.checkNotNull(inventoryItemType);
+            entity.setItemType(inventoryItemType);
+
+            //Assign the inventory item to the set branch
             Branch branch = branchService.findByCode(dto.getBranchCode());
             Preconditions.checkNotNull(branch);
             entity.setBranch(branch);
+
+            //New inventory items have 0 quantity
+            entity.setQuantity(BigDecimal.ZERO);
 
             return toDto(repo.save(entity));
         } else {

@@ -21,9 +21,11 @@ import com.tyrael.laundry.commons.dto.joborder.JobOrderInfo;
 import com.tyrael.laundry.commons.dto.joborder.ServiceTypeInfo;
 import com.tyrael.laundry.commons.model.BaseEntity;
 import com.tyrael.laundry.converter.EnumInfoConverter;
+import com.tyrael.laundry.dto.inventory.InventoryItemInfo;
 import com.tyrael.laundry.dto.inventory.InventoryItemTypeInfo;
 import com.tyrael.laundry.model.branch.Branch;
 import com.tyrael.laundry.model.customer.Customer;
+import com.tyrael.laundry.model.inventory.InventoryItem;
 import com.tyrael.laundry.model.inventory.InventoryItemType;
 import com.tyrael.laundry.model.joborder.JobItem;
 import com.tyrael.laundry.model.joborder.JobOrder;
@@ -62,14 +64,30 @@ public class MapperConfig {
 
                 mapping(Enum.class, EnumInfo.class)
                     .fields("this", "this", FieldsMappingOptions.customConverter(EnumInfoConverter.class));
+
+                //Branch mapping
                 mapping(BranchDto.class, Branch.class, TypeMappingOptions.oneWay())
                     .exclude("brand");
+                mapping(Branch.class, BranchDto.class, TypeMappingOptions.oneWay())
+                    .fields("brand.name", "brandName")
+                    .fields("brand.code", "brandCode");
+
                 mapping(Customer.class, CustomerInfo.class)
                     .fields("brand.name", "brandName", oneWay())
                     .fields("brand.code", "brandCode", oneWay());
+
+                //Inventory mapping
                 mapping(InventoryItemType.class, InventoryItemTypeInfo.class)
                     .fields("brand.name", "brandName", oneWay())
                     .fields("brand.code", "brandCode", oneWay());
+                mapping(InventoryItem.class, InventoryItemInfo.class, TypeMappingOptions.oneWay())
+                    .fields("branch.brand.name", "brandName")
+                    .fields("branch.brand.code", "brandCode")
+                    .fields("branch.name", "branchName")
+                    .fields("branch.code", "branchCode")
+                    .fields("itemType.name", "inventoryItemTypeName")
+                    .fields("itemType.code", "inventoryItemTypeCode");
+
                 mapping(JobItem.class, JobItemInfo.class)
                     .fields("jobItemType.iconPath", "iconPath", oneWay());
                 mapping(ServiceType.class, ServiceTypeInfo.class)

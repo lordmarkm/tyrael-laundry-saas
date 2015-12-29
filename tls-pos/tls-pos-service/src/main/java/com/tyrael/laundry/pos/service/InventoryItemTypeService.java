@@ -1,5 +1,7 @@
 package com.tyrael.laundry.pos.service;
 
+import java.util.List;
+
 import com.tyrael.laundry.commons.service.TyraelJpaService;
 import com.tyrael.laundry.model.inventory.InventoryItemType;
 import com.tyrael.laundry.pos.service.custom.InventoryItemTypeServiceCustom;
@@ -13,5 +15,6 @@ public interface InventoryItemTypeService extends InventoryItemTypeServiceCustom
     TyraelJpaService<InventoryItemType> {
 
     InventoryItemType findByCode(String candidateCode);
+    List<InventoryItemType> findByBrandCode(String brandCode);
 
 }

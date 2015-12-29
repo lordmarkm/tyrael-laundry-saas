@@ -1,5 +1,7 @@
 package com.tyrael.laundry.pos.service.custom.impl;
 
+import static com.tyrael.laundry.model.inventory.QInventoryItemType.inventoryItemType;
+
 import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -12,13 +14,14 @@ import com.mysema.query.types.expr.BooleanExpression;
 import com.tyrael.laundry.commons.dto.PageInfo;
 import com.tyrael.laundry.commons.service.TyraelJpaServiceCustomImpl;
 import com.tyrael.laundry.commons.util.AuthenticationUtil;
+import com.tyrael.laundry.core.service.BranchService;
 import com.tyrael.laundry.core.service.BrandService;
 import com.tyrael.laundry.dto.inventory.InventoryItemTypeInfo;
+import com.tyrael.laundry.model.branch.Branch;
 import com.tyrael.laundry.model.branch.Brand;
 import com.tyrael.laundry.model.inventory.InventoryItemType;
 import com.tyrael.laundry.pos.service.InventoryItemTypeService;
 import com.tyrael.laundry.pos.service.custom.InventoryItemTypeServiceCustom;
-import static com.tyrael.laundry.model.inventory.QInventoryItemType.inventoryItemType;
 /**
  * 
  * @author Mark Martinez, create Dec 26, 2015
@@ -31,6 +34,9 @@ public class InventoryItemTypeServiceCustomImpl
 
     @Autowired
     private BrandService brandService;
+
+    @Autowired
+    private BranchService branchService;
 
     private BooleanExpression addBrandFilter(final BooleanExpression predicate) {
         if (AuthenticationUtil.isAuthorized(AuthenticationUtil.ROLE_ADMIN)) {
@@ -59,12 +65,12 @@ public class InventoryItemTypeServiceCustomImpl
                 existing = repo.findByCode(candidateCode);
             } while (null != existing);
     
-            //Use the generated code as default customer code
+            //Use the generated code as default type code
             dto.setCode(candidateCode);
 
             InventoryItemType entity = toEntity(dto);
 
-            //Assign the customer to the set brand
+            //Assign the type to the set brand
             Brand brand = brandService.findByCode(dto.getBrandCode());
             Preconditions.checkNotNull(brand);
             entity.setBrand(brand);
@@ -88,6 +94,18 @@ public class InventoryItemTypeServiceCustomImpl
     @Override
     public InventoryItemTypeInfo findInfoByCode(String invItemTypeCode) {
         return toDto(repo.findByCode(invItemTypeCode));
+    }
+
+    @Override
+    public List<InventoryItemTypeInfo> findInfoByBrandCode(String brandCode) {
+        return toDto(repo.findByBrandCode(brandCode));
+    }
+
+    @Override
+    public List<InventoryItemTypeInfo> findInfoByBranchCode(String branchCode) {
+        Branch branch = branchService.findByCode(branchCode);
+        Preconditions.checkNotNull(branch);
+        return findInfoByBrandCode(branch.getBrand().getCode());
     }
 
 }

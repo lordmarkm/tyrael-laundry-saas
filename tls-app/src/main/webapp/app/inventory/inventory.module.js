@@ -25,10 +25,28 @@ define([
 
   console.debug('Configuring inventory.module');
   angular.module('inventory.module', [])
+    .service('InventoryItemService', InventoryItemService)
     .service('InventoryItemTypeService', InventoryItemTypeService)
     .config(['$stateProvider', function ($stateProvider) {
 
-      $stateProvider.state('default.inv_item_type', {
+      $stateProvider.state('default.inv_item', {
+        url: 'inv-item',
+        template: '<ui-view></ui-view>',
+        controller: InventoryItemRootController,
+        abstract: true
+      })
+      .state('default.inv_item.list', {
+        url: '',
+        templateUrl: 'inventory/view/list.html',
+        controller: InventoryItemListController
+      })
+      .state('default.inv_item.add', {
+        url: '/add',
+        templateUrl: 'inventory/view/update.html',
+        controller: InventoryItemUpdateController,
+        resolve: InventoryItemUpdateResolve
+      })
+      .state('default.inv_item_type', {
         url: 'inv-item-type',
         template: '<ui-view></ui-view>',
         controller: InventoryItemTypeRootController,

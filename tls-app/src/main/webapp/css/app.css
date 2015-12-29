@@ -36,6 +36,7 @@ img.carousel {
 }
 
 .mt20 {margin-top: 20px;}
+.mt50 {margin-top: 50px;}
 .mb20 {margin-bottom: 20px;}
 
 .img-thumbnail {
@@ -44,6 +45,16 @@ img.carousel {
   width: 64px;
   height: 64px;
 }
+
+.img-maxonehundred {
+  max-height: 100px;
+  max-width: 100px;
+}
+.img-maxtwohundred {
+  max-height: 200px;
+  max-width: 200px;
+}
+
 .img-thirtytwo {
   max-height: 32px;
   max-width: 32px;

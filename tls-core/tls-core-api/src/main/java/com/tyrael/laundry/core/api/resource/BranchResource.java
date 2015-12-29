@@ -22,16 +22,17 @@ import com.tyrael.laundry.model.branch.Branch;
  *
  */
 @RestController
-@RequestMapping("/branch/{brandCode}")
+@RequestMapping("/branch")
 public class BranchResource extends BaseResource<Branch, BranchDto, BranchService> {
 
-    @RequestMapping(method = GET, params = "branchCode")
+    @RequestMapping(value = "/{brandCode}", method = GET, params = "branchCode")
     public ResponseEntity<BranchDto> findByBrandCodeAndCode(@PathVariable String brandCode, @RequestParam String branchCode) {
         return new ResponseEntity<>(service.findInfoByBrandCodeAndCode(brandCode, branchCode), OK);
     }
 
-    @RequestMapping(method = GET, params = "byBrandCode")
+    @RequestMapping(value = "/{brandCode}", method = GET, params = "byBrandCode")
     public ResponseEntity<List<BranchDto>> findByBrandCode(@PathVariable String brandCode, @RequestParam boolean byBrandCode) {
         return new ResponseEntity<>(service.findInfoByBrandCode(brandCode), OK);
     }
+
 }
