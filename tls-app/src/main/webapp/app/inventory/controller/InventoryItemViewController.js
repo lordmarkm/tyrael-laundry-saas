@@ -1,5 +1,5 @@
 define(function () {
-  return ['$scope', 'inventoryItemType', function ($scope, inventoryItemType) {
-    $scope.inventoryItemType = inventoryItemType;
+  return ['$scope', 'inventoryItem', function ($scope, inventoryItem) {
+    $scope.inventoryItem = inventoryItem;
   }];
 });

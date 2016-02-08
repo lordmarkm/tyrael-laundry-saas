@@ -15,7 +15,8 @@
   <div class="form-group">
     <label class="control-label col-sm-2 req">Type</label>
     <div class="col-sm-4">
-      <select ng-model="inventoryItem.inventoryItemType" ng-options="inventoryItemType as inventoryItemType.name for inventoryItemType in inventoryItemTypes"
+      <select ng-model="inventoryItem.inventoryItemType"
+        ng-options="inventoryItemType as inventoryItemType.name for inventoryItemType in inventoryItemTypes track by inventoryItemType.code"
         ng-change="setInventoryItemTypeProperties(inventoryItem.inventoryItemType)"
         required class="form-control">
       </select>

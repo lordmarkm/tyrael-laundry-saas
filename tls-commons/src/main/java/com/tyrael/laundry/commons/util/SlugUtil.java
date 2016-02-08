@@ -2,6 +2,7 @@ package com.tyrael.laundry.commons.util;
 
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
@@ -29,4 +30,17 @@ public class SlugUtil {
       return slug.toLowerCase(Locale.ENGLISH);
     }
 
+    public static String toSlug(final String... inputs) {
+        if (inputs.length < 1) {
+            return NO_NAME;
+        }
+        StringBuilder compundSlug = new StringBuilder();
+        for (int i = 0; i < inputs.length; i++) {
+            if (i > 0) {
+                compundSlug.append("-");
+            }
+            compundSlug.append(toSlug(inputs[i]));
+        }
+        return compundSlug.toString();
+    }
 }

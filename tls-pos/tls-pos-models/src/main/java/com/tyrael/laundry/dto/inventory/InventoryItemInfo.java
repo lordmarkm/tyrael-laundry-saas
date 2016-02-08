@@ -3,6 +3,7 @@ package com.tyrael.laundry.dto.inventory;
 import java.math.BigDecimal;
 
 import com.tyrael.laundry.commons.dto.BaseDto;
+import com.tyrael.laundry.commons.util.SlugUtil;
 
 /**
  * 
@@ -23,6 +24,10 @@ public class InventoryItemInfo extends BaseDto {
     private BigDecimal sellingPrice;
     private String supplierName;
     private boolean forSale;
+
+    public String getSlug() {
+        return SlugUtil.toSlug(inventoryItemTypeName, code);
+    }
 
     public String getInventoryItemTypeCode() {
         return inventoryItemTypeCode;

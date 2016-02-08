@@ -52,7 +52,8 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu-{{$index}}">
-            <li ng-if="isAuthorized(['ROLE_ADMIN', 'ROLE_BRAND_MANAGER'])"><a ui-sref="default.inv_item.update({invItemCode: iit.code, urlSlug: inventoryItem.slug})"><i class="fa fa-archive fa-fw"></i> <small>Update inventory item</small></a>
+            <li><a ui-sref="default.inv_item.view({invItemCode: inventoryItem.code, urlSlug: inventoryItem.slug})"><i class="fa fa-list fa-fw"></i> <small>View item details</small></a></li>
+            <li ng-if="isAuthorized(['ROLE_ADMIN', 'ROLE_BRAND_MANAGER'])"><a ui-sref="default.inv_item.update({invItemCode: inventoryItem.code, urlSlug: inventoryItem.slug})"><i class="fa fa-archive fa-fw"></i> <small>Update inventory item</small></a>
             <li><a ui-sref="default.inv_item.restock"><i class="fa fa-archive fa-fw"></i> <small>Restock inventory item</small></a></li>
             <li><a ui-sref="default.inv_item.consume"><i class="fa fa-archive fa-fw"></i> <small>Consume inventory item</small></a></li>
           </ul>

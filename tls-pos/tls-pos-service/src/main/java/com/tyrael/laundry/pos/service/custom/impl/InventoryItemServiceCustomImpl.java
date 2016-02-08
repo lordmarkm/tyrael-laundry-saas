@@ -63,7 +63,7 @@ public class InventoryItemServiceCustomImpl
     @Override
     public InventoryItemInfo saveInfo(InventoryItemInfo dto) {
         if (null == dto.getCode()) {
-            //CREATE operation, Generate random candidate brand codes until we find a unique one
+            //CREATE operation, Generate random candidate item codes until we find a unique one
             InventoryItem existing = null;
             String candidateCode;
             do {
@@ -96,10 +96,15 @@ public class InventoryItemServiceCustomImpl
             Preconditions.checkNotNull(existing);
             mapper.map(dto, existing);
 
-            //Assign the customer to the set brand
+            //Assign the item to the set branch
             Branch branch = branchService.findByCode(dto.getBranchCode());
             Preconditions.checkNotNull(branch);
             existing.setBranch(branch);
+
+            //Assign the inventory item to the set type
+            InventoryItemType inventoryItemType = inventoryItemTypeService.findByCode(dto.getInventoryItemTypeCode());
+            Preconditions.checkNotNull(inventoryItemType);
+            existing.setItemType(inventoryItemType);
 
             return toDto(existing);
         }

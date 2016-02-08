@@ -40,8 +40,20 @@ define([
         templateUrl: 'inventory/view/list.html',
         controller: InventoryItemListController
       })
+      .state('default.inv_item.view', {
+        url: '/{invItemCode}/{urlSlug}',
+        templateUrl: 'inventory/view/view.html',
+        controller: InventoryItemViewController,
+        resolve: InventoryItemViewResolve
+      })
       .state('default.inv_item.add', {
         url: '/add',
+        templateUrl: 'inventory/view/update.html',
+        controller: InventoryItemUpdateController,
+        resolve: InventoryItemUpdateResolve
+      })
+      .state('default.inv_item.update', {
+        url: '/update/{invItemCode}/{urlSlug}',
         templateUrl: 'inventory/view/update.html',
         controller: InventoryItemUpdateController,
         resolve: InventoryItemUpdateResolve

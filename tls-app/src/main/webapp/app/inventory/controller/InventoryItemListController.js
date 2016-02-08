@@ -10,7 +10,7 @@ define(function () {
       counts: [2,5,10,25,50,100], //determines pager
       getData: function($defer, params) {
         //search
-        params.$params.sort = 'itemType.name,ASC';
+        params.$params.sort = 'dateUpdated,DESC';
         if ($scope.namefilter) {
           params.$params.term = $scope.namefilter;
         } else {

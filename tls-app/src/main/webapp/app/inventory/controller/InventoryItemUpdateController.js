@@ -10,8 +10,15 @@ define(function () {
 
     if (!inventoryItem.branchCode && angular.isArray(branches) && branches.length) {
       inventoryItem.branchCode = branches[0].code;
-      $scope.updateItemTypes();
+    } else {
+      //Fool the ng-select into setting the correct inv item type
+      inventoryItem.inventoryItemType = {
+          code: inventoryItem.inventoryItemTypeCode
+      }
     }
+
+    //Load item types on init
+    $scope.updateItemTypes();
 
     $scope.setInventoryItemTypeProperties = function (iit) {
       $scope.inventoryItem.inventoryItemTypeCode = iit.code;
@@ -32,6 +39,7 @@ define(function () {
         toaster.pop('error', 'Invalid submit', 'Inventory item form is invalid');
       }
       InventoryItemService.save($scope.inventoryItem, function (saved) {
+        toaster.pop('success', 'Update successful', saved.inventoryItemTypeName + ' successfully updated');
         $state.go('default.inv_item.view', {invItemCode: saved.code, urlSlug: saved.slug});
       });
     };
