@@ -1,0 +1,29 @@
+<h3 class="page-header">
+  <strong>{{inventoryItem.inventoryItemTypeName}}</strong> <span>({{inventoryItem.code}})</span>
+  <br><small>View Inventory Item Details</small>
+</h3>
+
+<dl class="dl-horizontal">
+  <dt>Date created
+  <dd>{{inventoryItem.dateCreated | date}}
+</dl>
+
+<h4 class="page-header">Item Details</h4>
+<dl class="dl-horizontal">
+  <dt>Item Type
+  <dd>{{inventoryItem.inventoryItemTypeName}}
+  <dt>Supplier
+  <dd>{{inventoryItem.supplierName || 'Not specified'}}
+  <dt>For Sale?
+  <dd>{{inventoryItem.forSale ? 'Yes' : 'No'}}
+</dl>
+
+<h4 class="page-header">Inventory Details</h4>
+<dl class="dl-horizontal">
+  <dt>Quantity Available
+  <dd>{{inventoryItem.quantity}}
+  <dt>Buying Price
+  <dd>{{inventoryItem.buyingPrice || 'Not specified'}}
+  <dt ng-if="inventoryItem.forSale">Selling price
+  <dd>{{inventoryItem.sellingPrice || 'Not specified'}}
+</dl>

@@ -1,0 +1,22 @@
+<div class="modal-header modal-primary">
+  <button type="button" class="close" ng-click="cancel()">&times;</button>
+  <h3 class="modal-title">Restock {{inventoryItem.inventoryItemTypeName}}</h3>
+</div>
+<div class="modal-body">
+  <div class="row">
+  <div class="col-sm-12">
+  <form name="restockForm" class="form-horizontal">
+    <div class="form-group col-sm-12">
+      <label class="col-sm-4 control-label req">Quantity</label>
+      <div class="col-sm-8">
+        <input type="number" min="0.1" step="0.1" ng-model="restock.quantity" class="form-control" required>
+      </div>
+    </div>
+  </form>
+  </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary btn-s-xs" ng-click="proceed()" ng-disabled="restockForm.$invalid">OK</button>
+  <button class="btn btn-default btn-s-xs" ng-click="cancel()">Cancel</button>
+</div>
