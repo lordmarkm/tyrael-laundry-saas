@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,7 @@ import com.mysema.query.types.expr.BooleanExpression;
 import com.tyrael.laundry.commons.dto.PageInfo;
 import com.tyrael.laundry.commons.service.TyraelJpaServiceCustomImpl;
 import com.tyrael.laundry.commons.util.AuthenticationUtil;
+import com.tyrael.laundry.commons.util.MathUtil;
 import com.tyrael.laundry.core.service.BranchService;
 import com.tyrael.laundry.core.service.BrandService;
 import com.tyrael.laundry.dto.inventory.InventoryItemInfo;
@@ -34,6 +37,9 @@ import com.tyrael.laundry.pos.service.custom.InventoryItemServiceCustom;
 public class InventoryItemServiceCustomImpl
     extends TyraelJpaServiceCustomImpl<InventoryItem, InventoryItemInfo, InventoryItemService> 
     implements InventoryItemServiceCustom {
+
+    private static Logger LOG = LoggerFactory.getLogger(InventoryItemServiceCustomImpl.class);
+    private static final BigDecimal STEP = new BigDecimal(0.01);
 
     @Autowired
     private BrandService brandService;
@@ -115,4 +121,34 @@ public class InventoryItemServiceCustomImpl
         return toDto(repo.findByCode(invItemCode));
     }
 
+    @Override
+    public InventoryItemInfo restock(String invItemCode, BigDecimal quantity) {
+        //Can't restock less than minimum
+        Preconditions.checkArgument(MathUtil.gt(quantity, STEP));
+
+        //Item is not null
+        InventoryItem invItem = repo.findByCode(invItemCode);
+        Preconditions.checkNotNull(invItem);
+
+        invItem.setQuantity(invItem.getQuantity().add(quantity));
+
+        return toDto(invItem);
+    }
+
+    @Override
+    public InventoryItemInfo consume(String invItemCode, BigDecimal quantity) {
+        //Can't restock less than minimum
+        Preconditions.checkArgument(MathUtil.gt(quantity, STEP));
+
+        //Item is not null
+        InventoryItem invItem = repo.findByCode(invItemCode);
+        Preconditions.checkNotNull(invItem);
+
+        //Can't consume more than current qty
+        Preconditions.checkArgument(MathUtil.gte(invItem.getQuantity(), quantity));
+
+        invItem.setQuantity(invItem.getQuantity().subtract(quantity));
+
+        return toDto(invItem);
+    }
 }
