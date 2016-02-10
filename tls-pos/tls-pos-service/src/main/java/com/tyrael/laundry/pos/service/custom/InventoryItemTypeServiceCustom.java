@@ -12,7 +12,7 @@ import com.tyrael.laundry.model.inventory.InventoryItemType;
  *
  */
 public interface InventoryItemTypeServiceCustom 
-    extends TyraelJpaServiceCustom<InventoryItemType, InventoryItemTypeInfo>{
+    extends TyraelJpaServiceCustom<InventoryItemType, InventoryItemTypeInfo> {
 
     InventoryItemTypeInfo findInfoByCode(String invItemTypeCode);
     List<InventoryItemTypeInfo> findInfoByBrandCode(String brandCode);

@@ -12,16 +12,22 @@
         <li class="active"><a href="#">Home</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Contact</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+        <li ng-if="isAuthorized('ROLE_POS')" class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-shopping-cart"></i> Shopping Cart &nbsp;
+            <span ng-if="shoppingCart.items.length" class="label label-success">{{shoppingCart.items.length}}</span>
+            <span class="caret"></span>
+          </a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">Admins and POS</li>
-            <li><a href="#">Separated link</a></li>
-            <li><a href="#">One more separated link</a></li>
+            <li ng-if="shoppingCart.items.length" class="dropdown-header">Cart items (click to remove)</li>
+            <li ng-if="!shoppingCart.items.length" class="dropdown-header">No items in cart</li>
+            <li ng-repeat="cartItem in shoppingCart.items">
+              <a href="javascript:;" ng-click="shoppingCart.removeItem($index)">{{cartItem.inventoryItem.inventoryItemTypeName}} {{cartItem.quantity}}</a>
+            </li>
+            <li ng-if="shoppingCart.items.length" role="separator" class="divider"></li>
+            <li ng-if="shoppingCart.items.length" class="dropdown-header">Shopping cart actions</li>
+            <li ng-if="shoppingCart.items.length"><a ui-sref="default.checkout">Checkout</a></li>
+            <li ng-if="shoppingCart.items.length"><a href="javascript:;" ng-click="shoppingCart.clearCart()">Clear cart</a></li>
           </ul>
         </li>
       </ul>    

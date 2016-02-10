@@ -14,19 +14,24 @@ define([
    'inventory/controller/InventoryItemUpdateController',
    'inventory/service/InventoryItemService',
    'inventory/resolve/InventoryItemViewResolve',
-   'inventory/resolve/InventoryItemUpdateResolve'
+   'inventory/resolve/InventoryItemUpdateResolve',
+   'inventory/service/ShoppingCartService',
+   'inventory/controller/CheckoutController'
 ], function (angular, InventoryItemTypeRootController, InventoryItemTypeListController, InventoryItemTypeViewController, InventoryItemTypeUpdateController,
     InventoryItemTypeService,
     InventoryItemTypeViewResolve, InventoryItemTypeUpdateResolve,
 
     InventoryItemRootController, InventoryItemListController, InventoryItemViewController, InventoryItemUpdateController,
     InventoryItemService,
-    InventoryItemViewResolve, InventoryItemUpdateResolve) {
+    InventoryItemViewResolve, InventoryItemUpdateResolve,
+
+    ShoppingCartService, CheckoutController) {
 
   console.debug('Configuring inventory.module');
   angular.module('inventory.module', [])
     .service('InventoryItemService', InventoryItemService)
     .service('InventoryItemTypeService', InventoryItemTypeService)
+    .service('ShoppingCartService', ShoppingCartService)
     .config(['$stateProvider', function ($stateProvider) {
 
       $stateProvider.state('default.inv_item', {
@@ -89,6 +94,12 @@ define([
         templateUrl: 'inventory/view/type-view.html',
         controller: InventoryItemTypeViewController,
         resolve: InventoryItemTypeViewResolve
+      })
+
+      .state('default.checkout', {
+        url: 'checkout',
+        templateUrl: 'inventory/view/checkout.html',
+        controller: CheckoutController
       });
     }]);
 

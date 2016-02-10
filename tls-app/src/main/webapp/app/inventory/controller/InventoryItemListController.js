@@ -1,6 +1,6 @@
 define(function () {
-  return ['$scope', '$modal', 'ngTableParams', 'toaster', 'InventoryItemService',
-          function ($scope, $modal, ngTableParams, toaster, InventoryItemService) {
+  return ['$scope', '$modal', 'ngTableParams', 'toaster', 'InventoryItemService', 'ShoppingCartService',
+          function ($scope, $modal, ngTableParams, toaster, InventoryItemService, ShoppingCartService) {
 
     //List
     var table = $scope.tableParams = new ngTableParams({
@@ -86,7 +86,7 @@ define(function () {
         resolve: {
         }
       });
-    };
+    }
 
     $scope.consume = function (inventoryItem) {
       showConsumeModal(inventoryItem).result.then(function (consumeQuantity) {
@@ -95,6 +95,35 @@ define(function () {
             toaster.pop('success', 'Consume successful', 'Sucessfully consumed ' + inventoryItem.inventoryItemTypeName + ' by ' + consumeQuantity);
             inventoryItem.quantity = saved.quantity;
           });
+        }
+      });
+    };
+
+    //Add items to cart
+    function showAddToCartModal(inventoryItem) {
+      return $modal.open({
+        templateUrl: 'inventory/view/modal-add-to-cart.html',
+        background: 'static',
+        controller: ['$scope', '$modalInstance', function ($modalScope, $modalInstance) {
+          $modalScope.addToCartQuantity = 0;
+          $modalScope.inventoryItem = inventoryItem;
+          $modalScope.proceed = function () {
+            $modalInstance.close($modalScope.addToCartQuantity);
+          };
+          $modalScope.cancel = function () {
+            $modalInstance.close(false);
+          };
+        }],
+        resolve: {
+        }
+      });
+    }
+
+    $scope.addToCart = function (inventoryItem) {
+      showAddToCartModal(inventoryItem).result.then(function (addToCartQuantity) {
+        if (addToCartQuantity) {
+          toaster.pop('success', 'Add to cart successful', 'Successfully added ' + addToCartQuantity + ' of ' + inventoryItem.inventoryItemTypeName + ' to shopping cart');
+          ShoppingCartService.add(inventoryItem, addToCartQuantity);
         }
       });
     };

@@ -1,6 +1,7 @@
 define(function () {
-  return ['$scope', '$rootScope', '$state', 'AuthenticationService', function ($scope, $rootScope, $state, AuthenticationService) {
+  return ['$scope', '$rootScope', '$state', 'AuthenticationService', 'ShoppingCartService', function ($scope, $rootScope, $state, AuthenticationService, shoppingCart) {
     $scope.contextPath = 'laundry';
+    $scope.shoppingCart = shoppingCart;
     $scope.isAuthorized = function (permission) {
       if (!$scope.principal) {
         return false;
