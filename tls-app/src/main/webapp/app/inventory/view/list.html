@@ -1,4 +1,4 @@
-<h3 class="page-header">All Inventory Items <a ui-sref="default.inv_item.add" class="btn btn-default btn-xs">Create New Inventory Item</a>
+<h3 class="page-header">All Inventory Items <a ui-sref="default.inv_item.add"  ng-if="isAuthorized(['ROLE_ADMIN', 'ROLE_BRAND_MANAGER'])" class="btn btn-default btn-xs">Create New Inventory Item</a>
   <br><small>View inventory item list</small>
 </h3>
 

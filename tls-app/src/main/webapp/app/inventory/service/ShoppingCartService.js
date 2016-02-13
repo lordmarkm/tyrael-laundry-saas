@@ -16,6 +16,9 @@ define(function () {
       }
       this.items = [];
     };
+    this.onCheckout = function () {
+      this.items = [];
+    };
     this.totalPrice = function () {
       return 10;
     };

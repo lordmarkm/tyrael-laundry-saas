@@ -14,4 +14,21 @@
 
 <h4 class="page-header">Items</h4>
 
-{{salesHeader}}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Type
+      <th>Per item amount
+      <th>Quantity
+      <th>Line item amount
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in salesHeader.items">
+      <td>{{item.inventoryItemName}}
+      <td>{{item.pricePerItem | currency: '₱'}}
+      <td>{{item.quantity}}
+      <td>{{item.amount | currency: '₱'}}
+    </tr>
+  </tbody>
+</table>

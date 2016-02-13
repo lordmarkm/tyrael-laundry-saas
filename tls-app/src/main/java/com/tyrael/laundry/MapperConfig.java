@@ -90,7 +90,8 @@ public class MapperConfig {
                     .fields("itemType.name", "inventoryItemTypeName")
                     .fields("itemType.code", "inventoryItemTypeCode");
                 mapping(SalesItemInfo.class, SalesItem.class, TypeMappingOptions.oneWay())
-                    .fields("inventoryItem.inventoryItemTypeName", "inventoryItemName");
+                    .fields("inventoryItem.inventoryItemTypeName", "inventoryItemName")
+                    .fields("inventoryItem.sellingPrice", "pricePerItem");
 
                 mapping(JobItem.class, JobItemInfo.class)
                     .fields("jobItemType.iconPath", "iconPath", oneWay());

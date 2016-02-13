@@ -31,6 +31,9 @@ public class SalesItem extends BaseEntity {
     @Column(name = "inv_item_name")
     private String inventoryItemName;
 
+    @Column(name = "price_per_item")
+    private BigDecimal pricePerItem;
+
     @Column(name = "qty", nullable = false)
     private BigDecimal quantity;
 
@@ -75,6 +78,14 @@ public class SalesItem extends BaseEntity {
 
     public void setInventoryItemName(String inventoryItemName) {
         this.inventoryItemName = inventoryItemName;
+    }
+
+    public BigDecimal getPricePerItem() {
+        return pricePerItem;
+    }
+
+    public void setPricePerItem(BigDecimal pricePerItem) {
+        this.pricePerItem = pricePerItem;
     }
 
 }
