@@ -16,7 +16,11 @@ define([
    'inventory/resolve/InventoryItemViewResolve',
    'inventory/resolve/InventoryItemUpdateResolve',
    'inventory/service/ShoppingCartService',
-   'inventory/controller/CheckoutController'
+   'inventory/controller/CheckoutController',
+   'inventory/service/SalesHeaderService',
+
+   'inventory/controller/SalesHeaderViewController',
+   'inventory/resolve/SalesHeaderViewResolve'
 ], function (angular, InventoryItemTypeRootController, InventoryItemTypeListController, InventoryItemTypeViewController, InventoryItemTypeUpdateController,
     InventoryItemTypeService,
     InventoryItemTypeViewResolve, InventoryItemTypeUpdateResolve,
@@ -25,13 +29,16 @@ define([
     InventoryItemService,
     InventoryItemViewResolve, InventoryItemUpdateResolve,
 
-    ShoppingCartService, CheckoutController) {
+    ShoppingCartService, CheckoutController, SalesHeaderService,
+
+    SalesHeaderViewController, SalesHeaderViewResolve) {
 
   console.debug('Configuring inventory.module');
   angular.module('inventory.module', [])
     .service('InventoryItemService', InventoryItemService)
     .service('InventoryItemTypeService', InventoryItemTypeService)
     .service('ShoppingCartService', ShoppingCartService)
+    .service('SalesHeaderService', SalesHeaderService)
     .config(['$stateProvider', function ($stateProvider) {
 
       $stateProvider.state('default.inv_item', {
@@ -96,10 +103,24 @@ define([
         resolve: InventoryItemTypeViewResolve
       })
 
+      //checkout shopping cart
       .state('default.checkout', {
         url: 'checkout',
         templateUrl: 'inventory/view/checkout.html',
         controller: CheckoutController
+      })
+
+      //view sale
+      .state('default.sales_header', {
+        url: 'sales-header',
+        template: '<ui-view></ui-view>',
+        abstract: true
+      })
+      .state('default.sales_header.view', {
+        url: '/{id}',
+        templateUrl: 'inventory/view/sales-header-view.html',
+        controller: SalesHeaderViewController,
+        resolve: SalesHeaderViewResolve
       });
     }]);
 

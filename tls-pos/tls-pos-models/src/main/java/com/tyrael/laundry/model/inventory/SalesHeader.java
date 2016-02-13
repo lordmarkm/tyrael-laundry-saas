@@ -29,7 +29,7 @@ public class SalesHeader extends BaseEntity {
     private Branch branch;
 
     @OneToMany(mappedBy = "salesHeader", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SalesItem> salesItems;
+    private List<SalesItem> items;
 
     public BigDecimal getTotalAmountPaid() {
         return totalAmountPaid;
@@ -47,12 +47,13 @@ public class SalesHeader extends BaseEntity {
         this.branch = branch;
     }
 
-    public List<SalesItem> getSalesItems() {
-        return salesItems;
+    public List<SalesItem> getItems() {
+        return items;
     }
 
-    public void setSalesItems(List<SalesItem> salesItems) {
-        this.salesItems = salesItems;
+    public void setItems(List<SalesItem> items) {
+        this.items = items;
     }
+
 
 }

@@ -1,6 +1,6 @@
 define(function () {
-  return ['$scope', '$modal', 'ngTableParams', 'toaster', 'InventoryItemService', 'ShoppingCartService',
-          function ($scope, $modal, ngTableParams, toaster, InventoryItemService, ShoppingCartService) {
+  return ['$scope', '$state', '$modal', 'ngTableParams', 'toaster', 'InventoryItemService', 'ShoppingCartService',
+          function ($scope, $state, $modal, ngTableParams, toaster, InventoryItemService, ShoppingCartService) {
 
     //List
     var table = $scope.tableParams = new ngTableParams({
@@ -107,8 +107,8 @@ define(function () {
         controller: ['$scope', '$modalInstance', function ($modalScope, $modalInstance) {
           $modalScope.addToCartQuantity = 0;
           $modalScope.inventoryItem = inventoryItem;
-          $modalScope.proceed = function () {
-            $modalInstance.close($modalScope.addToCartQuantity);
+          $modalScope.proceed = function (checkout) {
+            $modalInstance.close({qty: $modalScope.addToCartQuantity, checkout: checkout});
           };
           $modalScope.cancel = function () {
             $modalInstance.close(false);
@@ -120,10 +120,14 @@ define(function () {
     }
 
     $scope.addToCart = function (inventoryItem) {
-      showAddToCartModal(inventoryItem).result.then(function (addToCartQuantity) {
+      showAddToCartModal(inventoryItem).result.then(function (addToCartResult) {
+        var addToCartQuantity = addToCartResult.qty;
         if (addToCartQuantity) {
           toaster.pop('success', 'Add to cart successful', 'Successfully added ' + addToCartQuantity + ' of ' + inventoryItem.inventoryItemTypeName + ' to shopping cart');
           ShoppingCartService.add(inventoryItem, addToCartQuantity);
+          if (addToCartResult.checkout) {
+            $state.go('default.checkout');
+          }
         }
       });
     };

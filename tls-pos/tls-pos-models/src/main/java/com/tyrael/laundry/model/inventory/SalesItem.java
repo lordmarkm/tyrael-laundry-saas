@@ -25,6 +25,12 @@ public class SalesItem extends BaseEntity {
     @JoinColumn(name = "inventory_item_id")
     private InventoryItem inventoryItem;
 
+    /**
+     * Item name at the time of the sale since inv items can be edited
+     */
+    @Column(name = "inv_item_name")
+    private String inventoryItemName;
+
     @Column(name = "qty", nullable = false)
     private BigDecimal quantity;
 
@@ -61,6 +67,14 @@ public class SalesItem extends BaseEntity {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public String getInventoryItemName() {
+        return inventoryItemName;
+    }
+
+    public void setInventoryItemName(String inventoryItemName) {
+        this.inventoryItemName = inventoryItemName;
     }
 
 }

@@ -23,10 +23,12 @@ import com.tyrael.laundry.commons.model.BaseEntity;
 import com.tyrael.laundry.converter.EnumInfoConverter;
 import com.tyrael.laundry.dto.inventory.InventoryItemInfo;
 import com.tyrael.laundry.dto.inventory.InventoryItemTypeInfo;
+import com.tyrael.laundry.dto.inventory.SalesItemInfo;
 import com.tyrael.laundry.model.branch.Branch;
 import com.tyrael.laundry.model.customer.Customer;
 import com.tyrael.laundry.model.inventory.InventoryItem;
 import com.tyrael.laundry.model.inventory.InventoryItemType;
+import com.tyrael.laundry.model.inventory.SalesItem;
 import com.tyrael.laundry.model.joborder.JobItem;
 import com.tyrael.laundry.model.joborder.JobOrder;
 import com.tyrael.laundry.model.joborder.ServiceType;
@@ -87,6 +89,8 @@ public class MapperConfig {
                     .fields("branch.code", "branchCode")
                     .fields("itemType.name", "inventoryItemTypeName")
                     .fields("itemType.code", "inventoryItemTypeCode");
+                mapping(SalesItemInfo.class, SalesItem.class, TypeMappingOptions.oneWay())
+                    .fields("inventoryItem.inventoryItemTypeName", "inventoryItemName");
 
                 mapping(JobItem.class, JobItemInfo.class)
                     .fields("jobItemType.iconPath", "iconPath", oneWay());
@@ -94,6 +98,7 @@ public class MapperConfig {
                     .fields("branch.id", "branchId", oneWay())
                     .fields("branch.name", "branchName", oneWay())
                     .fields("branch.brand.name", "brandName", oneWay());
+
             }
         });
     }

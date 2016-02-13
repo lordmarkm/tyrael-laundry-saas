@@ -1,0 +1,17 @@
+<h3 class="page-header">
+  View Sales No. {{salesHeader.id}}
+  <br><small>{{salesHeader.branch.brandName}} - {{salesHeader.branch.name}}</small>
+</h3>
+
+<dl class="dl-horizontal">
+  <dt>Total amount
+  <dd>{{salesHeader.totalAmountPaid | currency: '₱'}}
+  <dt>Sales date
+  <dd>{{salesHeader.dateCreated | date}}
+  <dt>Branch
+  <dd>{{salesHeader.branch.brandName}} - {{salesHeader.branch.name}}
+</dl>
+
+<h4 class="page-header">Items</h4>
+
+{{salesHeader}}
