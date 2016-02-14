@@ -13,6 +13,8 @@ public class BaseDto {
     protected Long id;
     protected DateTime dateCreated;
     protected DateTime dateUpdated;
+    protected String createdBy;
+    protected String updatedBy;
     protected boolean deleted;
 
     @Override
@@ -58,6 +60,22 @@ public class BaseDto {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 
 }

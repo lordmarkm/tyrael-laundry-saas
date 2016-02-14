@@ -10,6 +10,8 @@
   <dd>{{salesHeader.dateCreated | date}}
   <dt>Branch
   <dd>{{salesHeader.branch.brandName}} - {{salesHeader.branch.name}}
+  <dt>Created by
+  <dd>{{salesHeader.createdBy}}
 </dl>
 
 <h4 class="page-header">Items</h4>
@@ -27,7 +29,7 @@
     <tr ng-repeat="item in salesHeader.items">
       <td>{{item.inventoryItemName}}
       <td>{{item.pricePerItem | currency: '₱'}}
-      <td>{{item.quantity}}
+      <td>{{item.quantity}} {{item.uom ? item.uom : 'units'}}
       <td>{{item.amount | currency: '₱'}}
     </tr>
   </tbody>

@@ -25,8 +25,14 @@ public class SalesItem extends BaseEntity {
     @JoinColumn(name = "inventory_item_id")
     private InventoryItem inventoryItem;
 
+    @Column(name = "qty", nullable = false)
+    private BigDecimal quantity;
+
+    @Column(name = "amt", nullable = false)
+    private BigDecimal amount;
+
     /**
-     * Item name at the time of the sale since inv items can be edited
+     * Item name, price, and uom at the time of the sale since inv items can be edited
      */
     @Column(name = "inv_item_name")
     private String inventoryItemName;
@@ -34,11 +40,8 @@ public class SalesItem extends BaseEntity {
     @Column(name = "price_per_item")
     private BigDecimal pricePerItem;
 
-    @Column(name = "qty", nullable = false)
-    private BigDecimal quantity;
-
-    @Column(name = "amt", nullable = false)
-    private BigDecimal amount;
+    @Column(name = "uom")
+    private String uom;
 
     public SalesHeader getSalesHeader() {
         return salesHeader;
@@ -86,6 +89,14 @@ public class SalesItem extends BaseEntity {
 
     public void setPricePerItem(BigDecimal pricePerItem) {
         this.pricePerItem = pricePerItem;
+    }
+
+    public String getUom() {
+        return uom;
+    }
+
+    public void setUom(String uom) {
+        this.uom = uom;
     }
 
 }

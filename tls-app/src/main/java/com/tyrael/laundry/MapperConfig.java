@@ -88,7 +88,8 @@ public class MapperConfig {
                     .fields("branch.name", "branchName")
                     .fields("branch.code", "branchCode")
                     .fields("itemType.name", "inventoryItemTypeName")
-                    .fields("itemType.code", "inventoryItemTypeCode");
+                    .fields("itemType.code", "inventoryItemTypeCode")
+                    .fields("itemType.uom", "uom");
                 mapping(SalesItemInfo.class, SalesItem.class, TypeMappingOptions.oneWay())
                     .fields("inventoryItem.inventoryItemTypeName", "inventoryItemName")
                     .fields("inventoryItem.sellingPrice", "pricePerItem");

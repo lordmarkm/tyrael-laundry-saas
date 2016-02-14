@@ -18,6 +18,7 @@ public class InventoryItemInfo extends BaseDto {
     private String branchCode;
     private String inventoryItemTypeCode;
     private String inventoryItemTypeName;
+    private String uom;
     private String code;
     private BigDecimal quantity;
     private BigDecimal buyingPrice;
@@ -100,6 +101,14 @@ public class InventoryItemInfo extends BaseDto {
     }
     public void setBranchName(String branchName) {
         this.branchName = branchName;
+    }
+
+    public String getUom() {
+        return uom;
+    }
+
+    public void setUom(String uom) {
+        this.uom = uom;
     }
 
 }

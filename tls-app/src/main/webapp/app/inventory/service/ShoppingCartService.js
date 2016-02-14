@@ -1,5 +1,5 @@
 define(function () {
-  return [function () {
+  return ['confirm', function (confirm) {
     this.items = [];
     this.add = function (inventoryItem, quantity) {
       this.items.push({
@@ -11,10 +11,15 @@ define(function () {
       this.items.splice(index, 1);
     };
     this.clearCart = function() {
-      if (!confirm('Are you sure?')) {
-        return false;
-      }
-      this.items = [];
+      var shoppingCart = this;
+      confirm.confirm('Confirm clear shopping cart', 'Remove all items from shopping cart?')
+        .result.then(function (ok) {
+          if (ok) {
+            shoppingCart.items = [];
+          } else {
+            return false;
+          }
+        });
     };
     this.onCheckout = function () {
       this.items = [];

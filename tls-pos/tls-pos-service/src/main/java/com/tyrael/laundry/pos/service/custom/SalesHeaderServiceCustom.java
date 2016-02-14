@@ -12,6 +12,4 @@ import com.tyrael.laundry.model.inventory.SalesHeader;
 public interface SalesHeaderServiceCustom 
     extends TyraelJpaServiceCustom<SalesHeader, SalesHeaderInfo> {
 
-    SalesHeaderInfo makeSale(SalesHeaderInfo salesHeader);
-
 }

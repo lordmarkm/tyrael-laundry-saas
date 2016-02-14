@@ -1,5 +1,5 @@
-<h3 class="page-header">All Customers <a ui-sref="default.customer.add" class="btn btn-default btn-xs">Create New Customer</a>
-  <br><small>View customer list</small>
+<h3 class="page-header">All Sales <a ui-sref="default.inv_item.add"  ng-if="isAuthorized(['ROLE_ADMIN', 'ROLE_BRAND_MANAGER'])" class="btn btn-default btn-xs">Create New Inventory Item</a>
+  <br><small>View sales list</small>
 </h3>
 
 <span ng-click="showFilters = !showFilters" ng-init="showFilters = false" class="btn btn-default btn-xs" style="font-family: monospace;">
@@ -24,23 +24,25 @@
 <table ng-table="tableParams" show-filter="true" class="table table-striped mt20">
   <thead>
     <tr>
-      <th>Name
-      <th>Address
-      <th>Contact Number
-      <th>Brand
+      <th>Sale #
+      <th>Sale Date
+      <th>Details
+      <th>Total amount
       <th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="customer in $data">
-      <td><a ui-sref="default.customer.view({customerCode: customer.code, urlSlug: customer.slug})">{{customer.formattedName}}</a>
-      <td>{{customer.formattedAddress || 'No address provided'}}
+    <tr ng-repeat="header in $data">
+      <td>{{header.id}}
       <td>
-        <div ng-if="customer.contactDetails.cellphone" class="nowrap"><i class="fa fa-mobile fa-fw"></i> {{customer.contactDetails.cellphone}}</div>
-        <div ng-if="customer.contactDetails.landline" class="nowrap"><i class="fa fa-phone fa-fw"></i> {{customer.contactDetails.landline}}</div>
-        <div ng-if="customer.contactDetails.email" class="nowrap"><i class="fa fa-envelope fa-fw"></i> {{customer.contactDetails.email}}</div>
+        {{header.dateCreated | date}}
+        <br><small class="text-muted">{{header.dateCreated | date: 'hh:mm a'}}</small>
       </td>
-      <td>{{customer.brandName || 'No brand'}}
+      <td>
+        {{header.branch.name}}
+        <br><small class="text-muted">{{header.branch.brandName}}</small>
+      </td>
+      <td>{{header.totalAmountPaid | currency: '₱'}}</td>
       <td>
         <div class="dropdown">
           <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu-{{$index}}"
@@ -49,13 +51,13 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu-{{$index}}">
-            <li><a ui-sref="default.customer.update({customerCode: customer.code, urlSlug: customer.slug})"><i class="fa fa-user fa-fw"></i> <small>Update customer</small></a>
+            <li><a ui-sref="default.sales_header.view({id: header.id})"><i class="fa fa-list fa-fw"></i> <small>View sale details</small></a></li>
           </ul>
         </div>
       </td>
     </tr>
     <tr ng-if="!$data.length">
-      <td colspan="5">No customers available</td>
+      <td colspan="5" align="center">No items available</td>
     </tr>
   </tbody>
 </table>

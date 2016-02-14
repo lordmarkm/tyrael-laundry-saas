@@ -15,6 +15,7 @@ public class SalesItemInfo extends BaseDto {
     private BigDecimal quantity;
     private BigDecimal amount;
     private String inventoryItemName;
+    private String uom;
     private BigDecimal pricePerItem;
 
     public InventoryItemInfo getInventoryItem() {
@@ -46,6 +47,12 @@ public class SalesItemInfo extends BaseDto {
     }
     public void setPricePerItem(BigDecimal pricePerItem) {
         this.pricePerItem = pricePerItem;
+    }
+    public String getUom() {
+        return uom;
+    }
+    public void setUom(String uom) {
+        this.uom = uom;
     }
 
 }

@@ -34,7 +34,7 @@
   <tbody>
     <tr ng-repeat="inventoryItem in $data">
       <td>{{inventoryItem.inventoryItemTypeName}}
-      <td>{{inventoryItem.quantity}}
+      <td>{{inventoryItem.quantity}} {{inventoryItem.uom ? inventoryItem.uom : 'units'}}
       <td>
         {{inventoryItem.branchName}}
         <br><small class="text-muted">{{inventoryItem.brandName}}</small>
