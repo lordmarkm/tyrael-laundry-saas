@@ -50,6 +50,7 @@
           </button>
           <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu-{{$index}}">
             <li><a ui-sref="default.customer.update({customerCode: customer.code, urlSlug: customer.slug})"><i class="fa fa-user fa-fw"></i> <small>Update customer</small></a>
+            <li><a ui-sref="default.joborder.customer({customerCode: customer.code, customerName: customer.formattedName})"><i class="fa fa-cubes fa-fw"></i> <small>View job orders</small></a>
           </ul>
         </div>
       </td>

@@ -10,6 +10,13 @@ define(function () {
     this.statusMap = function () {
       return statusMap;
     }
+    this.statusList = function () {
+      var statuses = [];
+      for (var i in statusMap) {
+        statuses.push({value: i, label: statusMap[i]});
+      }
+      return statuses;
+    }
     this.toLabel = function (code) {
       switch (code) {
       case 'NEW':

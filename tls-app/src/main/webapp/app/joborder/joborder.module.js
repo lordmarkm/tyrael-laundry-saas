@@ -31,6 +31,13 @@ define([
         controller: JobOrderListController,
         resolve: JobOrderListResolve
       })
+      //same as list, but filtered by customer
+      .state('default.joborder.customer', {
+        url: '/customer/{customerCode}?{customerName}',
+        templateUrl: 'joborder/view/list.html',
+        controller: JobOrderListController,
+        resolve: JobOrderListResolve
+      })
       .state('default.joborder.add', {
         url: '/add',
         templateUrl: 'joborder/view/update.html',

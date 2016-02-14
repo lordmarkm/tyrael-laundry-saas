@@ -7,7 +7,7 @@ define(function () {
         return {};
       }
     }],
-    //The brands that the inventory item type may be assigned to
+    //The branchess that the inventory item type may be assigned to
     branches: ['$q', 'BranchService', function ($q, BranchService) {
       var branches = $q.defer();
       BranchService.get({page: 1, count: 9999}, function(response) {

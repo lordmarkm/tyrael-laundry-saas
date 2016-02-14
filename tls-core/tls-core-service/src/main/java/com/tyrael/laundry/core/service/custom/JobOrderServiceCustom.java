@@ -19,6 +19,7 @@ public interface JobOrderServiceCustom extends TyraelJpaServiceCustom<JobOrder, 
             .put("deleted", jobOrder.deleted)
             .put("dateReceived", jobOrder.dateReceived)
             .put("customerId", jobOrder.customer.id)
+            .put("customerCode", jobOrder.customer.code)
             .put("customerSurname", jobOrder.customer.name.surname)
             .put("customerGivenName", jobOrder.customer.name.givenName)
             .put("status", jobOrder.status)

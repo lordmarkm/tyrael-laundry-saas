@@ -3,6 +3,7 @@ package com.tyrael.laundry.core.service.rql;
 import com.google.common.collect.ImmutableMap;
 import com.mysema.query.types.Path;
 import com.mysema.query.types.expr.BooleanExpression;
+import com.mysema.query.types.path.DateTimePath;
 import com.mysema.query.types.path.NumberPath;
 import com.mysema.query.types.path.StringPath;
 
@@ -19,6 +20,7 @@ public class RsqlParserVisitor implements RSQLVisitor<BooleanExpression, Immutab
 
     private NumberPathExpressionEvaluator numPathEvaluator = new NumberPathExpressionEvaluator();
     private StringPathExpressionEvaluator stringPathEvaluator = new StringPathExpressionEvaluator();
+    private DateTimePathExpressionEvaluator datePathEvaluator = new DateTimePathExpressionEvaluator();
     private DefaultExpressionEvaluator defaultEvaluator = new DefaultExpressionEvaluator();
 
     @Override
@@ -60,6 +62,8 @@ public class RsqlParserVisitor implements RSQLVisitor<BooleanExpression, Immutab
             return numPathEvaluator.evaluate(path, node.getOperator(), node.getArguments());
         } else if (path.getClass().isAssignableFrom(StringPath.class)) {
             return stringPathEvaluator.evaluate(path, node.getOperator(), node.getArguments());
+        } else if (path.getClass().isAssignableFrom(DateTimePath.class)) {
+            return datePathEvaluator.evaluate(path, node.getOperator(), node.getArguments());
         } else {
             return defaultEvaluator.evaluate(path, node.getOperator(), node.getArguments());
         }
