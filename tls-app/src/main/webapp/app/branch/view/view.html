@@ -1,5 +1,21 @@
 <h3 class="page-header">
-  <strong>{{branch.name}}</strong> (<a ui-sref="default.brand.view({brandCode: brand.code, urlSlug: brand.slug})">{{brand.name}}</a>)
-  <br><small>View Branch Details</small>
+  <strong>{{branch.name}}</strong> <button ui-sref="default.branch.update({branchCode: branch.code, urlSlug: branch.slug})" class="btn btn-default btn-xs">Update</button>
+  <br><small>{{branch.brandName}}</small>
 </h3>
-<br>{{branch}}
+
+<dl class="dl dl-horizontal">
+  <dt>Description
+  <dd>{{branch.description || 'Not specified'}}
+  <dt>Address
+  <dd>{{branch.address || 'Not specified'}}
+  <dt>Contact number
+  <dd>{{branch.contactNumber || 'Not specified'}}
+  <dt>Email
+  <dd>{{branch.email || 'Not specified'}}
+  <dt>Minimum Job order
+  <dd>{{(branch.minimumJobOrderAmount | currency: '₱') || 'Not specified'}}
+  <dt>Date created
+  <dd>{{branch.dateCreated | date}}
+  <dt>Created by
+  <dd>{{branch.createdBy}}
+</dl>
