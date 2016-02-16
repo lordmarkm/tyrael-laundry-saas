@@ -1,27 +1,29 @@
 <h3 class="page-header">
-  <strong>{{customer.formattedName}}</strong> <span ng-if="customer.brandName">({{customer.brandName}})</span>
-  <br><small>View Customer Details</small>
+  <strong>{{inventoryItemType.name}}</strong> <button class="btn btn-default btn-xs" ui-sref="default.inv_item_type.update({invItemTypeCode: inventoryItemType.code, urlSlug: inventoryItemType.slug})">Update</button>
+  <br><small>View Inventory Item Type Details</small>
 </h3>
 
 <dl class="dl-horizontal">
+  <dt>Description
+  <dd>{{inventoryItemType.description}}
+  <dt>Unit of measure (UOM)
+  <dd>{{inventoryItemType.uom}}
+  <dt>Brand availability
+  <dd>{{inventoryItemType.brandName}}
   <dt>Date created
-  <dd>{{customer.dateCreated | date}}
+  <dd>{{inventoryItemType.dateCreated | date}}
+  <dt>Created by
+  <dd>{{inventoryItemType.createdBy}}
 </dl>
 
-<h4 class="page-header">Address</h4>
+<h4 class="page-header">Defaults</h4>
 <dl class="dl-horizontal">
-  <dt>Line 1
-  <dd>{{customer.address.addressLine1 || 'Not specified'}}
-  <dt>Line 2
-  <dd>{{customer.address.addressLine2 || 'Not specified'}}
-</dl>
-
-<h4 class="page-header">Contact details</h4>
-<dl class="dl-horizontal">
-  <dt>Cellphone
-  <dd>{{customer.contactDetails.cellphone || 'Not specified'}}
-  <dt>Landline
-  <dd>{{customer.contactDetails.landline || 'Not specified'}}
-  <dt>Email
-  <dd>{{customer.contactDetails.email || 'Not specified'}}
+  <dt>For sale
+  <dd>{{inventoryItemType.forSale ? 'Yes' : 'No'}}
+  <dt>Default buying price
+  <dd>{{inventoryItemType.defaultBuyingPrice | currency: '₱'}}
+  <dt ng-if="inventoryItemType.forSale">Default selling price
+  <dd ng-if="inventoryItemType.forSale">{{inventoryItemType.defaultSellingPrice | currency: '₱'}}
+  <dt>Default supplier name
+  <dd>{{inventoryItemType.defaultSupplierName || 'Not specified'}}
 </dl>
