@@ -4,7 +4,8 @@ define(function () {
     this.add = function (inventoryItem, quantity) {
       this.items.push({
         inventoryItem: inventoryItem,
-        quantity: quantity
+        quantity: quantity,
+        price: inventoryItem.sellingPrice * quantity
       });
     };
     this.removeItem = function (index) {
@@ -25,7 +26,11 @@ define(function () {
       this.items = [];
     };
     this.totalPrice = function () {
-      return 10;
+      var totalPrice = 0;
+      for (var i in this.items) {
+        totalPrice += this.items[i].price;
+      }
+      return totalPrice;
     };
   }]
 });

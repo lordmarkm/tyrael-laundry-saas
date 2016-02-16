@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th>Item type
-      <th>Item details
+      <th>Price per item
       <th>Quantity
       <th>Price
     </tr>
@@ -12,11 +12,9 @@
   <tbody>
     <tr ng-repeat="cartItem in shoppingCart.items">
       <td>{{cartItem.inventoryItem.inventoryItemTypeName}}</td>
-      <td>
-        <div></div>
-      </td>
+      <td>{{cartItem.inventoryItem.sellingPrice | currency: '₱'}}</td>
       <td>{{cartItem.quantity}}
-      <td>{{cartItem.price}}
+      <td>{{cartItem.price | currency: '₱'}}
     </tr>
   </tbody>
 </table>

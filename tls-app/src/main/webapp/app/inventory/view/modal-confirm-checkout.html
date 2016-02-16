@@ -1,0 +1,18 @@
+<div class="modal-header modal-primary">
+  <button type="button" class="close" ng-click="cancel()">&times;</button>
+  <h3 class="modal-title">Confirm checkout</h3>
+</div>
+<div class="modal-body">
+  <div class="row">
+  <div class="col-sm-12">
+    <dl class="dl dl-horizontal">
+      <dt>Total price
+      <dd>{{totalPrice | currency: '₱'}}
+    </dl>
+  </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary btn-s-xs" ng-click="proceed()">Proceed</button>
+  <button class="btn btn-default btn-s-xs" ng-click="cancel()">Cancel</button>
+</div>

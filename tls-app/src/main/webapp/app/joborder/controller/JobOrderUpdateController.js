@@ -36,16 +36,6 @@ define(function () {
       });
     };
 
-    //Initialize/process service types
-//    var serviceTypesPromise = $q.defer();
-//    serviceTypes.$promise.then(function () {
-//      $scope.serviceTypes = serviceTypes.data;
-//      $scope.serviceTypeHolder = {
-//        serviceType: $scope.serviceTypes[0]
-//      };
-//      serviceTypesPromise.resolve($scope.serviceTypes);
-//    });
-
     //Instead of loading on startup, provide a callable function on branch update
     $scope.updateServiceTypes = function (branchCode) {
       var p = $q.defer();
