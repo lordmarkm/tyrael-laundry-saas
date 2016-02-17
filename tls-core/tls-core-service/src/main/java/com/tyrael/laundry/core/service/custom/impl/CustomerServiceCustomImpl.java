@@ -59,7 +59,7 @@ public class CustomerServiceCustomImpl
         LOG.debug("Searching customers. term={}", term);
 
         BooleanExpression nameSearch = customer.name.surname.startsWithIgnoreCase(term)
-            .or(customer.name.surname.startsWithIgnoreCase(term))
+            .or(customer.name.givenName.startsWithIgnoreCase(term))
             .or(customer.name.middleName.startsWithIgnoreCase(term));
 
         nameSearch = addBrandFilter(nameSearch).and(customer.deleted.isFalse());
