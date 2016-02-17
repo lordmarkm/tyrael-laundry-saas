@@ -8,9 +8,12 @@
 
 <form ng-show="showFilters" ng-submit="doFilter()" class="form-horizontal mt20">
   <div class="form-group">
-    <label class="col-sm-2 control-label">Name filter</label>
-    <div class="col-sm-4">
-      <input type="text" ng-model="namefilter" placeholder="Filter by name" class="form-control" />
+    <label class="col-sm-2 control-label">Brand</label>
+    <div class="col-sm-6">
+      <select ng-model="filter.brandCode" class="form-control input-sm">
+        <option value="">All Brands</option>
+        <option ng-repeat="brand in brands" ng-value="brand.code">{{brand.name}}</option>
+      </select>
     </div>
   </div>
   <div class="form-group">

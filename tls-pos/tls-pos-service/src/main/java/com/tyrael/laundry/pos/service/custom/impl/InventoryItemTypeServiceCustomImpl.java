@@ -5,6 +5,9 @@ import static com.tyrael.laundry.model.inventory.QInventoryItemType.inventoryIte
 import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,12 +19,17 @@ import com.tyrael.laundry.commons.service.TyraelJpaServiceCustomImpl;
 import com.tyrael.laundry.commons.util.AuthenticationUtil;
 import com.tyrael.laundry.core.service.BranchService;
 import com.tyrael.laundry.core.service.BrandService;
+import com.tyrael.laundry.core.service.rql.RsqlParserVisitor;
+import com.tyrael.laundry.dto.inventory.InventoryItemInfo;
 import com.tyrael.laundry.dto.inventory.InventoryItemTypeInfo;
 import com.tyrael.laundry.model.branch.Branch;
 import com.tyrael.laundry.model.branch.Brand;
 import com.tyrael.laundry.model.inventory.InventoryItemType;
 import com.tyrael.laundry.pos.service.InventoryItemTypeService;
 import com.tyrael.laundry.pos.service.custom.InventoryItemTypeServiceCustom;
+
+import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.Node;
 /**
  * 
  * @author Mark Martinez, create Dec 26, 2015
@@ -31,6 +39,8 @@ import com.tyrael.laundry.pos.service.custom.InventoryItemTypeServiceCustom;
 public class InventoryItemTypeServiceCustomImpl
     extends TyraelJpaServiceCustomImpl<InventoryItemType, InventoryItemTypeInfo, InventoryItemTypeService> 
     implements InventoryItemTypeServiceCustom {
+
+    private static final Logger LOG = LoggerFactory.getLogger(InventoryItemTypeServiceCustomImpl.class);
 
     @Autowired
     private BrandService brandService;
@@ -45,6 +55,27 @@ public class InventoryItemTypeServiceCustomImpl
             List<Brand> brands = brandService.findByUserUsername(AuthenticationUtil.getLoggedInUsername());
             return predicate.and(inventoryItemType.brand.in(brands));
         }
+    }
+
+    @Override
+    public PageInfo<InventoryItemTypeInfo> rqlSearch(String term, Pageable pageRequest) {
+        LOG.debug("Performing paginated rql search. term={}, page = {}", term, pageRequest);
+
+        BooleanExpression predicate = inventoryItemType.deleted.isFalse();;
+        if (!StringUtils.isBlank(term)) {
+            try {
+                Node rootNode = new RSQLParser().parse(term);
+                RsqlParserVisitor visitor = new RsqlParserVisitor();
+                predicate = rootNode.accept(visitor, FIELD_MAPPING);
+            } catch (Exception e) {
+                LOG.error("Error parsing or interpreting rql term. term={}, error={}", term, e.getMessage());
+                return PageInfo.blank();
+            }
+        }
+
+        predicate = addBrandFilter(predicate);
+
+        return super.pageInfo(predicate, pageRequest);
     }
 
     @Override

@@ -68,7 +68,8 @@ public class SalesHeaderServiceCustomImpl
     public PageInfo<SalesHeaderInfo> rqlSearch(String term, Pageable pageRequest) {
         LOG.debug("Performing paginated rql search. term={}, page = {}", term, pageRequest);
 
-        BooleanExpression predicate = null;
+        BooleanExpression predicate = salesHeader.deleted.isFalse();
+
         if (!StringUtils.isBlank(term)) {
             try {
                 Node rootNode = new RSQLParser().parse(term);
@@ -79,6 +80,8 @@ public class SalesHeaderServiceCustomImpl
                 return PageInfo.blank();
             }
         }
+
+        predicate = addBrandFilter(predicate);
 
         return super.pageInfo(predicate, pageRequest);
     }

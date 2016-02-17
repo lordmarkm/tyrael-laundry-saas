@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,9 @@ import com.tyrael.laundry.commons.util.AuthenticationUtil;
 import com.tyrael.laundry.commons.util.MathUtil;
 import com.tyrael.laundry.core.service.BranchService;
 import com.tyrael.laundry.core.service.BrandService;
+import com.tyrael.laundry.core.service.rql.RsqlParserVisitor;
 import com.tyrael.laundry.dto.inventory.InventoryItemInfo;
+import com.tyrael.laundry.dto.inventory.SalesHeaderInfo;
 import com.tyrael.laundry.model.branch.Branch;
 import com.tyrael.laundry.model.branch.Brand;
 import com.tyrael.laundry.model.inventory.InventoryItem;
@@ -28,6 +31,9 @@ import com.tyrael.laundry.model.inventory.InventoryItemType;
 import com.tyrael.laundry.pos.service.InventoryItemService;
 import com.tyrael.laundry.pos.service.InventoryItemTypeService;
 import com.tyrael.laundry.pos.service.custom.InventoryItemServiceCustom;
+
+import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.Node;
 /**
  * 
  * @author Mark Martinez, create Dec 26, 2015
@@ -57,6 +63,27 @@ public class InventoryItemServiceCustomImpl
             List<Brand> brands = brandService.findByUserUsername(AuthenticationUtil.getLoggedInUsername());
             return predicate.and(inventoryItem.branch.brand.in(brands));
         }
+    }
+
+    @Override
+    public PageInfo<InventoryItemInfo> rqlSearch(String term, Pageable pageRequest) {
+        LOG.debug("Performing paginated rql search. term={}, page = {}", term, pageRequest);
+
+        BooleanExpression predicate = inventoryItem.deleted.isFalse();;
+        if (!StringUtils.isBlank(term)) {
+            try {
+                Node rootNode = new RSQLParser().parse(term);
+                RsqlParserVisitor visitor = new RsqlParserVisitor();
+                predicate = rootNode.accept(visitor, FIELD_MAPPING);
+            } catch (Exception e) {
+                LOG.error("Error parsing or interpreting rql term. term={}, error={}", term, e.getMessage());
+                return PageInfo.blank();
+            }
+        }
+
+        predicate = addBrandFilter(predicate);
+
+        return super.pageInfo(predicate, pageRequest);
     }
 
     @Override

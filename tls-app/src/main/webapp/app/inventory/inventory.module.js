@@ -5,6 +5,7 @@ define([
    'inventory/controller/InventoryItemTypeViewController',
    'inventory/controller/InventoryItemTypeUpdateController',
    'inventory/service/InventoryItemTypeService',
+   'inventory/resolve/InventoryItemTypeListResolve',
    'inventory/resolve/InventoryItemTypeViewResolve',
    'inventory/resolve/InventoryItemTypeUpdateResolve',
 
@@ -13,6 +14,7 @@ define([
    'inventory/controller/InventoryItemViewController',
    'inventory/controller/InventoryItemUpdateController',
    'inventory/service/InventoryItemService',
+   'inventory/resolve/InventoryItemListResolve',
    'inventory/resolve/InventoryItemViewResolve',
    'inventory/resolve/InventoryItemUpdateResolve',
    'inventory/service/ShoppingCartService',
@@ -25,11 +27,11 @@ define([
    'inventory/resolve/SalesHeaderListResolve'
 ], function (angular, InventoryItemTypeRootController, InventoryItemTypeListController, InventoryItemTypeViewController, InventoryItemTypeUpdateController,
     InventoryItemTypeService,
-    InventoryItemTypeViewResolve, InventoryItemTypeUpdateResolve,
+    InventoryItemTypeListResolve, InventoryItemTypeViewResolve, InventoryItemTypeUpdateResolve,
 
     InventoryItemRootController, InventoryItemListController, InventoryItemViewController, InventoryItemUpdateController,
     InventoryItemService,
-    InventoryItemViewResolve, InventoryItemUpdateResolve,
+    InventoryItemListResolve, InventoryItemViewResolve, InventoryItemUpdateResolve,
 
     ShoppingCartService, CheckoutController, SalesHeaderService,
 
@@ -52,7 +54,8 @@ define([
       .state('default.inv_item.list', {
         url: '',
         templateUrl: 'inventory/view/list.html',
-        controller: InventoryItemListController
+        controller: InventoryItemListController,
+        resolve: InventoryItemListResolve
       })
       .state('default.inv_item.view', {
         url: '/{invItemCode}/{urlSlug}',
@@ -84,7 +87,8 @@ define([
       .state('default.inv_item_type.list', {
         url: '',
         templateUrl: 'inventory/view/type-list.html',
-        controller: InventoryItemTypeListController
+        controller: InventoryItemTypeListController,
+        resolve: InventoryItemTypeListResolve
       })
       .state('default.inv_item_type.add', {
         url: '/add',

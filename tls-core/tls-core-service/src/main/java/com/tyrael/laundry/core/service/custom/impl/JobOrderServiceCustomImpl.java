@@ -29,7 +29,6 @@ import com.tyrael.laundry.model.branch.Brand;
 import com.tyrael.laundry.model.joborder.JobItem;
 import com.tyrael.laundry.model.joborder.JobOrder;
 import com.tyrael.laundry.model.joborder.JobService;
-import com.tyrael.laundry.model.joborder.QJobOrder;
 
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
@@ -58,7 +57,7 @@ public class JobOrderServiceCustomImpl extends TyraelJpaServiceCustomImpl<JobOrd
 
     @Override
     public PageInfo<JobOrderInfo> pageInfo(Pageable page) {
-        BooleanExpression query = QJobOrder.jobOrder.deleted.isFalse();
+        BooleanExpression query = jobOrder.deleted.isFalse();
         query = addBrandFilter(query);
         Page<JobOrder> results = repo.findAll(query, page);
         return toPageInfo(results);
@@ -73,7 +72,8 @@ public class JobOrderServiceCustomImpl extends TyraelJpaServiceCustomImpl<JobOrd
     public PageInfo<JobOrderInfo> rqlSearch(String term, Pageable pageRequest) {
         LOG.debug("Performing paginated rql search. term={}, page = {}", term, pageRequest);
 
-        BooleanExpression predicate = null;
+        BooleanExpression predicate = jobOrder.deleted.isFalse();
+
         if (!StringUtils.isBlank(term)) {
             try {
                 Node rootNode = new RSQLParser().parse(term);
@@ -84,6 +84,9 @@ public class JobOrderServiceCustomImpl extends TyraelJpaServiceCustomImpl<JobOrd
                 return PageInfo.blank();
             }
         }
+
+        predicate = addBrandFilter(predicate);
+
         return super.pageInfo(predicate, pageRequest);
     }
 
