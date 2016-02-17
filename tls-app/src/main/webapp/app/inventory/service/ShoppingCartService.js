@@ -1,12 +1,26 @@
 define(function () {
-  return ['confirm', function (confirm) {
+  return ['confirm', 'toaster', function (confirm, toaster) {
     this.items = [];
     this.add = function (inventoryItem, quantity) {
+      if (this.contains(inventoryItem)) {
+        toaster.pop('error', 'Item already in cart', 'That item is already in the shopping cart');
+        return false;
+      }
       this.items.push({
         inventoryItem: inventoryItem,
         quantity: quantity,
         price: inventoryItem.sellingPrice * quantity
       });
+    };
+    this.contains = function (inventoryItem) {
+      var i, item;
+      for (i = 0; i < this.items.length; i++) {
+        item = this.items[i];
+        if (item.inventoryItem.code === inventoryItem.code) {
+          return true;
+        }
+      }
+      return false;
     };
     this.removeItem = function (index) {
       this.items.splice(index, 1);

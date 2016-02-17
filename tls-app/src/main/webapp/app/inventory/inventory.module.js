@@ -21,7 +21,8 @@ define([
 
    'inventory/controller/SalesHeaderListController',
    'inventory/controller/SalesHeaderViewController',
-   'inventory/resolve/SalesHeaderViewResolve'
+   'inventory/resolve/SalesHeaderViewResolve',
+   'inventory/resolve/SalesHeaderListResolve'
 ], function (angular, InventoryItemTypeRootController, InventoryItemTypeListController, InventoryItemTypeViewController, InventoryItemTypeUpdateController,
     InventoryItemTypeService,
     InventoryItemTypeViewResolve, InventoryItemTypeUpdateResolve,
@@ -32,7 +33,7 @@ define([
 
     ShoppingCartService, CheckoutController, SalesHeaderService,
 
-    SalesHeaderListController, SalesHeaderViewController, SalesHeaderViewResolve) {
+    SalesHeaderListController, SalesHeaderViewController, SalesHeaderViewResolve, SalesHeaderListResolve) {
 
   console.debug('Configuring inventory.module');
   angular.module('inventory.module', [])
@@ -120,7 +121,14 @@ define([
       .state('default.sales_header.list', {
         url: '',
         templateUrl: 'inventory/view/sales-header-list.html',
-        controller: SalesHeaderListController
+        controller: SalesHeaderListController,
+        resolve: SalesHeaderListResolve
+      })
+      .state('default.sales_header.byitem', {
+        url: '/item/{itemCode}?{itemName}',
+        templateUrl: 'inventory/view/sales-header-list.html',
+        controller: SalesHeaderListController,
+        resolve: SalesHeaderListResolve
       })
       .state('default.sales_header.view', {
         url: '/{id}',

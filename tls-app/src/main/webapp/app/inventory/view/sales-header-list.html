@@ -1,22 +1,62 @@
-<h3 class="page-header">All Sales
+<h3 class="page-header">
+  <span ng-if="itemName">
+    {{itemName}} sales
+  </span>
+  <span ng-if="!itemName">
+    All Sales <a ui-sref="default.inv_item.add"  ng-if="isAuthorized(['ROLE_ADMIN', 'ROLE_BRAND_MANAGER'])" class="btn btn-default btn-xs">Create New Inventory Item</a>
+  </span>
   <br><small>View sales list</small>
 </h3>
 
+<!-- Filters -->
 <span ng-click="showFilters = !showFilters" ng-init="showFilters = false" class="btn btn-default btn-xs" style="font-family: monospace;">
   [{{showFilters ? '-' : '+'}}] Filter
 </span>
-
 <form ng-show="showFilters" ng-submit="doFilter()" class="form-horizontal mt20">
+  <div ng-if="filter.itemName" class="form-group">
+    <label class="col-sm-2 control-label">Item</label>
+    <div class="col-sm-6">
+      <p class="form-control-static">{{filter.itemName}}
+    </div>
+  </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">Name filter</label>
-    <div class="col-sm-4">
-      <input type="text" ng-model="namefilter" placeholder="Filter by name" class="form-control" />
+    <label class="col-sm-2 control-label">Branch</label>
+    <div class="col-sm-6">
+      <select ng-model="filter.branchCode" class="form-control input-sm">
+        <option value="">All Branches</option>
+        <option ng-repeat="branch in branches" ng-value="branch.code">{{branch.name}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Sales date</label>
+    <div class="col-sm-3">
+      <span class="input-group">
+        <input type="text" datepicker-popup="{{dateFormat}}" placeholder="From"
+          ng-model="filter.datefrom" is-open="openDatefrom" ng-init="openDatefrom = false"
+          max-date="{{today}}"
+          class="form-control input-sm" readonly />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default btn-sm" ng-click="open('from', $event)"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </span>
+    </div>
+    <div class="col-sm-3">
+      <span class="input-group">
+        <input type="text" datepicker-popup="{{dateFormat}}" placeholder="To"
+          ng-model="filter.dateto" is-open="openDateto" ng-init="openDateto = false"
+          max-date="{{today}}"
+          class="form-control input-sm" readonly />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default btn-sm" ng-click="open('to', $event)"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </span>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-4 col-sm-push-2">
-      <input type="submit" class="btn btn-primary btn-xs" value="Apply filter" />
-      <span ng-click="clearFilter()" class="btn btn-default btn-xs">Clear filters</span>
+      <input type="submit" class="btn btn-primary btn-xs" value="Apply filters" />
+      <span ng-click="clearFilters()" class="btn btn-default btn-xs">Clear filters</span>
     </div>
   </div>
 </form>
@@ -33,7 +73,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="header in $data">
-      <td>{{header.id}}
+      <td><a ui-sref="default.sales_header.view({id: header.id})">{{header.id}}</a>
       <td>
         {{header.dateCreated | date}}
         <br><small class="text-muted">{{header.dateCreated | date: 'hh:mm a'}}</small>

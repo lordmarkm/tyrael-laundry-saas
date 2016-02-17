@@ -5,6 +5,9 @@ import static com.tyrael.laundry.model.inventory.QSalesHeader.salesHeader;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 
@@ -13,7 +16,9 @@ import com.mysema.query.types.expr.BooleanExpression;
 import com.tyrael.laundry.commons.dto.PageInfo;
 import com.tyrael.laundry.commons.service.TyraelJpaServiceCustomImpl;
 import com.tyrael.laundry.commons.util.AuthenticationUtil;
+import com.tyrael.laundry.commons.util.MathUtil;
 import com.tyrael.laundry.core.service.BrandService;
+import com.tyrael.laundry.core.service.rql.RsqlParserVisitor;
 import com.tyrael.laundry.dto.inventory.SalesHeaderInfo;
 import com.tyrael.laundry.model.branch.Brand;
 import com.tyrael.laundry.model.inventory.InventoryItem;
@@ -23,6 +28,9 @@ import com.tyrael.laundry.pos.service.InventoryItemService;
 import com.tyrael.laundry.pos.service.SalesHeaderService;
 import com.tyrael.laundry.pos.service.custom.SalesHeaderServiceCustom;
 
+import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.Node;
+
 /**
  * 
  * @author Mark Martinez, create Feb 10, 2016
@@ -31,6 +39,8 @@ import com.tyrael.laundry.pos.service.custom.SalesHeaderServiceCustom;
 public class SalesHeaderServiceCustomImpl
     extends TyraelJpaServiceCustomImpl<SalesHeader, SalesHeaderInfo, SalesHeaderService>
     implements SalesHeaderServiceCustom {
+
+    private static final Logger LOG = LoggerFactory.getLogger(SalesHeaderServiceCustomImpl.class);
 
     @Autowired
     private InventoryItemService inventoryItemService;
@@ -52,6 +62,25 @@ public class SalesHeaderServiceCustomImpl
         BooleanExpression query = salesHeader.deleted.isFalse();
         query = addBrandFilter(query);
         return super.pageInfo(query, page);
+    }
+
+    @Override
+    public PageInfo<SalesHeaderInfo> rqlSearch(String term, Pageable pageRequest) {
+        LOG.debug("Performing paginated rql search. term={}, page = {}", term, pageRequest);
+
+        BooleanExpression predicate = null;
+        if (!StringUtils.isBlank(term)) {
+            try {
+                Node rootNode = new RSQLParser().parse(term);
+                RsqlParserVisitor visitor = new RsqlParserVisitor();
+                predicate = rootNode.accept(visitor, FIELD_MAPPING);
+            } catch (Exception e) {
+                LOG.error("Error parsing or interpreting rql term. term={}, error={}", term, e.getMessage());
+                return PageInfo.blank();
+            }
+        }
+
+        return super.pageInfo(predicate, pageRequest);
     }
 
     @Override
@@ -86,6 +115,9 @@ public class SalesHeaderServiceCustomImpl
 
             //Deduct sold quantity from inventory items (should auto persist still)
             InventoryItem inventoryItem = inventoryItemService.findOne(salesItem.getInventoryItem().getId());
+            if (MathUtil.lt(inventoryItem.getQuantity(), salesItem.getQuantity())) {
+                throw new IllegalArgumentException("Sales item quantity is greater than available quantity!");
+            }
             inventoryItem.setQuantity(inventoryItem.getQuantity().subtract(salesItem.getQuantity()));
 
             //Some housekeeping

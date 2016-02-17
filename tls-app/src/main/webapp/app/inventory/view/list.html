@@ -33,7 +33,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="inventoryItem in $data">
-      <td>{{inventoryItem.inventoryItemTypeName}}
+      <td><a ui-sref="default.inv_item.view({invItemCode: inventoryItem.code, urlSlug: inventoryItem.slug})">{{inventoryItem.inventoryItemTypeName}}</a>
       <td>{{inventoryItem.quantity}} {{inventoryItem.uom ? inventoryItem.uom : 'units'}}
       <td>
         {{inventoryItem.branchName}}
@@ -52,11 +52,12 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu-{{$index}}">
-            <li><a ui-sref="default.inv_item.view({invItemCode: inventoryItem.code, urlSlug: inventoryItem.slug})"><i class="fa fa-list fa-fw"></i> <small>View item details</small></a></li>
+            <li><a ui-sref="default.inv_item.view({invItemCode: inventoryItem.code, urlSlug: inventoryItem.slug})"><i class="fa fa-search-plus fa-fw"></i> <small>View item details</small></a></li>
             <li ng-if="isAuthorized(['ROLE_ADMIN', 'ROLE_BRAND_MANAGER'])"><a ui-sref="default.inv_item.update({invItemCode: inventoryItem.code, urlSlug: inventoryItem.slug})"><i class="fa fa-archive fa-fw"></i> <small>Update inventory item</small></a>
             <li><a href="javascript:;" ng-click="restock(inventoryItem)"><i class="fa fa-archive fa-fw"></i> <small>Restock inventory item</small></a></li>
             <li><a href="javascript:;" ng-click="consume(inventoryItem)"><i class="fa fa-archive fa-fw"></i> <small>Consume inventory item</small></a></li>
             <li ng-if="isAuthorized('ROLE_POS')"><a href="javascript:;" ng-click="addToCart(inventoryItem)"><i class="fa fa-shopping-cart fa-fw"></i> <small>Add to cart</small></a></li>
+            <li><a ui-sref="default.sales_header.byitem({itemCode: inventoryItem.code, itemName: inventoryItem.inventoryItemTypeName})"><i class="fa fa-shopping-basket"></i> <small>View item sales</small></a></li>
           </ul>
         </div>
       </td>
