@@ -61,6 +61,8 @@ define(function () {
           customerCode = $stateParams.customerCode || $scope.filter.customerCode;
       if (customerCode) {
         appendTerm('customerCode==' + customerCode);
+      } else if ($scope.filter.customerNameLike) {
+        appendTerm('(customerSurname==' + $scope.filter.customerNameLike + '*,customerGivenName==' + $scope.filter.customerNameLike + '*)');
       }
       if ($scope.filter.branchCode) {
         appendTerm('branchCode==' + $scope.filter.branchCode);

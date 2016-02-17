@@ -9,9 +9,16 @@
 </span>
 <form ng-show="showFilters" ng-submit="doFilter()" class="form-horizontal mt20">
   <div ng-if="filter.customerName" class="form-group">
-    <label class="col-sm-2 control-label">Customer</label>
+    <label class="col-sm-2 control-label">Customer Name</label>
     <div class="col-sm-6">
       <p class="form-control-static">{{filter.customerName}}
+    </div>
+  </div>
+  <!-- Hide fuzzy name search if filter by customer is active -->
+  <div ng-if="!filter.customerName" class="form-group">
+    <label class="col-sm-2 control-label">Customer Name</label>
+    <div class="col-sm-6">
+      <input type="text" ng-model="filter.customerNameLike" placeholder="Customer name" class="form-control input-sm"/>
     </div>
   </div>
   <div class="form-group">
