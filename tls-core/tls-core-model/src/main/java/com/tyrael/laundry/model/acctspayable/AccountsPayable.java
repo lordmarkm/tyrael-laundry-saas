@@ -27,7 +27,7 @@ public class AccountsPayable extends BaseNamedEntity {
     @JoinColumn(name = "branch_id", nullable = false)
     private Branch branch;
 
-    @Column(name = "last_payment", updatable = false)
+    @Column(name = "last_payment", nullable = false)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime lastPayment;
 

@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tyrael.laundry.commons.dto.PageInfo;
-import com.tyrael.laundry.commons.dto.acctspayable.AccountsPayableInfo;
+import com.tyrael.laundry.commons.dto.acctspayable.AccountsPaymentInfo;
 import com.tyrael.laundry.commons.resource.BaseResource;
-import com.tyrael.laundry.core.service.AccountsPayableService;
-import com.tyrael.laundry.model.acctspayable.AccountsPayable;
+import com.tyrael.laundry.core.service.AccountsPaymentService;
+import com.tyrael.laundry.model.acctspayable.AccountsPayment;
 
 /**
  * 
@@ -25,22 +25,17 @@ import com.tyrael.laundry.model.acctspayable.AccountsPayable;
  *
  */
 @RestController
-@RequestMapping("/accounts-payable")
-public class AccountsPayableResource  extends BaseResource<AccountsPayable, AccountsPayableInfo, AccountsPayableService> {
+@RequestMapping("/accounts-payment")
+public class AccountsPaymentResource  extends BaseResource<AccountsPayment, AccountsPaymentInfo, AccountsPaymentService> {
 
-    private static Logger LOG = LoggerFactory.getLogger(AccountsPayableResource.class);
+    private static Logger LOG = LoggerFactory.getLogger(AccountsPaymentResource.class);
 
     @RequestMapping(method = GET, params = "term")
-    public ResponseEntity<PageInfo<AccountsPayableInfo>> page(Principal principal,
+    public ResponseEntity<PageInfo<AccountsPaymentInfo>> page(Principal principal,
             Pageable page,
             @RequestParam String term) {
-        LOG.debug("AccountsPayableInfo rql query. Principal={}, page={}, term={}", principal, page, term);
+        LOG.debug("AccountsPayment rql query. Principal={}, page={}, term={}", principal, page, term);
         return new ResponseEntity<>(service.rqlSearch(term, page), OK);
-    }
-
-    @RequestMapping(method = GET, params = "apCode")
-    public ResponseEntity<AccountsPayableInfo> findByCode(@RequestParam String apCode) {
-        return new ResponseEntity<>(service.findInfoByCode(apCode), OK);
     }
 
 }

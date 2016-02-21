@@ -1,0 +1,49 @@
+<div class="modal-header modal-primary">
+  <button type="button" class="close" ng-click="cancel()">&times;</button>
+  <h3 class="modal-title">Make payment</h3>
+</div>
+
+<form name="customerForm" ng-submit="proceed()" class="form-horizontal">
+<div class="modal-body">
+  <div class="row">
+  <div class="col-sm-12">
+    <div class="form-group col-sm-12">
+      <label class="col-sm-4 control-label">Account Payable</label>
+      <div class="col-sm-8">
+        <p class="form-control-static">{{acctspayable.name}}
+      </div>
+    </div>
+    <div class="form-group col-sm-12">
+      <label class="col-sm-4 control-label">Branch</label>
+      <div class="col-sm-8">
+        <p class="form-control-static">{{acctspayable.branchName}}
+      </div>
+    </div>
+    <div class="form-group col-sm-12">
+	    <label class="col-sm-4 control-label req">Payment date</label>
+	    <div class="col-sm-8">
+	      <span class="input-group">
+	        <input type="text" datepicker-popup="{{dateFormat}}" placeholder="Payment date"
+	          ng-model="paymentDate" is-open="openPaymentDate" ng-init="openPaymentDate = false"
+	          max-date="{{today}}"
+	          class="form-control input-sm" readonly required />
+	        <span class="input-group-btn">
+	          <button type="button" class="btn btn-default btn-sm" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+	        </span>
+	      </span>
+	    </div>
+    </div>
+    <div class="form-group col-sm-12">
+      <label class="col-sm-4 control-label req">Amount</label>
+      <div class="col-sm-8">
+        <input type="number" min="0.01" step="0.01" ng-model="paymentAmount" placeholder="Payment amount" class="form-control" required />
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <input type="submit" ng-disabled="customerForm.$invalid" value="OK" class="btn btn-primary btn-s-xs" />
+  <span class="btn btn-default btn-s-xs" ng-click="cancel()">Cancel</span>
+</div>
+</form>

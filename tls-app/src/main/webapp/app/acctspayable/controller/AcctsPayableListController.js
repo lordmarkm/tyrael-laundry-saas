@@ -1,5 +1,8 @@
 define(function () {
-  return ['$scope', 'ngTableParams', 'AcctsPayableService', function ($scope, ngTableParams, AcctsPayableService) {
+  return ['$scope', 'ngTableParams', 'AcctsPayableService', 'branches', function ($scope, ngTableParams, AcctsPayableService, branches) {
+
+    $scope.filter = {};
+    $scope.branches = branches;
 
     //List
     var table = $scope.tableParams = new ngTableParams({
@@ -11,6 +14,7 @@ define(function () {
       getData: function($defer, params) {
         //search
        params.$params.sort = 'dateUpdated,DESC';
+       params.$params.term = composeSearchTerm();
        AcctsPayableService.get(params.$params, function(response) {
           params.total(response.total);
           $defer.resolve(response.data);
@@ -18,7 +22,22 @@ define(function () {
       }
     });
 
+    function composeSearchTerm() {
+      var term = '';
+      if ($scope.filter.branchCode) {
+        appendTerm('branchCode==' + $scope.filter.branchCode);
+      }
+      function appendTerm(termToAppend) {
+        if (term.length) {
+          term += ';';
+        }
+        term += termToAppend;
+      }
+      return term;
+    }
+
     $scope.doFilter = function () {
+      console.debug(table.page());
       if (table.page() === 1) {
         table.reload();
       } else {
@@ -27,7 +46,7 @@ define(function () {
     };
 
     $scope.clearFilter = function () {
-      delete $scope.namefilter;
+      $scope.filter = {};
       $scope.doFilter();
     };
 

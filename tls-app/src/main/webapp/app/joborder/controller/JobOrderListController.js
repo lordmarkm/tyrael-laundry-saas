@@ -22,7 +22,7 @@ define(function () {
     $scope.open = function (picker, evt) {
       evt.preventDefault();
       evt.stopPropagation();
-      
+
       if (picker === 'from') {
         $scope.openDatefrom = true;
       } else if (picker === 'to') {

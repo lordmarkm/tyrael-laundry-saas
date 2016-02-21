@@ -5,16 +5,18 @@ define([
    'acctspayable/controller/AcctsPayableViewController',
    'acctspayable/controller/AcctsPayableUpdateController',
    'acctspayable/service/AcctsPayableService',
+   'acctspayable/service/AcctsPaymentService',
    'acctspayable/resolve/AcctsPayableListResolve',
    'acctspayable/resolve/AcctsPayableViewResolve',
    'acctspayable/resolve/AcctsPayableUpdateResolve'
 ], function (angular, AcctsPayableRootController, AcctsPayableListController, AcctsPayableViewController, AcctsPayableUpdateController,
-    AcctsPayableService,
+    AcctsPayableService, AcctsPaymentService,
     AcctsPayableListResolve, AcctsPayableViewResolve, AcctsPayableUpdateResolve) {
 
   console.debug('Configuring acctspayable.module');
   angular.module('acctspayable.module', [])
     .service('AcctsPayableService', AcctsPayableService)
+    .service('AcctsPaymentService', AcctsPaymentService)
     .config(['$stateProvider', function ($stateProvider) {
 
       $stateProvider.state('default.acctspayable', {

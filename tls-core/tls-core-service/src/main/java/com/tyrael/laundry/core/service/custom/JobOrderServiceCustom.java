@@ -11,6 +11,11 @@ import com.tyrael.laundry.commons.dto.joborder.JobOrderInfo;
 import com.tyrael.laundry.commons.service.TyraelJpaServiceCustom;
 import com.tyrael.laundry.model.joborder.JobOrder;
 
+/**
+ *
+ * @author mbmartinez
+ *
+ */
 public interface JobOrderServiceCustom extends TyraelJpaServiceCustom<JobOrder, JobOrderInfo> {
 
     ImmutableMap<String, Path<?>> FIELD_MAPPING = ImmutableMap.<String, Path<?>>builder()

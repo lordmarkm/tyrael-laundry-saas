@@ -46,7 +46,7 @@ define(function () {
     };
 
     $scope.clearFilter = function () {
-      delete $scope.namefilter;
+      $scope.filter = {};
       $scope.doFilter();
     };
 

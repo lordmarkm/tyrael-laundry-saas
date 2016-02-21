@@ -30,9 +30,9 @@
     </div>
   </div>
   <div ng-if="['WEEKLY', 'MONTHLY', 'YEARLY'].indexOf(acctspayable.repeat.repeatType) != -1" class="form-group">
-    <label class="control-label col-sm-2 req">Due date</label>
+    <label class="control-label col-sm-2">Due date</label>
     <div class="col-sm-4">
-      <input type="number" ng-model="acctspayable.repeat.dueDate" class="form-control" placeholder="Day of week, month, or year" required />
+      <input type="number" ng-model="acctspayable.repeat.dueDate" class="form-control" placeholder="Day of week, month, or year" />
     </div>
   </div>
 

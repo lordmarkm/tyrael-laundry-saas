@@ -1,10 +1,12 @@
 package com.tyrael.laundry.core.service.custom.impl;
 
 import static com.tyrael.laundry.model.acctspayable.QAccountsPayable.accountsPayable;
+import static com.tyrael.laundry.model.acctspayable.QAccountsPayment.accountsPayment;
 
 import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +23,13 @@ import com.tyrael.laundry.core.service.AccountsPayableService;
 import com.tyrael.laundry.core.service.BranchService;
 import com.tyrael.laundry.core.service.BrandService;
 import com.tyrael.laundry.core.service.custom.AccountsPayableServiceCustom;
+import com.tyrael.laundry.core.service.rql.RsqlParserVisitor;
 import com.tyrael.laundry.model.acctspayable.AccountsPayable;
 import com.tyrael.laundry.model.branch.Branch;
 import com.tyrael.laundry.model.branch.Brand;
+
+import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.Node;
 
 /**
  * 
@@ -35,7 +41,7 @@ public class AccountsPayableServiceCustomImpl
     extends TyraelJpaServiceCustomImpl<AccountsPayable, AccountsPayableInfo, AccountsPayableService>
     implements AccountsPayableServiceCustom {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AccountsPayableServiceCustomImpl.class);
+    private static Logger LOG = LoggerFactory.getLogger(AccountsPayableServiceCustomImpl.class);
 
     @Autowired
     private BrandService brandService;
@@ -50,6 +56,28 @@ public class AccountsPayableServiceCustomImpl
             List<Brand> brands = brandService.findByUserUsername(AuthenticationUtil.getLoggedInUsername());
             return predicate.and(accountsPayable.branch.brand.in(brands));
         }
+    }
+
+    @Override
+    public PageInfo<AccountsPayableInfo> rqlSearch(String term, Pageable pageRequest) {
+        LOG.debug("Performing paginated rql search. term={}, page = {}", term, pageRequest);
+
+        BooleanExpression predicate = accountsPayable.deleted.isFalse();
+
+        if (!StringUtils.isBlank(term)) {
+            try {
+                Node rootNode = new RSQLParser().parse(term);
+                RsqlParserVisitor visitor = new RsqlParserVisitor();
+                predicate = rootNode.accept(visitor, FIELD_MAPPING);
+            } catch (Exception e) {
+                LOG.error("Error parsing or interpreting rql term. term={}, error={}", term, e.getMessage());
+                return PageInfo.blank();
+            }
+        }
+
+        predicate = addBrandFilter(predicate);
+
+        return super.pageInfo(predicate, pageRequest);
     }
 
     @Override
@@ -100,4 +128,5 @@ public class AccountsPayableServiceCustomImpl
     public AccountsPayableInfo findInfoByCode(String customerCode) {
         return toDto(repo.findByCode(customerCode));
     }
+
 }

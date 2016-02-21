@@ -16,6 +16,7 @@ import com.tyrael.laundry.commons.dto.BaseDto;
 import com.tyrael.laundry.commons.dto.BranchDto;
 import com.tyrael.laundry.commons.dto.EnumInfo;
 import com.tyrael.laundry.commons.dto.acctspayable.AccountsPayableInfo;
+import com.tyrael.laundry.commons.dto.acctspayable.AccountsPaymentInfo;
 import com.tyrael.laundry.commons.dto.customer.CustomerInfo;
 import com.tyrael.laundry.commons.dto.joborder.JobItemInfo;
 import com.tyrael.laundry.commons.dto.joborder.JobOrderInfo;
@@ -26,6 +27,7 @@ import com.tyrael.laundry.dto.inventory.InventoryItemInfo;
 import com.tyrael.laundry.dto.inventory.InventoryItemTypeInfo;
 import com.tyrael.laundry.dto.inventory.SalesItemInfo;
 import com.tyrael.laundry.model.acctspayable.AccountsPayable;
+import com.tyrael.laundry.model.acctspayable.AccountsPayment;
 import com.tyrael.laundry.model.branch.Branch;
 import com.tyrael.laundry.model.customer.Customer;
 import com.tyrael.laundry.model.inventory.InventoryItem;
@@ -107,7 +109,12 @@ public class MapperConfig {
                 mapping(AccountsPayable.class, AccountsPayableInfo.class)
                     .fields("branch.code", "branchCode", oneWay())
                     .fields("branch.name", "branchName", oneWay())
-                    .fields("branch.brand.name", "brandName", oneWay());
+                    .fields("branch.brand.name", "brandName", oneWay())
+                    .fields("lastPayment", "lastPayment", copyByReference());
+                mapping(AccountsPayment.class, AccountsPaymentInfo.class)
+                    .fields("paymentDate", "paymentDate", copyByReference())
+                    .fields("accountsPayable.name", "accountsPayableName", oneWay())
+                    .fields("accountspayable.branch.name", "branchName", oneWay());
             }
         });
     }

@@ -1,17 +1,48 @@
 <h3 class="page-header">
-  <strong>{{acctspayable.name}}</strong>
+  <strong>{{acctspayable.name}}</strong> <button ng-click="makePaymentFromViewPage(acctspayable)" class="btn btn-default btn-xs">Make payment</button>
   <br><small>{{acctspayable.branchName}}</small>
 </h3>
 
 <dl class="dl-horizontal">
+  <dt ng-if="acctspayable.description">Description
+  <dd ng-if="acctspayable.description">{{acctspayable.description}}
   <dt>Date created
   <dd>{{acctspayable.dateCreated | date}}
+  <dt>Last payment
+  <dd>{{acctspayable.lastPayment | date}}
 </dl>
 
 <h4 class="page-header">Details</h4>
 <dl class="dl-horizontal">
   <dt>Repeat
-  <dd>{{acctspayable.repeat.repeatType}} <span ng-if="['WEEKLY', 'MONTHLY', 'YEARLY'].indexOf(acctspayable.repeat.repeatType) != -1">- Day {{acctspayable.repeat.dueDate}}</span>
+  <dd>{{acctspayable.repeat.repeatType}} <span ng-if="acctspayable.repeat.dueDate">- Day {{acctspayable.repeat.dueDate}}</span>
 </dl>
 
 <h4 class="page-header">Payments</h4>
+<table ng-table="tableParams" show-filter="true" class="table table-striped mt20">
+  <thead>
+    <tr>
+      <th>Payment Date
+      <th>Amount
+      <th>Account Payable
+      <th>Created by
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="acctpayment in $data">
+      <td>{{acctpayment.paymentDate | date}}</td>
+      <td>{{acctpayment.amount | currency: '₱'}}</td>
+      <td>
+        {{acctpayment.accountsPayableName}}
+        <div><small class="text-muted">{{acctpayment.branchName}}</small></div>
+      </td>
+      <td>
+        {{acctpayment.createdBy}}
+        <div><small class="text-muted">{{moment(acctpayment.dateCreated).fromNow()}}</small></div>
+      </td>
+    </tr>
+    <tr ng-if="!$data.length">
+      <td colspan="2">No payments available</td>
+    </tr>
+  </tbody>
+</table>
