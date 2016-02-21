@@ -79,8 +79,9 @@
         <br><small class="text-muted">{{header.dateCreated | date: 'hh:mm a'}}</small>
       </td>
       <td>
-        {{header.branch.name}}
-        <br><small class="text-muted">{{header.branch.brandName}}</small>
+        <div>{{header.branch.name}}</div>
+        <div><small class="text-muted">{{header.branch.brandName}}</small></div>
+        <div><small class="text-muted">By {{header.createdBy}} {{moment(header.dateCreated).fromNow()}}</small></div>
       </td>
       <td>{{header.totalAmountPaid | currency: '₱'}}</td>
       <td>

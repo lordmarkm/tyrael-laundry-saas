@@ -2,6 +2,8 @@ define(function () {
   return ['$scope', '$state', '$stateParams', '$modal', 'ngTableParams', 'toaster', 'moment', 'branches', 'SalesHeaderService',
           function ($scope, $state, $stateParams, $modal, ngTableParams, toaster, moment, branches, SalesHeaderService) {
 
+    $scope.moment = moment;
+
     //Filters
     $scope.filter = {};
     $scope.itemCode = $stateParams.itemCode;
