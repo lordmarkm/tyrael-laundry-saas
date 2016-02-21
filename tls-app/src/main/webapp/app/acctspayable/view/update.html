@@ -1,0 +1,54 @@
+<h3 ng-if="acctspayable.code" class="page-header">Update {{acctspayable.name}} <br><small>Update account payable</small></h3>
+<h3 ng-if="!acctspayable.code" class="page-header">Add new account payable <br><small>Add new account payable</small></h3>
+
+<form class="form form-horizontal" ng-submit="save()">
+  <div class="form-group">
+    <label class="control-label col-sm-2 req">Name</label>
+    <div class="col-sm-4">
+      <input type="text" ng-model="acctspayable.name" required class="form-control" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">Description</label>
+    <div class="col-sm-4">
+      <input type="text" ng-model="acctspayable.description" class="form-control" />
+    </div>
+  </div>
+
+  <h4 class="page-header">Repetition Details</h4>
+  <div class="form-group">
+    <label class="control-label col-sm-2 req">Repeat</label>
+    <div class="col-sm-4">
+      <select ng-model="acctspayable.repeat.repeatType" class="form-control" required>
+        <option value="NONE">None</option>
+        <option value="DAILY">Daily</option>
+        <option value="WEEKLY">Weekly</option>
+        <option value="MONTHLY">Monthly</option>
+        <option value="QUARTERLY">Quarterly</option>
+        <option value="YEARLY">Yearly</option>
+      </select>
+    </div>
+  </div>
+  <div ng-if="['WEEKLY', 'MONTHLY', 'YEARLY'].indexOf(acctspayable.repeat.repeatType) != -1" class="form-group">
+    <label class="control-label col-sm-2 req">Due date</label>
+    <div class="col-sm-4">
+      <input type="number" ng-model="acctspayable.repeat.dueDate" class="form-control" placeholder="Day of week, month, or year" required />
+    </div>
+  </div>
+
+  <h4 class="page-header">Branch assignment</h4>
+  <div class="form-group">
+    <label class="control-label col-sm-2 req">Branch</label>
+    <div class="col-sm-4">
+      <select ng-model="acctspayable.branchCode" ng-options="branch.code as branch.name + ' (' + branch.brandName + ')' for branch in branches | orderBy: 'brandName'"
+        required class="form-control">
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-4 col-sm-push-2">
+      <input type="submit" value="{{acctspayable.code ? 'Update account payable' : 'Create account payable'}}" class="btn btn-primary" />
+    </div>
+  </div>
+</form>

@@ -1,0 +1,17 @@
+<h3 class="page-header">
+  <strong>{{acctspayable.name}}</strong>
+  <br><small>{{acctspayable.branchName}}</small>
+</h3>
+
+<dl class="dl-horizontal">
+  <dt>Date created
+  <dd>{{acctspayable.dateCreated | date}}
+</dl>
+
+<h4 class="page-header">Details</h4>
+<dl class="dl-horizontal">
+  <dt>Repeat
+  <dd>{{acctspayable.repeat.repeatType}} <span ng-if="['WEEKLY', 'MONTHLY', 'YEARLY'].indexOf(acctspayable.repeat.repeatType) != -1">- Day {{acctspayable.repeat.dueDate}}</span>
+</dl>
+
+<h4 class="page-header">Payments</h4>

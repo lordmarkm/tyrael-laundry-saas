@@ -6,6 +6,9 @@ define(function () {
       if (!$scope.principal) {
         return false;
       }
+      if (permission === 'authenticated' && $scope.principal) {
+        return true;
+      }
       for (var i in $scope.principal.authorities) {
         if (angular.isArray(permission)) {
           //Checking for array permission set for states with access: ['ROLE_ADMIN', 'ROLE_BRANCH_MANAGER']

@@ -23,7 +23,8 @@ define([
         url: 'joborders',
         template: '<ui-view></ui-view>',
         controller: JobOrderRootController,
-        abstract: true
+        abstract: true,
+        access: ['authenticated']
       })
       .state('default.joborder.list', {
         url: '',
