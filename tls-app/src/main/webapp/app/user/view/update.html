@@ -28,7 +28,7 @@
     <label class="control-label col-sm-2">Brand</label>
     <div class="col-sm-4">
       <div ng-repeat="(brandCode, included) in brandsAvailable" >
-        <input type="checkbox" ng-model="included" id="brand-{{$index}}" ng-change="toggleUserBrandCode(brandCode, included)" />
+        <input type="checkbox" ng-model="included" id="brand-{{$index}}" ng-change="toggleUserBrandCode(brandCode, included)" ng-disabled="isSameLevel(user.roles)" />
         <label for="brand-{{$index}}" class="control-label pointer">{{brandName(brandCode)}}</label>
       </div>
     </div>
