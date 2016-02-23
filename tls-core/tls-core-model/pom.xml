@@ -13,7 +13,6 @@
     <dependency>
       <groupId>tls</groupId>
       <artifactId>tls-commons</artifactId>
-      <version>${project.version}</version>
     </dependency>
   </dependencies>
 
