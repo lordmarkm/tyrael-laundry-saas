@@ -1,7 +1,6 @@
 package com.tyrael.laundry.core.service.custom.impl;
 
 import static com.tyrael.laundry.model.acctspayable.QAccountsPayable.accountsPayable;
-import static com.tyrael.laundry.model.acctspayable.QAccountsPayment.accountsPayment;
 
 import java.util.List;
 

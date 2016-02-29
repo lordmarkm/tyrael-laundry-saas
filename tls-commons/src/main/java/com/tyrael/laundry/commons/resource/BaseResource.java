@@ -29,6 +29,10 @@ public abstract class BaseResource<E extends BaseEntity, D, S extends TyraelJpaS
     @Autowired
     protected S service;
 
+    protected <T> ResponseEntity<T> ok(T result) {
+        return new ResponseEntity<>(result, OK);
+    }
+
     @RequestMapping(method = GET)
     public ResponseEntity<PageInfo<D>> getPage(Pageable page) {
         LOG.debug("Page request. page={}", page);

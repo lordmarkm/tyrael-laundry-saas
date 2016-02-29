@@ -82,7 +82,8 @@ require([
     'customer/customer.module.js',
     'servicetype/servicetype.module.js',
     'inventory/inventory.module.js',
-    'acctspayable/acctspayable.module.js'
+    'acctspayable/acctspayable.module.js',
+    'event/event.module.js'
   ], function (angular) {
   angular.element().ready(function () {
     angular.bootstrap(document, [
@@ -106,7 +107,8 @@ require([
       'customer.module',
       'servicetype.module',
       'inventory.module',
-      'acctspayable.module'
+      'acctspayable.module',
+      'event.module'
     ]);
   });
 });

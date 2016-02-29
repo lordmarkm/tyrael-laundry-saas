@@ -9,6 +9,12 @@
   <artifactId>tls-app</artifactId>
   <name>Tyrael Laundry SaaS :: App</name>
 
+  <properties>
+    <db.host>localhost</db.host>
+    <db.username>root</db.username>
+    <db.password>root</db.password>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>tls</groupId>
@@ -39,7 +45,24 @@
     </dependency>
   </dependencies>
 
+  <profiles>
+    <profile>
+      <id>aws</id>
+      <properties>
+        <db.host>tyrael-laundry-saas.cwsdrmvlsryc.ap-southeast-1.rds.amazonaws.com</db.host>
+        <db.username>root</db.username>
+        <db.password>1234qwer</db.password>
+      </properties>
+    </profile>
+  </profiles>
+
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
