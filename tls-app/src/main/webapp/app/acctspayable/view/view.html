@@ -8,14 +8,16 @@
   <dd ng-if="acctspayable.description">{{acctspayable.description}}
   <dt>Date created
   <dd>{{acctspayable.dateCreated | date}}
-  <dt>Last payment
-  <dd>{{acctspayable.lastPayment | date}}
+  <dt>Created by
+  <dd>{{acctspayable.createdBy}}
 </dl>
 
 <h4 class="page-header">Details</h4>
 <dl class="dl-horizontal">
   <dt>Repeat
   <dd>{{acctspayable.repeat.repeatType}} <span ng-if="acctspayable.repeat.dueDate">- Day {{acctspayable.repeat.dueDate}}</span>
+  <dt>Last payment
+  <dd>{{acctspayable.lastPayment | date || 'No payments yet'}}
 </dl>
 
 <h4 class="page-header">Payments</h4>
