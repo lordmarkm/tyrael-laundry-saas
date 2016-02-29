@@ -36,7 +36,10 @@ define(function () {
         $state.go('default.login');
       } else {
         $scope.principal = auth.principal;
-        $scope.onLogin();
+        //disable going to login page if already logged in
+        if ($state.current.name === 'default.login') {
+          $scope.onLogin();
+        }
       }
     });
 

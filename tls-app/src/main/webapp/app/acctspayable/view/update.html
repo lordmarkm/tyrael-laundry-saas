@@ -33,6 +33,7 @@
     <label class="control-label col-sm-2">Due date</label>
     <div class="col-sm-4">
       <input type="number" ng-model="acctspayable.repeat.dueDate" class="form-control" placeholder="Day of week, month, or year" />
+      <small ng-if="acctspayable.repeat.repeatType == 'WEEKLY'" class="help-block">Monday is day 1</small>
     </div>
   </div>
 

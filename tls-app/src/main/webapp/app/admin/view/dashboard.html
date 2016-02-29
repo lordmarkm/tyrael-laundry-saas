@@ -45,14 +45,14 @@
     </div>
   </div>
   <div class="col-sm-4">
-    <div class="panel panel-primary pointer" ui-sref="default.sales_header.list">
+    <div class="panel pointer" ng-class="{'panel-danger': hasAccountsDue, 'panel-primary': !hasAccountsDue}" ui-sref="default.acctspayable.list">
       <div class="panel-heading">
         <div class="row">
           <div class="col-xs-3">
             <i class="fa fa-lightbulb-o fa-5x"></i>
           </div>
           <div class="col-xs-9 text-right">
-            <div class="huge">{{dashboard.accountsPastDue}}</div>
+            <div class="huge">{{dashboard.accountsDue}}</div>
             <div>Accounts Due</div>
           </div>
         </div>
@@ -69,8 +69,11 @@
 <div class="row">
   <div class="col-sm-8">
     <h3 class="page-header">Event log</h3>
-    <div class="panel panel-default" ng-repeat="event in events.data">
-      <div class="panel-heading">{{event.eventType}}</div>
+    <div class="panel panel-default" ng-repeat="event in events">
+      <div class="panel-heading">
+        <i ng-if="event.eventType=='LOGIN'" class="fa fa-user"></i>
+        &nbsp;{{event.eventType}}
+      </div>
       <div class="panel-body">
         <dl class="dl-horizontal">
           <dt>User
@@ -80,5 +83,7 @@
         </dl>
       </div>
     </div>
+    <button ng-click="moreEvents()" ng-disabled="events.length >= totalEvents" class="btn btn-primary">More</button>
+    <small>Showing {{events.length}} of {{totalEvents}}</small>
   </div>
 </div>

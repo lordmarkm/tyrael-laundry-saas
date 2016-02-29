@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,7 +132,14 @@ public class AccountsPayableServiceCustomImpl
 
     @Override
     public int countDue() {
-        return 0;
+        DateTime today = DateTime.now();
+        BooleanExpression weeklyDue = accountsPayable.repeat.repeatType.eq(RepeatType.WEEKLY)
+                .and(accountsPayable.repeat.dueDate.eq(today.getDayOfWeek()));
+        BooleanExpression monthlyDue = accountsPayable.repeat.repeatType.eq(RepeatType.MONTHLY)
+                .and(accountsPayable.repeat.dueDate.eq(today.getDayOfMonth()));
+        BooleanExpression yearlyDue = accountsPayable.repeat.repeatType.eq(RepeatType.YEARLY)
+                .and(accountsPayable.repeat.dueDate.eq(today.getDayOfYear()));
+        return (int) repo.count(weeklyDue.or(monthlyDue).or(yearlyDue));
     }
 
 }
