@@ -34,9 +34,10 @@ define(function () {
     AuthenticationService.get(function (auth) {
       if (!auth.principal) {
         $state.go('default.login');
+      } else {
+        $scope.principal = auth.principal;
+        $scope.onLogin();
       }
-      $scope.principal = auth.principal;
-      $scope.onLogin();
     });
 
     $scope.onLogin = function () {

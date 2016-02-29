@@ -28,5 +28,6 @@ public interface SalesHeaderServiceCustom
             .build();
 
     PageInfo<SalesHeaderInfo> rqlSearch(String term, Pageable pageRequest);
+    int salesToday();
 
 }

@@ -34,5 +34,6 @@ public interface JobOrderServiceCustom extends TyraelJpaServiceCustom<JobOrder, 
 
     JobOrderInfo findByTrackinNoInfo(String trackingNo);
     PageInfo<JobOrderInfo> rqlSearch(String term, Pageable pageRequest);
+    int countNew();
 
 }

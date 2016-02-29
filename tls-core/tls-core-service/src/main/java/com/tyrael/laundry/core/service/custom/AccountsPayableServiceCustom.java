@@ -27,5 +27,6 @@ public interface AccountsPayableServiceCustom
 
     AccountsPayableInfo findInfoByCode(String code);
     PageInfo<AccountsPayableInfo> rqlSearch(String term, Pageable pageRequest);
+    int countDue();
 
 }

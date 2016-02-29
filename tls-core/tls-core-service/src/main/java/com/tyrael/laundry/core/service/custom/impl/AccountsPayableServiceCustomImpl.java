@@ -26,6 +26,7 @@ import com.tyrael.laundry.core.service.rql.RsqlParserVisitor;
 import com.tyrael.laundry.model.acctspayable.AccountsPayable;
 import com.tyrael.laundry.model.branch.Branch;
 import com.tyrael.laundry.model.branch.Brand;
+import com.tyrael.laundry.reference.RepeatType;
 
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
@@ -126,6 +127,11 @@ public class AccountsPayableServiceCustomImpl
     @Override
     public AccountsPayableInfo findInfoByCode(String customerCode) {
         return toDto(repo.findByCode(customerCode));
+    }
+
+    @Override
+    public int countDue() {
+        return 0;
     }
 
 }

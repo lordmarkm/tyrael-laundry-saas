@@ -29,6 +29,7 @@ import com.tyrael.laundry.model.branch.Brand;
 import com.tyrael.laundry.model.joborder.JobItem;
 import com.tyrael.laundry.model.joborder.JobOrder;
 import com.tyrael.laundry.model.joborder.JobService;
+import com.tyrael.laundry.reference.JobOrderStatus;
 
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
@@ -132,4 +133,13 @@ public class JobOrderServiceCustomImpl extends TyraelJpaServiceCustomImpl<JobOrd
         }
         return jobCode;
     }
+
+    @Override
+    public int countNew() {
+        BooleanExpression predicate = jobOrder.deleted.isFalse();
+        predicate = predicate.and(jobOrder.status.eq(JobOrderStatus.NEW));
+        predicate = addBrandFilter(predicate);
+        return (int) repo.count(predicate);
+    }
+
 }

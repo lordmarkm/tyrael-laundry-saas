@@ -10,14 +10,14 @@ import com.tyrael.laundry.reference.EventType;
  */
 public class EventDto extends BaseDto {
 
-    private EventType type;
+    private EventType eventType;
 
-    public EventType getType() {
-        return type;
+    public EventType getEventType() {
+        return eventType;
     }
 
-    public void setType(EventType type) {
-        this.type = type;
+    public void setEventType(EventType eventType) {
+        this.eventType = eventType;
     }
 
 }
