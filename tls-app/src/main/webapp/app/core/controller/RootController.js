@@ -36,6 +36,7 @@ define(function () {
         $state.go('default.login');
       }
       $scope.principal = auth.principal;
+      $scope.onLogin();
     });
 
     $scope.onLogin = function () {

@@ -37,7 +37,6 @@ define(function () {
     }
 
     $scope.doFilter = function () {
-      console.debug(table.page());
       if (table.page() === 1) {
         table.reload();
       } else {

@@ -6,7 +6,7 @@ define(function () {
         $scope.onLogin();
       }, function (errorResp) {
         $scope.error = errorResp.data.error || 'Authentication failed';
-      })
+      });
     };
   }];
 });
