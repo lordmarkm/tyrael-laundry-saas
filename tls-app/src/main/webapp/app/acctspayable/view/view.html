@@ -17,7 +17,7 @@
   <dt>Repeat
   <dd>{{acctspayable.repeat.repeatType}} <span ng-if="acctspayable.repeat.dueDate">- Day {{acctspayable.repeat.dueDate}}</span>
   <dt>Last payment
-  <dd>{{acctspayable.lastPayment | date || 'No payments yet'}}
+  <dd>{{(acctspayable.lastPayment | date) || 'No payments yet'}}
 </dl>
 
 <h4 class="page-header">Payments</h4>
