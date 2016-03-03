@@ -12,5 +12,6 @@
   	<module>tls-core-model</module>
   	<module>tls-core-api</module>
   	<module>tls-core-service</module>
+  	<module>tls-core-aspect</module>
   </modules>
 </project>

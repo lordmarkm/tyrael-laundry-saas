@@ -6,7 +6,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.tyrael.laundry.model.joborder.JobOrder;
-import com.tyrael.laundry.reference.EventType;
 
 @Entity(name = "event_job_order")
 @DiscriminatorValue("JOB_ORDER")
@@ -16,10 +15,21 @@ public class JobOrderEvent extends TlsEvent {
     @JoinColumn(name = "job_order_id")
     private JobOrder jobOrder;
 
-    private EventType eventType;
+    public JobOrderEvent() {
+        //No-arg constructor
+    }
 
-    public JobOrderEvent(JobOrder jobOrder) {
-        
+    public JobOrderEvent(String message, JobOrder jobOrder) {
+        super(message);
+        this.jobOrder = jobOrder;
+    }
+
+    public JobOrder getJobOrder() {
+        return jobOrder;
+    }
+
+    public void setJobOrder(JobOrder jobOrder) {
+        this.jobOrder = jobOrder;
     }
 
 }

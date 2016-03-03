@@ -23,6 +23,11 @@
     </dependency>
     <dependency>
       <groupId>tls</groupId>
+      <artifactId>tls-core-aspect</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>tls</groupId>
       <artifactId>tls-pos-api</artifactId>
       <version>${project.version}</version>
     </dependency>

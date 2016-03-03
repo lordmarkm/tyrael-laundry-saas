@@ -33,6 +33,17 @@ public abstract class TlsEvent extends BaseEntity {
     @Column(name = "event_type", insertable = false, updatable = false)
     private String eventType;
 
+    @Column(name = "event_msg")
+    private String message;
+
+    public TlsEvent() {
+        //No-arg constructor
+    }
+
+    public TlsEvent(String message) {
+        this.message = message;
+    }
+
     public Brand getBrand() {
         return brand;
     }
@@ -55,6 +66,14 @@ public abstract class TlsEvent extends BaseEntity {
 
     public void setEventType(String eventType) {
         this.eventType = eventType;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 }
