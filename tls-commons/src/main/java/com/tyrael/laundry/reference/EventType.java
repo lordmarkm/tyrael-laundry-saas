@@ -8,7 +8,8 @@ package com.tyrael.laundry.reference;
 public enum EventType {
 
     LOGIN("Login"),
-    JOB_ORDER("Job Order");
+    JOB_ORDER("Job Order"),
+    INV_ITEM_TYPE("Inventory Item Type");
 
     private String label;
 

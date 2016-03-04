@@ -6,18 +6,17 @@
     <artifactId>tls-pos</artifactId>
     <version>1.0</version>
   </parent>
-  <artifactId>tls-pos-api</artifactId>
-  <name>Tyrael Laundry SaaS :: POS :: API</name>
+  <artifactId>tls-pos-aspect</artifactId>
+  <name>Tyrael Laundry SaaS :: POS :: Aspect</name>
 
   <dependencies>
     <dependency>
       <groupId>tls</groupId>
-      <artifactId>tls-commons</artifactId>
-    </dependency>
-        <dependency>
-      <groupId>tls</groupId>
       <artifactId>tls-pos-service</artifactId>
-      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-aop</artifactId>
     </dependency>
   </dependencies>
 </project>

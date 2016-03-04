@@ -7,6 +7,7 @@
     <version>1.0</version>
   </parent>
   <artifactId>tls-pos-model</artifactId>
+  <name>Tyrael Laundry SaaS :: POS :: Model</name>
 
   <dependencies>
     <dependency>

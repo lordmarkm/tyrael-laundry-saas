@@ -94,7 +94,7 @@
       <td>{{joborder.totalAmount | currency: '₱'}}
       <td ng-class="colorizeBalance(joborder)">{{joborder.totalAmount - joborder.totalAmountPaid | currency: '₱'}}
       <td>
-        <div>{{joborder.dateCreated | date: 'yyyy-MM-dd hh:mm a'}}</div>
+        <div>{{joborder.dateCreated | date: 'MMM-dd-yyyy hh:mm a'}}</div>
         <div><small class="text-muted">{{joborder.branchInfo.name}}</small></div>
         <div><small class="text-muted">{{joborder.customer.brandName}}</small></div>
       </td>

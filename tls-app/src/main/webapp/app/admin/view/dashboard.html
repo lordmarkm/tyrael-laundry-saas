@@ -71,9 +71,9 @@
     <h3 class="page-header">Event log</h3>
     <div class="panel panel-default" ng-repeat="event in events">
       <div class="panel-heading">
-        <i ng-if="event.eventType=='LOGIN'" class="fa fa-user"></i>
-        <i ng-if="event.eventType=='JOB_ORDER'" class="fa fa-cube"></i>
-        &nbsp;{{event.eventType}}
+        <span ng-if="event.eventType=='LOGIN'"><i class="fa fa-user"></i> Login</span>
+        <span ng-if="event.eventType=='JOB_ORDER'"><i class="fa fa-cube"></i> Job Order</span>
+        <span ng-if="event.eventType=='INV_ITEM_TYPE'"><i class="fa fa-flask"></i> Inventory Item Type</span>
       </div>
       <div class="panel-body">
         <dl class="dl-horizontal">
@@ -91,6 +91,10 @@
           <dd ng-if="event.jobOrder">{{event.jobOrder.customer.formattedName}}
           <dt ng-if="event.jobOrder">
           <dd ng-if="event.jobOrder"><a ui-sref="default.joborder.view({joborderCode: event.jobOrder.trackingNo, urlSlug: event.jobOrder.slug})"><i class="fa fa-cube"></i> <small>View details</small></a>
+          <dt ng-if="event.inventoryItemType">Inventory Item Type
+          <dd ng-if="event.inventoryItemType">{{event.inventoryItemType.name}}
+          <dt ng-if="event.inventoryItemType">
+          <dd ng-if="event.inventoryItemType"><a ui-sref="default.inv_item_type.view({invItemTypeCode: event.inventoryItemType.code, urlSlug: event.inventoryItemType.slug})"><i class="fa fa-flask"></i> <small>View details</small></a>
         </dl>
       </div>
     </div>

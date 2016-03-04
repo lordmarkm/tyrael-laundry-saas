@@ -1,4 +1,4 @@
-package com.tyrael.laundry.dto.inventory;
+package com.tyrael.laundry.commons.dto.inventory;
 
 import java.math.BigDecimal;
 

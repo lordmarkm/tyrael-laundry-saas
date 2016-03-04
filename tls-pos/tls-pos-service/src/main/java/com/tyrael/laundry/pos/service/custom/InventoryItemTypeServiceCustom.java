@@ -9,8 +9,8 @@ import org.springframework.data.domain.Pageable;
 import com.google.common.collect.ImmutableMap;
 import com.mysema.query.types.Path;
 import com.tyrael.laundry.commons.dto.PageInfo;
+import com.tyrael.laundry.commons.dto.inventory.InventoryItemTypeInfo;
 import com.tyrael.laundry.commons.service.TyraelJpaServiceCustom;
-import com.tyrael.laundry.dto.inventory.InventoryItemTypeInfo;
 import com.tyrael.laundry.model.inventory.InventoryItemType;
 
 /**

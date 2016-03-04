@@ -3,6 +3,7 @@ package com.tyrael.laundry.commons.dto.event;
 import com.tyrael.laundry.commons.dto.BaseDto;
 import com.tyrael.laundry.commons.dto.BranchDto;
 import com.tyrael.laundry.commons.dto.BrandDto;
+import com.tyrael.laundry.commons.dto.inventory.InventoryItemTypeInfo;
 import com.tyrael.laundry.commons.dto.joborder.JobOrderInfo;
 import com.tyrael.laundry.reference.EventType;
 
@@ -17,6 +18,11 @@ public class EventDto extends BaseDto {
     private String message;
     private BrandDto brand;
     private BranchDto branch;
+
+    //InventoryItemType only
+    private InventoryItemTypeInfo inventoryItemType;
+
+    //JobOrderEvent only
     private JobOrderInfo jobOrder;
 
     public EventType getEventType() {
@@ -57,6 +63,14 @@ public class EventDto extends BaseDto {
 
     public void setBrand(BrandDto brand) {
         this.brand = brand;
+    }
+
+    public InventoryItemTypeInfo getInventoryItemType() {
+        return inventoryItemType;
+    }
+
+    public void setInventoryItemType(InventoryItemTypeInfo inventoryItemType) {
+        this.inventoryItemType = inventoryItemType;
     }
 
 }

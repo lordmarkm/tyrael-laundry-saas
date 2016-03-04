@@ -31,6 +31,11 @@
       <artifactId>tls-pos-api</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>tls</groupId>
+      <artifactId>tls-pos-aspect</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
     <!-- Application Security -->
     <dependency>

@@ -12,5 +12,6 @@
     <module>tls-pos-models</module>
     <module>tls-pos-service</module>
     <module>tls-pos-api</module>
+    <module>tls-pos-aspect</module>
   </modules>
 </project>

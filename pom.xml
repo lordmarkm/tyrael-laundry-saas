@@ -48,6 +48,11 @@
         <version>${project.version}</version>
       </dependency>
       <dependency>
+        <groupId>tls</groupId>
+        <artifactId>tls-pos-service</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
         <groupId>com.mysema.querydsl</groupId>
         <artifactId>querydsl-jpa</artifactId>
         <version>${querydsl.version}</version>
