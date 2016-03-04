@@ -24,17 +24,17 @@ public abstract class TlsEvent extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "brand_id")
-    private Brand brand;
+    protected Brand brand;
 
     @ManyToOne
     @JoinColumn(name = "branch_id")
-    private Branch branch;
+    protected Branch branch;
 
     @Column(name = "event_type", insertable = false, updatable = false)
-    private String eventType;
+    protected String eventType;
 
     @Column(name = "event_msg")
-    private String message;
+    protected String message;
 
     public TlsEvent() {
         //No-arg constructor

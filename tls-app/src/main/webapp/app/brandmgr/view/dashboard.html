@@ -72,6 +72,7 @@
     <div class="panel panel-default" ng-repeat="event in events">
       <div class="panel-heading">
         <i ng-if="event.eventType=='LOGIN'" class="fa fa-user"></i>
+        <i ng-if="event.eventType=='JOB_ORDER'" class="fa fa-cube"></i>
         &nbsp;{{event.eventType}}
       </div>
       <div class="panel-body">
@@ -80,6 +81,16 @@
           <dd>{{event.createdBy}}
           <dt>Date/time
           <dd>{{event.dateCreated | date: 'MMM-dd-yyyy h:mm a'}}
+          <dt ng-if="event.message">Details
+          <dd ng-if="event.message">{{event.message}}
+          <dt ng-if="event.brand">Brand
+          <dd ng-if="event.brand">{{event.brand.name}}
+          <dt ng-if="event.branch">Branch
+          <dd ng-if="event.branch">{{event.branch.name}}
+          <dt ng-if="event.jobOrder">Customer
+          <dd ng-if="event.jobOrder">{{event.jobOrder.customer.formattedName}}
+          <dt ng-if="event.jobOrder">
+          <dd ng-if="event.jobOrder"><a ui-sref="default.joborder.view({joborderCode: event.jobOrder.trackingNo, urlSlug: event.jobOrder.slug})"><i class="fa fa-cube"></i> <small>View details</small></a>
         </dl>
       </div>
     </div>

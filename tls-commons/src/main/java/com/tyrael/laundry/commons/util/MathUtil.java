@@ -29,4 +29,11 @@ public class MathUtil {
         return a.compareTo(b) < 0;
     }
 
+    public static boolean eq(BigDecimal arg0, BigDecimal arg1) {
+        if (null == arg0 || null == arg1) {
+            return false;
+        }
+        return arg0.compareTo(arg1) == 0;
+    }
+
 }

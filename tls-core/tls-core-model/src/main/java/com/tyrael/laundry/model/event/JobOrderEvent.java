@@ -22,6 +22,8 @@ public class JobOrderEvent extends TlsEvent {
     public JobOrderEvent(String message, JobOrder jobOrder) {
         super(message);
         this.jobOrder = jobOrder;
+        this.branch = jobOrder.getBranch();
+        this.brand = jobOrder.getBranch().getBrand();
     }
 
     public JobOrder getJobOrder() {

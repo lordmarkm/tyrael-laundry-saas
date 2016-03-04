@@ -1,5 +1,7 @@
 package com.tyrael.laundry.core.aspect;
 
+import java.math.BigDecimal;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -9,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tyrael.laundry.commons.dto.joborder.JobOrderInfo;
+import com.tyrael.laundry.commons.util.MathUtil;
 import com.tyrael.laundry.core.service.EventService;
 import com.tyrael.laundry.core.service.JobOrderService;
 import com.tyrael.laundry.model.event.JobOrderEvent;
 import com.tyrael.laundry.model.joborder.JobOrder;
+import com.tyrael.laundry.reference.JobOrderStatus;
 
 /**
  *
@@ -34,17 +38,38 @@ public class JobOrderEventCreator {
     @Around("execution(* com.tyrael.laundry.core.service.custom.impl.JobOrderServiceCustomImpl.saveInfo(..))")
     public Object logEvent(ProceedingJoinPoint jp) throws Throwable {
         JobOrderInfo arg = (JobOrderInfo) jp.getArgs()[0];
-        LOG.debug("Creating job order update event.");
+        String originalTrackingNo = arg.getTrackingNo();
+
+        JobOrder beforeUpdate = null;
+        JobOrderStatus statusBeforeUpdate = null;
+        BigDecimal amountPaidBeforeUpdate = null;
+        if (null != arg.getId()) {
+            beforeUpdate = jobOrderService.findOne(arg.getId());
+            statusBeforeUpdate = beforeUpdate.getStatus();
+            amountPaidBeforeUpdate = beforeUpdate.getTotalAmountPaid();
+        }
+
+        LOG.debug("Creating job order update event. arg={}", arg);
+
         JobOrderInfo jobOrderInfo =  (JobOrderInfo) jp.proceed();
 
         JobOrder jobOrder = jobOrderService.findOne(jobOrderInfo.getId());
         if (null != jobOrder) {
             String message;
-            switch (jobOrder.getStatus()) {
-            
+            LOG.debug("Checking arg tracking no. val={}", originalTrackingNo);
+            LOG.debug("Comparing new and old status. old={}, new={}", arg.getStatus(), jobOrder.getStatus());
+            if (null == originalTrackingNo) {
+                message = "New job order created";
+            } else if (statusBeforeUpdate != jobOrder.getStatus()) {
+                message = "Job order status updated";
+            } else if (null != beforeUpdate && !MathUtil.eq(amountPaidBeforeUpdate, jobOrder.getTotalAmountPaid())) {
+                message = "Payment has been made for job order";
+            } else {
+                message = "Job order has been updated";
             }
 
-            JobOrderEvent joe = new Job
+            JobOrderEvent joe = new JobOrderEvent(message, jobOrder);
+            eventService.save(joe);
         }
 
         return jobOrderInfo;
