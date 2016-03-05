@@ -57,7 +57,7 @@ define(function () {
     }
 
     function composeSearchTerm() {
-      var term = '', 
+      var term = 'deleted==false', 
           customerCode = $stateParams.customerCode || $scope.filter.customerCode;
       if (customerCode) {
         appendTerm('customerCode==' + customerCode);

@@ -10,7 +10,8 @@ public enum EventType {
     LOGIN("Login"),
     JOB_ORDER("Job Order"),
     INV_ITEM_TYPE("Inventory Item Type"),
-    INV_ITEM("Inventory Item");
+    INV_ITEM("Inventory Item"),
+    CUSTOMER("Customer");
 
     private String label;
 
