@@ -61,4 +61,12 @@ public abstract class TyraelJpaServiceCustomImpl<E extends BaseEntity, D, R exte
         pageResponse.setTotal(page.getTotalElements());
         return pageResponse;
     }
+
+    @Override
+    public D deleteInfo(Long id) {
+        E entity = repo.findOne(id);
+        entity.setDeleted(true);
+        return toDto(entity);
+    }
+
 }

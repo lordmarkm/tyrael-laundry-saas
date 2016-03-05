@@ -1,5 +1,5 @@
 define(function () {
-  return ['$scope', 'JobOrderStatusService', function ($scope, JobOrderStatusService) {
+  return ['$scope', 'JobOrderStatusService', 'JobOrderService', 'confirm', 'toaster', function ($scope, JobOrderStatusService, JobOrderService, confirm, toaster) {
 
     $scope.colorizeBalance = function (joborder) {
       if (joborder.totalAmount > joborder.totalAmountPaid) {
@@ -15,5 +15,20 @@ define(function () {
     $scope.josLabel = function (code) {
       return JobOrderStatusService.toLabel(code);
     };
+    
+    $scope.deleteJobOrder = function (jobOrder, callback) {
+      confirm.confirm('Confirm delete Job Order', 'Are you sure you want to delete this job order for ' + jobOrder.customer.formattedName + '? This operation can\'t be undone.')
+      .result.then(function (ok) {
+        if (ok) {
+          JobOrderService.remove({id: jobOrder.id}, function () {
+            toaster.pop('success', 'Delete successful', 'Job order for ' + jobOrder.customer.formattedName + ' has been deleted.');
+            if (angular.isFunction(callback)) {
+              callback();
+            }
+          });
+        }
+      });
+    };
+
   }];
 });

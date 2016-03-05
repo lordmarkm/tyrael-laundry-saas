@@ -21,6 +21,7 @@ public interface TyraelJpaServiceCustom<E extends BaseEntity, D> {
     E saveInfoAndGetEntity(D dto);
     List<D> saveInfo(Iterable<D> dtos);
     List<E> saveInfoAndGetEntity(Iterable<D> dtos);
+    D deleteInfo(Long id);
 
     PageInfo<D> pageInfo(Pageable page);
 

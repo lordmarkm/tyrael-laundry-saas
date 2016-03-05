@@ -1,8 +1,7 @@
 package com.tyrael.laundry.commons.resource;
 
 import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tyrael.laundry.commons.dto.PageInfo;
 import com.tyrael.laundry.commons.model.BaseEntity;
@@ -56,6 +56,12 @@ public abstract class BaseResource<E extends BaseEntity, D, S extends TyraelJpaS
     public ResponseEntity<D> save(@RequestBody D dto) {
         LOG.debug("Save request. dto={}", dto);
         return new ResponseEntity<>(service.saveInfo(dto), OK);
+    }
+
+    @RequestMapping(method = DELETE)
+    public ResponseEntity<D> delete(@RequestParam Long id) {
+        LOG.debug("Delete request. id={}", id);
+        return ok(service.deleteInfo(id));
     }
 
 }

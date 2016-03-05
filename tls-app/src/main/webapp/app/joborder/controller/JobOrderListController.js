@@ -204,5 +204,11 @@ define(function () {
       });
     };
 
+    $scope.deleteFromList = function (joborder) {
+      $scope.deleteJobOrder(joborder, function () {
+        reloadTable();
+      });
+    };
+
   }];
 });

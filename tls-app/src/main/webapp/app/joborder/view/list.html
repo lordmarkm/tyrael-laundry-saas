@@ -115,6 +115,7 @@
             <li><a href="/print/{{joborder.trackingNo}}" target="_blank"><i class="fa fa-print fa-fw"></i> <small>Print invoice</small></a>
             <li><a ui-sref="default.joborder.update({joborderCode: joborder.trackingNo, urlSlug: joborder.slug})"><i class="fa fa-cube fa-fw"></i> <small>Update Job Order</small></a>
             <li ng-if="!customerName"><a href="javascript:;" ng-click="filterByCustomer(joborder.customer)"><i class="fa fa-search fa-fw"></i> <small>Filter by customer</small></a>
+            <li><a href="javascript:;" ng-click="deleteFromList(joborder)"><i class="fa fa-close fa-fw"></i> <small>Delete Job Order</small></a>
           </ul>
         </div>
       </td>

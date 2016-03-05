@@ -2,7 +2,9 @@ package com.tyrael.laundry.core.aspect;
 
 import java.math.BigDecimal;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
@@ -73,6 +75,17 @@ public class JobOrderEventCreator {
         }
 
         return jobOrderInfo;
+    }
+
+    @AfterReturning("execution(* com.tyrael.laundry.commons.service.TyraelJpaServiceCustomImpl.deleteInfo(..))"
+            + " && target(com.tyrael.laundry.core.service.custom.JobOrderServiceCustom) && args(id)")
+    public void logRestockEvent(JoinPoint joinPoint, Long id) {
+        JobOrder jobOrder = jobOrderService.findOne(id);
+        LOG.debug("Logging delete event. jobOrder={}", jobOrder);
+        if (null != jobOrder) {
+            JobOrderEvent joe = new JobOrderEvent("Job order has been deleted", jobOrder);
+            eventService.save(joe);
+        }
     }
 
 }

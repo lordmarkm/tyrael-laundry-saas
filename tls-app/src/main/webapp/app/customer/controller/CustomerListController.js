@@ -1,5 +1,5 @@
 define(function () {
-  return ['$scope', 'ngTableParams', 'CustomerService', function ($scope, ngTableParams, CustomerService) {
+  return ['$scope', 'ngTableParams', 'toaster', 'CustomerService', function ($scope, ngTableParams, toaster, CustomerService) {
 
     //List
     var table = $scope.tableParams = new ngTableParams({
@@ -34,6 +34,13 @@ define(function () {
     $scope.clearFilter = function () {
       delete $scope.namefilter;
       $scope.doFilter();
+    };
+
+    $scope.deleteCustomerFromList = function (customer) {
+      //just call the root controller function + give callback
+      $scope.deleteCustomer(customer, function () {
+        table.reload();
+      });
     };
 
   }];
