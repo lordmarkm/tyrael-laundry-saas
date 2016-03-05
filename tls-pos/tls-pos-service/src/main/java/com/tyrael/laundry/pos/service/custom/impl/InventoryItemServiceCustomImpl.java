@@ -17,7 +17,6 @@ import com.google.common.base.Preconditions;
 import com.mysema.query.types.expr.BooleanExpression;
 import com.tyrael.laundry.commons.dto.PageInfo;
 import com.tyrael.laundry.commons.dto.inventory.InventoryItemInfo;
-import com.tyrael.laundry.commons.dto.inventory.SalesHeaderInfo;
 import com.tyrael.laundry.commons.service.TyraelJpaServiceCustomImpl;
 import com.tyrael.laundry.commons.util.AuthenticationUtil;
 import com.tyrael.laundry.commons.util.MathUtil;

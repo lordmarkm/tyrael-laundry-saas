@@ -74,6 +74,7 @@
         <span ng-if="event.eventType=='LOGIN'"><i class="fa fa-user"></i> Login</span>
         <span ng-if="event.eventType=='JOB_ORDER'"><i class="fa fa-cube"></i> Job Order</span>
         <span ng-if="event.eventType=='INV_ITEM_TYPE'"><i class="fa fa-flask"></i> Inventory Item Type</span>
+        <span ng-if="event.eventType=='INV_ITEM'"><i class="fa fa-archive"></i> Inventory Item</span>
       </div>
       <div class="panel-body">
         <dl class="dl-horizontal">
@@ -95,6 +96,10 @@
           <dd ng-if="event.inventoryItemType">{{event.inventoryItemType.name}}
           <dt ng-if="event.inventoryItemType">
           <dd ng-if="event.inventoryItemType"><a ui-sref="default.inv_item_type.view({invItemTypeCode: event.inventoryItemType.code, urlSlug: event.inventoryItemType.slug})"><i class="fa fa-flask"></i> <small>View details</small></a>
+          <dt ng-if="event.inventoryItem">Inventory Item
+          <dd ng-if="event.inventoryItem">{{event.inventoryItem.inventoryItemTypeName}}
+          <dt ng-if="event.inventoryItem">
+          <dd ng-if="event.inventoryItem"><a ui-sref="default.inv_item.view({invItemCode: event.inventoryItem.code, urlSlug: event.inventoryItem.slug})"><i class="fa fa-archive"></i> <small>View details</small></a>
         </dl>
       </div>
     </div>
