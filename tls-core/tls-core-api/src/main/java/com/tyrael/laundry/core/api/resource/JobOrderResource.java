@@ -36,7 +36,12 @@ public class JobOrderResource extends BaseResource<JobOrder, JobOrderInfo, JobOr
             Pageable page,
             @RequestParam String term) {
         LOG.debug("JobOrder query. Principal={}, page={}, term={}", principal, page, term);
-
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return new ResponseEntity<>(service.rqlSearch(term, page), OK);
     }
 

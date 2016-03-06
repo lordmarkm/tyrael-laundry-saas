@@ -60,7 +60,7 @@
   </div>
 </nav>
 
-<div id="{{isAuthenticated() ? 'page-wrapper' : 'no-id'}}" style="padding-top: 20px; padding-bottom: 40px;" ng-cloak>
+<div id="{{isAuthenticated() ? 'page-wrapper' : 'no-id'}}"  cg-busy="cgLoader.promise" style="padding-top: 20px; padding-bottom: 40px;" ng-cloak>
   <div class="row">
     <ui-view></ui-view>
   </div>

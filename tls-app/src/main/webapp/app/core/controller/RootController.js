@@ -1,5 +1,7 @@
 define(function () {
-  return ['$scope', '$rootScope', '$state', 'AuthenticationService', 'ShoppingCartService', function ($scope, $rootScope, $state, AuthenticationService, shoppingCart) {
+  return ['$scope', '$rootScope', '$state', '$q', 'AuthenticationService', 'ShoppingCartService',
+          function ($scope, $rootScope, $state, $q, AuthenticationService, shoppingCart) {
+
     $scope.contextPath = 'laundry';
     $scope.shoppingCart = shoppingCart;
     $scope.isAuthorized = function (permission) {
@@ -74,6 +76,15 @@ define(function () {
         event.preventDefault();
         $state.go('default.login', {msg: 'unauthorized'});
       }
+    });
+
+    //This is for loader
+    $scope.cgLoader = {};
+    $rootScope.$on('loader_show', function () {
+      $scope.cgLoader.promise = $q.defer();
+    });
+    $rootScope.$on('loader_hide', function () {
+      delete $scope.cgLoader.promise;
     });
   }];
 });

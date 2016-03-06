@@ -13,7 +13,8 @@ require.config({
     'jquery': '../lib/jquery/dist/jquery.min',
     'metisMenu': '../lib/metisMenu/dist/metisMenu.min',
     'moment': '../lib/moment/min/moment.min',
-    'angular-moment': '../lib/angular-moment/angular-moment.min'
+    'angular-moment': '../lib/angular-moment/angular-moment.min',
+    'angular-busy': '../lib/angular-busy/dist/angular-busy.min'
   },
   shim: {
     'angular': {
@@ -44,6 +45,9 @@ require.config({
     'angular-moment': {
       deps: ['angular', 'moment']
     },
+    'angular-busy': {
+      deps: ['angular']
+    },
     'toaster': {
       deps: ['angular']
     },
@@ -70,6 +74,7 @@ require([
     'bootstrap',
     'metisMenu',
     'moment',
+    'angular-busy',
     'angular-moment',
     'core/core.module.js',
     'admin/admin.module.js',
@@ -95,6 +100,7 @@ require([
       'ngSanitize',
       'ui.bootstrap',
       'toaster',
+      'cgBusy',
       'angularMoment',
       'core.module',
       'admin.module',

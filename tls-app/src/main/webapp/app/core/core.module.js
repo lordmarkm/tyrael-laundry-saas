@@ -35,6 +35,32 @@ define([
       });
     }])
 
+    //Try to have the oader for every http
+    .config(['$httpProvider', function ($httpProvider) {
+      $httpProvider.interceptors.push(['$q', '$rootScope', function ($q, $rootScope) {
+        var numLoadings = 0;
+        return {
+          request: function (config) {
+            numLoadings++;
+            $rootScope.$broadcast("loader_show");
+            return config || $q.when(config);
+          },
+          response: function (response) {
+            if ((--numLoadings) === 0) {
+              $rootScope.$broadcast("loader_hide");
+            }
+            return response;
+          },
+          responseError: function (response) {
+            if (!(--numLoadings)) {
+              $rootScope.$broadcast("loader_hide");
+            }
+            return $q.reject(response);
+          }
+        };
+      }]);
+    }])
+
     //Scroll to top on location change
     .run(['$rootScope', '$window', function ($rootScope, $window) {
       $rootScope.$on("$locationChangeSuccess", function() {

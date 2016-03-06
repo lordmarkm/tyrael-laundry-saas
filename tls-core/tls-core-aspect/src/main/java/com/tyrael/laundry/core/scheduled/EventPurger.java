@@ -14,6 +14,11 @@ import com.tyrael.laundry.core.service.EventService;
 import com.tyrael.laundry.model.event.QTlsEvent;
 import com.tyrael.laundry.model.event.TlsEvent;
 
+/**
+ *
+ * @author Mark Martinez, created Mar 6, 2016
+ *
+ */
 @Component
 public class EventPurger {
 

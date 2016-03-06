@@ -68,7 +68,10 @@
 
 <div class="row">
   <div class="col-sm-8">
-    <h3 class="page-header">Event log</h3>
+    <h3 class="page-header">
+      Event log
+      <br><small>Event logs are retained for 45 days</small>
+    </h3>
     <div class="panel panel-default" ng-repeat="event in events">
       <div class="panel-heading">
         <span ng-if="event.eventType=='LOGIN'"><i class="fa fa-user"></i> Login</span>
@@ -76,6 +79,7 @@
         <span ng-if="event.eventType=='INV_ITEM_TYPE'"><i class="fa fa-flask"></i> Inventory Item Type</span>
         <span ng-if="event.eventType=='INV_ITEM'"><i class="fa fa-archive"></i> Inventory Item</span>
         <span ng-if="event.eventType=='CUSTOMER'"><i class="fa fa-users"></i> Customer</span>
+        <span ng-if="event.eventType=='SALES_HEADER'"><i class="fa fa-shopping-basket"></i> Sales</span>
       </div>
       <div class="panel-body">
         <dl class="dl-horizontal">
