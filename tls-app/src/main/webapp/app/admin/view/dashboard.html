@@ -105,6 +105,10 @@
           <dd ng-if="event.customer">{{event.customer.formattedName}}
           <dt ng-if="event.customer">
           <dd ng-if="event.customer"><a ui-sref="default.customer.view({customerCode: event.customer.code, urlSlug: event.customer.slug})"><i class="fa fa-users"></i> <small>View details</small></a>
+          <dt ng-if="event.salesHeader">Sales Header
+          <dd ng-if="event.salesHeader">{{event.salesHeader.items.length}} {{event.salesHeader.items.length == 1 ? 'item' : 'items'}}, {{event.salesHeader.totalAmountPaid | currency: '₱'}}
+          <dt ng-if="event.salesHeader">
+          <dd ng-if="event.salesHeader"><a ui-sref="default.sales_header.view({id: event.salesHeader.id})"><i class="fa fa-shopping-basket"></i> <small>View details</small></a>
         </dl>
       </div>
     </div>

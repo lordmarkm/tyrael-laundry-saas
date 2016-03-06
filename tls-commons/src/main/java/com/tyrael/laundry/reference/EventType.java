@@ -11,7 +11,8 @@ public enum EventType {
     JOB_ORDER("Job Order"),
     INV_ITEM_TYPE("Inventory Item Type"),
     INV_ITEM("Inventory Item"),
-    CUSTOMER("Customer");
+    CUSTOMER("Customer"),
+    SALES_HEADER("Sales");
 
     private String label;
 

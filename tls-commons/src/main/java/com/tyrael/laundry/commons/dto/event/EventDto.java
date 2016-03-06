@@ -6,6 +6,7 @@ import com.tyrael.laundry.commons.dto.BrandDto;
 import com.tyrael.laundry.commons.dto.customer.CustomerInfo;
 import com.tyrael.laundry.commons.dto.inventory.InventoryItemInfo;
 import com.tyrael.laundry.commons.dto.inventory.InventoryItemTypeInfo;
+import com.tyrael.laundry.commons.dto.inventory.SalesHeaderInfo;
 import com.tyrael.laundry.commons.dto.joborder.JobOrderInfo;
 import com.tyrael.laundry.reference.EventType;
 
@@ -32,6 +33,9 @@ public class EventDto extends BaseDto {
 
     //CustomerEvent only
     private CustomerInfo customer;
+
+    //SalesHeaderEvent only
+    private SalesHeaderInfo salesHeader;
 
     public EventType getEventType() {
         return eventType;
@@ -95,6 +99,14 @@ public class EventDto extends BaseDto {
 
     public void setCustomer(CustomerInfo customer) {
         this.customer = customer;
+    }
+
+    public SalesHeaderInfo getSalesHeader() {
+        return salesHeader;
+    }
+
+    public void setSalesHeader(SalesHeaderInfo salesHeader) {
+        this.salesHeader = salesHeader;
     }
 
 }
