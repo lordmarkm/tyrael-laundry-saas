@@ -1,5 +1,7 @@
 package com.tyrael.laundry.commons.dto.customer;
 
+import java.math.BigDecimal;
+
 import org.springframework.core.style.ToStringCreator;
 
 import com.tyrael.laundry.commons.dto.BaseDto;
@@ -14,6 +16,7 @@ public class CustomerInfo extends BaseDto {
     private AddressInfo address;
     private ContactDetailsInfo contactDetails;
     private String code;
+    private BigDecimal balance;
 
     /**
      * The code and name of the brand the customer is assigned to
@@ -25,6 +28,7 @@ public class CustomerInfo extends BaseDto {
     protected ToStringCreator toStringCreator() {
         return super.toStringCreator()
             .append("name", name)
+            .append("balance", balance)
             .append("address", address)
             .append("contact", contactDetails)
             .append("code", code)
@@ -126,6 +130,14 @@ public class CustomerInfo extends BaseDto {
 
     public void setBrandName(String brandName) {
         this.brandName = brandName;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 
 }

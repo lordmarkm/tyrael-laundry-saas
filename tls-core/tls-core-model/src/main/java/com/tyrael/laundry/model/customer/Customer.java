@@ -1,5 +1,7 @@
 package com.tyrael.laundry.model.customer;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -30,6 +32,9 @@ public class Customer extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;
+
+    @Column(name = "balance")
+    private BigDecimal balance;
 
     public Name getName() {
         return name;
@@ -69,6 +74,14 @@ public class Customer extends BaseEntity {
 
     public void setBrand(Brand brand) {
         this.brand = brand;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 
 }

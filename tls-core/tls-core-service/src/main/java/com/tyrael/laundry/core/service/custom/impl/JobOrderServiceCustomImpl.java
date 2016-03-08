@@ -5,6 +5,7 @@ import static com.tyrael.laundry.reference.JobOrderStatus.CANCELLED;
 import static com.tyrael.laundry.reference.JobOrderStatus.CLOSED;
 import static com.tyrael.laundry.reference.JobOrderStatus.PAID_CLAIMED;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -26,6 +27,7 @@ import com.tyrael.laundry.core.service.JobOrderService;
 import com.tyrael.laundry.core.service.custom.JobOrderServiceCustom;
 import com.tyrael.laundry.core.service.rql.RsqlParserVisitor;
 import com.tyrael.laundry.model.branch.Brand;
+import com.tyrael.laundry.model.customer.Customer;
 import com.tyrael.laundry.model.joborder.JobItem;
 import com.tyrael.laundry.model.joborder.JobOrder;
 import com.tyrael.laundry.model.joborder.JobService;
@@ -116,7 +118,15 @@ public class JobOrderServiceCustomImpl extends TyraelJpaServiceCustomImpl<JobOrd
             item.setJobOrder(jobOrder);
         }
 
-        return toDto(repo.save(jobOrder));
+        jobOrder = repo.save(jobOrder);
+
+        Customer customer = jobOrder.getCustomer();
+        BigDecimal balance = repo.computeBalance(customer);
+
+        LOG.debug("About to set balance. customer={}, balance={}", customer, balance);
+        customer.setBalance(balance);
+
+        return toDto(jobOrder);
     }
 
     private String uniqueJobCode(JobOrderInfo jobOrderInfo) {
