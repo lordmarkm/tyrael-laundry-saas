@@ -8,6 +8,8 @@ import static com.tyrael.laundry.reference.JobOrderStatus.PAID_CLAIMED;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -52,6 +54,14 @@ public class JobOrderServiceCustomImpl extends TyraelJpaServiceCustomImpl<JobOrd
 
     @Autowired
     private CustomerService customerService;
+
+    @PostConstruct
+    public void setCustomerBalances() {
+        List<Customer> allCustomers = customerService.findAll();
+        for (Customer customer : allCustomers) {
+            customer.setBalance(repo.computeBalance(customer));
+        }
+    }
 
     private BooleanExpression addBrandFilter(final BooleanExpression predicate) {
         if (AuthenticationUtil.isAuthorized(AuthenticationUtil.ROLE_ADMIN)) {
