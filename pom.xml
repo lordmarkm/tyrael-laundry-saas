@@ -18,6 +18,7 @@
     <module>tls-commons</module>
     <module>tls-app</module>
     <module>tls-pos</module>
+    <module>tls-reports</module>
   </modules>
 
   <properties>
