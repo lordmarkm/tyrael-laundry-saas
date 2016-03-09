@@ -100,11 +100,11 @@
     </attributes>
   </connection>
   <connection>
-    <name>tyrael_laundry_jndi</name>
+    <name>tyrael_laundry_saas</name>
     <server/>
     <type>MYSQL</type>
     <access>JNDI</access>
-    <database>tyrael_laundry</database>
+    <database>tyrael_laundry_saas</database>
     <port>1521</port>
     <username/>
     <password>Encrypted </password>
@@ -200,7 +200,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>tyrael_laundry_jndi</connection>
+    <connection>tyrael_laundry_saas</connection>
     <sql>SELECT&#xa;	job_order.id as id,&#xa;	job_order.customer_id as customer_id,&#xa;	job_order.delivery_status as delivery_status,&#xa;	job_order.status as status,&#xa;	job_order.total_amt as total_amt,&#xa;	job_order.total_amt_paid as total_amt_paid,&#xa;	job_order.tracking_no as tracking_no,&#xa;	date&#x28;job_order.date_received&#x29; as date_received,&#xa;    sum&#x28;job_service.wt_kg&#x29; as wt_kg&#xa;FROM JOB_ORDER job_order join JOB_SERVICE job_service on job_service.job_id &#x3d; job_order.id&#xa;WHERE job_order.deleted&#x3d;false&#xa;GROUP BY job_order.id</sql>
     <limit>0</limit>
     <lookup/>
@@ -280,7 +280,7 @@
            </partitioning>
       <schema/>
       <table>JOB_ORDER_FACT</table>
-      <connection>tyrael_laundry_jndi</connection>
+      <connection>tyrael_laundry_saas</connection>
       <commit>100</commit>
       <update>Y</update>
       <fields>
@@ -363,7 +363,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>tyrael_laundry_jndi</connection>
+    <connection>tyrael_laundry_saas</connection>
     <cache>N</cache>
     <cache_load_all>N</cache_load_all>
     <cache_size>0</cache_size>
@@ -405,7 +405,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>tyrael_laundry_jndi</connection>
+    <connection>tyrael_laundry_saas</connection>
     <cache>N</cache>
     <cache_load_all>N</cache_load_all>
     <cache_size>0</cache_size>

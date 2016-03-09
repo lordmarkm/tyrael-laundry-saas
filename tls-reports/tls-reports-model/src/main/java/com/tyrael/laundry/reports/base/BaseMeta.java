@@ -20,6 +20,9 @@ public class BaseMeta {
     @GeneratedValue
     protected Long id;
 
+    @Column(name = "deleted")
+    protected boolean deleted;
+
     @Column(name = "meta_effective_dt")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     protected LocalDateTime metaEffectiveDateTime;

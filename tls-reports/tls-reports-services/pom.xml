@@ -8,11 +8,57 @@
   </parent>
   <artifactId>tls-reports-services</artifactId>
   <name>Tyrael Laundry SaaS :: Reports :: Services</name>
+
+  <repositories>
+    <repository>
+      <id>pentaho-releases</id>
+      <url>http://repository.pentaho.org/artifactory/repo/</url>
+    </repository>
+  </repositories>
+
+  <properties>
+    <kettle.version>5.1.0.0-751</kettle.version>
+    <pentaho.libformula.version>5.1.0.0-752</pentaho.libformula.version>
+    <simple.jndi.version>0.11.4.1</simple.jndi.version>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>tls</groupId>
       <artifactId>tls-reports-model</artifactId>
       <version>${project.version}</version>
+    </dependency>
+
+    <!-- Kettle Dependencies -->
+    <dependency>
+      <groupId>pentaho-kettle</groupId>
+      <artifactId>kettle-core</artifactId>
+      <version>${kettle.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>pentaho-kettle</groupId>
+      <artifactId>kettle-engine</artifactId>
+      <version>${kettle.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>pentaho-library</groupId>
+      <artifactId>libbase</artifactId>
+      <version>${kettle.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>pentaho-library</groupId>
+      <artifactId>libformula</artifactId>
+      <version>${pentaho.libformula.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>simple-jndi</groupId>
+      <artifactId>simple-jndi</artifactId>
+      <version>${simple.jndi.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>rhino</groupId>
+      <artifactId>js</artifactId>
+      <version>1.7R2</version>
     </dependency>
   </dependencies>
 
