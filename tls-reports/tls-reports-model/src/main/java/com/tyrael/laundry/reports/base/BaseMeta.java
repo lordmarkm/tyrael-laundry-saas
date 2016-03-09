@@ -9,7 +9,9 @@ import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
 
 /**
- * @author Mark Martinez, created Oct 23, 2015
+ *
+ * @author Mark Baldwin B. Martinez on Mar 9, 2016
+ *
  */
 @MappedSuperclass
 public class BaseMeta {
