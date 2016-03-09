@@ -13,12 +13,10 @@
     <dependency>
       <groupId>tls</groupId>
       <artifactId>tls-core-service</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>tls</groupId>
       <artifactId>tls-pos-service</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
     <!-- Spring Boot -->

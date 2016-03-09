@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tyrael.laundry.commons.dto.PageInfo;
-import com.tyrael.laundry.commons.dto.inventory.InventoryItemInfo;
 import com.tyrael.laundry.commons.dto.inventory.InventoryItemTypeInfo;
 import com.tyrael.laundry.commons.resource.BaseResource;
 import com.tyrael.laundry.model.inventory.InventoryItemType;

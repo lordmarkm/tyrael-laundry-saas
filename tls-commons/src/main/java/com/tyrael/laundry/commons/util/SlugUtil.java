@@ -2,7 +2,6 @@ package com.tyrael.laundry.commons.util;
 
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
