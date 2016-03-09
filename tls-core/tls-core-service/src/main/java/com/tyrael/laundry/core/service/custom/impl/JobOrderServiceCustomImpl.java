@@ -23,6 +23,7 @@ import com.tyrael.laundry.commons.dto.joborder.JobOrderInfo;
 import com.tyrael.laundry.commons.service.TyraelJpaServiceCustomImpl;
 import com.tyrael.laundry.commons.util.AuthenticationUtil;
 import com.tyrael.laundry.core.service.BrandService;
+import com.tyrael.laundry.core.service.CustomerService;
 import com.tyrael.laundry.core.service.JobOrderService;
 import com.tyrael.laundry.core.service.custom.JobOrderServiceCustom;
 import com.tyrael.laundry.core.service.rql.RsqlParserVisitor;
@@ -48,6 +49,9 @@ public class JobOrderServiceCustomImpl extends TyraelJpaServiceCustomImpl<JobOrd
 
     @Autowired
     private BrandService brandService;
+
+    @Autowired
+    private CustomerService customerService;
 
     private BooleanExpression addBrandFilter(final BooleanExpression predicate) {
         if (AuthenticationUtil.isAuthorized(AuthenticationUtil.ROLE_ADMIN)) {
@@ -125,6 +129,10 @@ public class JobOrderServiceCustomImpl extends TyraelJpaServiceCustomImpl<JobOrd
 
         LOG.debug("About to set balance. customer={}, balance={}", customer, balance);
         customer.setBalance(balance);
+
+        //Not sure why this is necessary within the transaction, but w/o this line balance is not
+        //persisted @_@
+        customerService.save(customer);
 
         return toDto(jobOrder);
     }

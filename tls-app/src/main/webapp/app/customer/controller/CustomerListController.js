@@ -9,8 +9,8 @@ define(function () {
       total: 0,
       counts: [2,5,10,25,50,100], //determines pager
       getData: function($defer, params) {
-        //search
-       params.$params.sort = 'name.surname,ASC';
+       //search
+       params.$params.sort = ['balance,DESC','name.surname,ASC'];
        if ($scope.namefilter) {
          params.$params.term = $scope.namefilter;
        } else {

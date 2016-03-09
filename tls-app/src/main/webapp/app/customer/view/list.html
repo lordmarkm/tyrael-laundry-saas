@@ -28,6 +28,7 @@
       <th>Address
       <th>Contact Number
       <th>Brand
+      <th>Balance
       <th>
     </tr>
   </thead>
@@ -41,6 +42,7 @@
         <div ng-if="customer.contactDetails.email" class="nowrap"><i class="fa fa-envelope fa-fw"></i> {{customer.contactDetails.email}}</div>
       </td>
       <td>{{customer.brandName || 'No brand'}}
+      <td ng-class="colorizeBalance(customer)">{{customer.balance  | currency: '₱'}}
       <td>
         <div class="dropdown">
           <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu-{{$index}}"
@@ -58,7 +60,7 @@
       </td>
     </tr>
     <tr ng-if="!$data.length">
-      <td colspan="5">No customers available</td>
+      <td colspan="6">No customers available</td>
     </tr>
   </tbody>
 </table>
