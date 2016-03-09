@@ -61,6 +61,7 @@ public class JobOrderServiceCustomImpl extends TyraelJpaServiceCustomImpl<JobOrd
         for (Customer customer : allCustomers) {
             customer.setBalance(repo.computeBalance(customer));
         }
+        customerService.save(allCustomers);
     }
 
     private BooleanExpression addBrandFilter(final BooleanExpression predicate) {
