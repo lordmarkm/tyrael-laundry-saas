@@ -15,7 +15,7 @@ import com.tyrael.laundry.reports.base.BaseMeta;
 @Entity(name = "branch_dimension")
 public class BranchDimension extends BaseMeta {
 
-    @Column(name = "code")
+    @Column(name = "code", unique = true)
     protected String code;
 
     @Column(name = "address")
@@ -26,6 +26,9 @@ public class BranchDimension extends BaseMeta {
 
     @Column(name = "email")
     protected String email;
+
+    @Column(name = "name")
+    protected String name;
 
     @Column(name = "job_order_minimum")
     protected BigDecimal minimumJobOrderAmount = BigDecimal.ZERO;

@@ -171,12 +171,12 @@
       <yloc>40</yloc>
       </entry>
     <entry>
-      <name>customer_dimension</name>
+      <name>update_customer_dimension</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename/>
+      <filename>&#x24;&#x7b;reports_root&#x7d;&#x2f;subfiles&#x2f;customer_dimension&#x2f;customer_dimension.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -252,7 +252,7 @@
     </hop>
     <hop>
       <from>load date_dim if necessary</from>
-      <to>customer_dimension</to>
+      <to>update_customer_dimension</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

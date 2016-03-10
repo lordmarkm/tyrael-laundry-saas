@@ -23,7 +23,7 @@ public class CustomerDimension extends BaseMeta {
     @Embedded
     protected ContactDetails contactDetails;
 
-    @Column(name = "code")
+    @Column(name = "code", unique = true)
     protected String code;
 
 }
