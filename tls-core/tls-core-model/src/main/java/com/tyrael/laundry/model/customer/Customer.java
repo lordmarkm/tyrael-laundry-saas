@@ -30,7 +30,7 @@ public class Customer extends BaseEntity {
     private String code;
 
     @ManyToOne
-    @JoinColumn(name = "brand_id")
+    @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
 
     @Column(name = "balance")
