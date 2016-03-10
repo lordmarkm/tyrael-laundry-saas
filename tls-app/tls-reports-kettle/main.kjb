@@ -50,8 +50,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>30</xloc>
-      <yloc>60</yloc>
+      <xloc>20</xloc>
+      <yloc>40</yloc>
       </entry>
     <entry>
       <name>extract job_order</name>
@@ -97,17 +97,6 @@
       <yloc>60</yloc>
       </entry>
     <entry>
-      <name>Abort job</name>
-      <description/>
-      <type>ABORT</type>
-      <message/>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>570</xloc>
-      <yloc>180</yloc>
-      </entry>
-    <entry>
       <name>load date_dim if necessary</name>
       <description/>
       <type>JOB</type>
@@ -136,8 +125,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>360</xloc>
-      <yloc>60</yloc>
+      <xloc>320</xloc>
+      <yloc>40</yloc>
       </entry>
     <entry>
       <name>Set variables</name>
@@ -149,15 +138,15 @@
       <fields>
         <field>
           <variable_name>reports_root</variable_name>
-          <variable_value>C&#x3a;&#x2f;Users&#x2f;pilabaldeh&#x2f;git&#x2f;tyrael-laundry-saas&#x2f;tls-app&#x2f;tls-reports-kettle</variable_value>
+          <variable_value>&#x2f;home&#x2f;mmartinez&#x2f;git&#x2f;tyrael-laundry-saas&#x2f;tls-app&#x2f;tls-reports-kettle</variable_value>
           <variable_type>JVM</variable_type>
         </field>
       </fields>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>210</xloc>
-      <yloc>180</yloc>
+      <xloc>160</xloc>
+      <yloc>160</yloc>
       </entry>
     <entry>
       <name>Simple evaluation</name>
@@ -178,29 +167,44 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>210</xloc>
-      <yloc>60</yloc>
+      <xloc>160</xloc>
+      <yloc>40</yloc>
+      </entry>
+    <entry>
+      <name>customer_dimension</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename/>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <logging_remote_work>N</logging_remote_work>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>320</xloc>
+      <yloc>160</yloc>
       </entry>
   </entries>
   <hops>
-    <hop>
-      <from>extract job_order</from>
-      <to>Abort job</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>load date_dim if necessary</from>
-      <to>extract job_order</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
     <hop>
       <from>Set variables</from>
       <to>load date_dim if necessary</to>
@@ -240,6 +244,15 @@
     <hop>
       <from>extract job_order</from>
       <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>load date_dim if necessary</from>
+      <to>customer_dimension</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

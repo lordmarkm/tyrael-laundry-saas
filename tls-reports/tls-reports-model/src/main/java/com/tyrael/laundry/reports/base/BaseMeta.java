@@ -21,7 +21,12 @@ public class BaseMeta {
     protected Long id;
 
     @Column(name = "deleted")
+    @Type(type = "yes_no")
     protected boolean deleted;
+
+    @Column(name = "meta_current_flag")
+    @Type(type = "yes_no")
+    protected boolean metaCurrentFlag;
 
     @Column(name = "meta_effective_dt")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
