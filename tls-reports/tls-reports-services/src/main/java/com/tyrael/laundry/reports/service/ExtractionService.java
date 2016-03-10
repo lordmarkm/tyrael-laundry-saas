@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 /**
@@ -27,12 +28,15 @@ public class ExtractionService {
     @Autowired
     private Environment env;
 
+    /**
+     * Runs once a day, extracts data
+     */
+    @Scheduled(cron = "0 0 0 * * ?")
     public void runKettle() {
         try {
             System.setProperty("KETTLE_JNDI_ROOT", env.getProperty("kettle.jndi.root"));
             System.setProperty("reports_root", "./tls-reports-kettle");
-            System.setProperty("default.effectiveDateTime.MMddyyyyHHmmss", "01011900000000");
-            System.setProperty("default.effectiveDateTime.dbmask", "MMddyyyyHH24MIss");
+            System.setProperty("default.updatedDateTime", "01-Jan-01");
 
             KettleEnvironment.init();
 
