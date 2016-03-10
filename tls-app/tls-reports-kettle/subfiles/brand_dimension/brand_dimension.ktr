@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>load_branch_dimension</name>
+    <name>load_brand_dimension</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -9,6 +9,11 @@
     <trans_status>0</trans_status>
     <directory>&#x2f;</directory>
     <parameters>
+        <parameter>
+            <name>default.updatedDateTime</name>
+            <default_value>01-Jan-01</default_value>
+            <description>This is used for first extraction when max&#x28;meta_updated_dt&#x29; is empty</description>
+        </parameter>
     </parameters>
     <log>
 <trans-log-table><connection/>
@@ -244,9 +249,9 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>select &#x2a; from branch</from><to>Add created and updated date</to><enabled>Y</enabled> </hop>
-  <hop> <from>Add created and updated date</from><to>Insert &#x2f; Update branch_dimension</to><enabled>Y</enabled> </hop>
-  <hop> <from>Get dest max update date</from><to>select &#x2a; from branch</to><enabled>Y</enabled> </hop>
+  <hop> <from>select &#x2a; from brand</from><to>Add created and updated date</to><enabled>Y</enabled> </hop>
+  <hop> <from>Add created and updated date</from><to>Insert &#x2f; Update brand_dimension</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get dest max update date</from><to>select &#x2a; from brand</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Add created and updated date</name>
@@ -271,14 +276,14 @@
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>360</xloc>
+      <xloc>520</xloc>
       <yloc>100</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Insert &#x2f; Update branch_dimension</name>
+    <name>Insert &#x2f; Update brand_dimension</name>
     <type>InsertUpdate</type>
     <description/>
     <distribute>Y</distribute>
@@ -293,9 +298,9 @@
     <update_bypassed>N</update_bypassed>
     <lookup>
       <schema/>
-      <table>branch_dimension</table>
+      <table>brand_dimension</table>
       <key>
-        <name>branch_code</name>
+        <name>brand_code</name>
         <field>code</field>
         <condition>&#x3d;</condition>
         <name2/>
@@ -311,28 +316,8 @@
         <update>Y</update>
       </value>
       <value>
-        <name>address</name>
-        <rename>address</rename>
-        <update>Y</update>
-      </value>
-      <value>
         <name>code</name>
-        <rename>branch_code</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>contact_number</name>
-        <rename>contact_number</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>email</name>
-        <rename>email</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>job_order_minimum</name>
-        <rename>job_order_minimum</rename>
+        <rename>brand_code</rename>
         <update>Y</update>
       </value>
       <value>
@@ -348,17 +333,17 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>620</xloc>
+      <xloc>760</xloc>
       <yloc>100</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>select &#x2a; from branch</name>
+    <name>select &#x2a; from brand</name>
     <type>TableInput</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -366,7 +351,7 @@
            <schema_name/>
            </partitioning>
     <connection>tyrael_laundry_saas</connection>
-    <sql>select &#x2a; from branch where updated_date &#x3e; &#x3f;</sql>
+    <sql>select &#x2a; from brand where updated_date &#x3e; &#x3f;</sql>
     <limit>0</limit>
     <lookup>Get dest max update date</lookup>
     <execute_each_row>N</execute_each_row>
@@ -374,7 +359,7 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>120</xloc>
+      <xloc>300</xloc>
       <yloc>100</yloc>
       <draw>Y</draw>
       </GUI>
@@ -392,7 +377,7 @@
            <schema_name/>
            </partitioning>
     <connection>tyrael_laundry_saas_reports</connection>
-    <sql>SELECT COALESCE&#x28;&#xa;           date_sub&#x28;max&#x28;meta_updated_dt&#x29;, interval 8 HOUR&#x29;,&#xa;		   str_to_date&#x28;&#x27;&#x24;&#x7b;default.updatedDateTime&#x7d;&#x27;, &#x27;&#x25;d-&#x25;b-&#x25;y&#x27;&#x29;&#xa;       &#x29;&#xa;FROM branch_dimension</sql>
+    <sql>SELECT COALESCE&#x28;&#xa;           date_sub&#x28;max&#x28;meta_updated_dt&#x29;, interval 8 HOUR&#x29;,&#xa;		   str_to_date&#x28;&#x27;&#x24;&#x7b;default.updatedDateTime&#x7d;&#x27;, &#x27;&#x25;d-&#x25;b-&#x25;y&#x27;&#x29;&#xa;       &#x29;&#xa;FROM brand_dimension</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -400,8 +385,8 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>120</xloc>
-      <yloc>240</yloc>
+      <xloc>100</xloc>
+      <yloc>100</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

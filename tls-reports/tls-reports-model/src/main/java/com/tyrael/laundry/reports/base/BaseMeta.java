@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.Type;
+import org.joda.time.LocalDateTime;
 
 /**
  *
@@ -23,27 +24,27 @@ public class BaseMeta {
     @Type(type = "yes_no")
     protected boolean deleted;
 
-//    @Column(name = "meta_current_flag")
-//    @Type(type = "yes_no")
-//    protected boolean metaCurrentFlag;
-//
-//    @Column(name = "meta_effective_dt")
-//    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
-//    protected LocalDateTime metaEffectiveDateTime;
-//
-//    @Column(name = "meta_expiration_dt")
-//    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
-//    protected LocalDateTime metaExpirationDateTime;
-//
-//    @Column(name = "meta_version")
-//    protected Long metaVersion;
-//
-//    @Column(name = "meta_created_dt")
-//    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
-//    protected LocalDateTime metaCreatedDateTime;
-//
-//    @Column(name = "meta_updated_dt")
-//    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
-//    protected LocalDateTime metaUpdatedDt;
+    //    @Column(name = "meta_current_flag")
+    //    @Type(type = "yes_no")
+    //    protected boolean metaCurrentFlag;
+    //
+    //    @Column(name = "meta_effective_dt")
+    //    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+    //    protected LocalDateTime metaEffectiveDateTime;
+    //
+    //    @Column(name = "meta_expiration_dt")
+    //    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+    //    protected LocalDateTime metaExpirationDateTime;
+    //
+    //    @Column(name = "meta_version")
+    //    protected Long metaVersion;
+
+    @Column(name = "meta_created_dt")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+    protected LocalDateTime metaCreatedDt;
+
+    @Column(name = "meta_updated_dt")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+    protected LocalDateTime metaUpdatedDt;
 
 }

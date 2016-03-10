@@ -9,9 +9,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
-
 import com.tyrael.laundry.reference.JobOrderStatus;
 import com.tyrael.laundry.reports.base.BaseMeta;
 
@@ -23,32 +20,32 @@ import com.tyrael.laundry.reports.base.BaseMeta;
 @Entity(name = "job_order_fact")
 public class JobOrderFact extends BaseMeta {
 
-    @Column(name = "tracking_no")
+    @Column(name = "tracking_no", nullable = false)
     protected String trackingNo;
 
     @ManyToOne
-    @JoinColumn(name = "customer_dim_id")
+    @JoinColumn(name = "customer_dim_id", nullable = false)
     protected CustomerDimension customer;
 
     @ManyToOne
-    @JoinColumn(name = "branch_dim_id")
+    @JoinColumn(name = "branch_dim_id", nullable = false)
     protected BranchDimension branch;
 
-    @Column(name = "date_received", nullable = false)
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    protected DateTime dateReceived;
+    @ManyToOne
+    @JoinColumn(name = "brand_dim_id", nullable = false)
+    protected BrandDimension brand;
 
-    @Column(name = "date_due")
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    protected DateTime dateDue;
+    @Column(name = "date_received_dim_id", nullable = false)
+    protected Long dateReceivedDimensionId;
 
-    @Column(name = "date_completed")
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    protected DateTime dateCompleted;
+    @Column(name = "date_due_dim_id", nullable = false)
+    protected Long dateDueDimensionId;
 
-    @Column(name = "date_claimed")
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    protected DateTime dateClaimed;
+    @Column(name = "date_completed_dim_id")
+    protected Long dateCompletedDimensionId;
+
+    @Column(name = "date_claimed_dim_id")
+    protected Long dateClaimedDimension;
 
     @Column(name = "total_amt", nullable = false)
     protected BigDecimal totalAmount;
@@ -59,5 +56,8 @@ public class JobOrderFact extends BaseMeta {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     protected JobOrderStatus status;
+
+    @Column(name = "wt_kg")
+    protected BigDecimal weightInKilos;
 
 }
