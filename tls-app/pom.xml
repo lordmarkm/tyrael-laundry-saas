@@ -17,6 +17,8 @@
     <reports.username>root</reports.username>
     <reports.password>root</reports.password>
     <kettle.jndi.root>./tls-reports-kettle/jndi-dev</kettle.jndi.root>
+    <optimizejs.phase>none</optimizejs.phase>
+    <main.js.source>${project.basedir}/src/main/webapp/app/main.js</main.js.source>
   </properties>
 
   <dependencies>
@@ -86,6 +88,15 @@
         <kettle.jndi.root>./tls-reports-kettle/jndi-aws</kettle.jndi.root>
       </properties>
     </profile>
+    <profile>
+      <id>optimizejs</id>
+      <properties>
+        <optimizejs.phase>compile</optimizejs.phase>
+        <js.optimize>uglify</js.optimize>
+        <css.optimize>standard</css.optimize>
+        <main.js.source>${project.build.directory}/webapp-build/main.js</main.js.source>
+      </properties>
+    </profile>
   </profiles>
 
   <build>
@@ -99,6 +110,48 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+
+      <!-- Requirejs optimizer -->
+      <plugin>
+        <groupId>com.github.mcheely</groupId>
+        <artifactId>requirejs-maven-plugin</artifactId>
+        <configuration>
+          <optimizerFile>${project.basedir}/src/main/optimizejs/r.js</optimizerFile>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>${optimizejs.phase}</phase>
+            <id>optimize-js</id>
+            <goals>
+              <goal>optimize</goal>
+            </goals>
+            <configuration>
+              <configFile>${project.basedir}/src/main/optimizejs/build.js</configFile>
+              <filterConfig>true</filterConfig>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Just copy the uglified main.js into main-built.js -->
+      <plugin>
+        <groupId>com.coderplus.maven.plugins</groupId>
+        <artifactId>copy-rename-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>rename-file</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+              <sourceFile>${main.js.source}</sourceFile>
+              <destinationFile>${project.basedir}/src/main/webapp/app/main-built.js</destinationFile>
+              <overWrite>true</overWrite>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
