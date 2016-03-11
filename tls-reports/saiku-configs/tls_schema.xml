@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<Schema name="TyraelLaundrySchema">
+  <Cube name="JobOrder">
+    <Table name="JOB_ORDER_FACT" />
+    <Dimension name="Date Received" foreignKey="DATE_RECEIVED_DIM_ID">
+      <Hierarchy hasAll="true" allMemberName="All Dates" primaryKey="id">
+        <Table name="date_dimension" />
+        <Level name="Year" column="year" uniqueMembers="true" levelType="TimeYears" type="Numeric" />
+        <Level name="Month" column="month_name" ordinalColumn="month_num" uniqueMembers="false" levelType="TimeMonths" type="String" />
+        <Level name="Day" column="day_num_in_month" uniqueMembers="false" levelType="TimeDays" type="Numeric" />
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="Customer Names">
+      <Hierarchy hasAll="true" allMemberName="All Customer Names">
+        <Level name="Customer Name" column="CUSTOMER_NAME" uniqueMembers="false" />
+      </Hierarchy>
+    </Dimension>
+    <Dimension name="Tracking Numbers">
+      <Hierarchy hasAll="true" allMemberName="All Tracking Numbers">
+        <Level name="Tracking Number" column="TRACKING_NO" uniqueMembers="true" />
+      </Hierarchy>
+    </Dimension>
+    <Measure name="Amount Paid" column="TOTAL_AMT_PAID" aggregator="sum" formatString="Standard" />
+    <Measure name="Amount Due" column="TOTAL_AMT" aggregator="sum" formatString="Standard" />
+	<Measure name="Weight" column="WT_KG" aggregator="sum" formatString="Standard" />
+  </Cube>
+</Schema>
