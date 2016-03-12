@@ -126,13 +126,7 @@ public class JobOrderServiceCustomImpl extends TyraelJpaServiceCustomImpl<JobOrd
 
         Customer customer = customerService.findOne(jobOrder.getCustomer().getId());
         BigDecimal balance = repo.computeBalance(customer);
-
-        LOG.debug("About to set balance. customer={}, brand={}, balance={}", customer, customer.getBrand(), balance);
         customer.setBalance(balance);
-
-        //Not sure why this is necessary within the transaction, but w/o this line balance is not
-        //persisted @_@
-//        customerService.save(customer);
 
         return toDto(jobOrder);
     }
@@ -160,4 +154,14 @@ public class JobOrderServiceCustomImpl extends TyraelJpaServiceCustomImpl<JobOrd
         return (int) repo.count(predicate);
     }
 
+    @Override
+    public JobOrderInfo deleteInfo(Long id) {
+        JobOrderInfo deleted = super.deleteInfo(id);
+
+        Customer customer = customerService.findOne(deleted.getCustomer().getId());
+        BigDecimal balance = repo.computeBalance(customer);
+        customer.setBalance(balance);
+
+        return deleted;
+    }
 }

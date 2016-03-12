@@ -18,7 +18,8 @@ public interface JobOrderService extends JobOrderServiceCustom, TyraelJpaService
 
     JobOrder findByTrackingNo(String trackingNo);
 
-    @Query("select sum(j.totalAmount) - sum(j.totalAmountPaid) from com.tyrael.laundry.model.joborder.JobOrder j where j.customer = ?1")
+    //Sum of amount - paid where not deleted and customer matches
+    @Query("select sum(j.totalAmount) - sum(j.totalAmountPaid) from com.tyrael.laundry.model.joborder.JobOrder j where j.deleted is false and j.customer = ?1")
     BigDecimal computeBalance(Customer customer);
 
 }

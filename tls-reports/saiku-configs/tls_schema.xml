@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<Schema name="TyraelLaundrySchema">
+  <Cube name="JobOrder">
+    <Table name="job_order_fact" />
+
+    <!-- Date Received -->
+    <Dimension name="Date Received" foreignKey="date_received_dim_id">
+      <Hierarchy hasAll="true" allMemberName="All Dates" primaryKey="id">
+        <Table name="date_dimension" />
+        <Level name="Year" column="year" uniqueMembers="true" levelType="TimeYears" type="Numeric" />
+        <Level name="Month" column="month_name" ordinalColumn="month_num" uniqueMembers="false" levelType="TimeMonths" type="String" />
+        <Level name="Day" column="day_num_in_month" uniqueMembers="false" levelType="TimeDays" type="Numeric" />
+      </Hierarchy>
+    </Dimension>
+
+    <!-- Branch -->
+    <Dimension name="Branch" foreignKey="branch_dim_id">
+      <Hierarchy hasAll="true" allMemberName="All Branches" primaryKey="id">
+        <Table name="branch_dimension" />
+        <Level name="Branch Name" column="name" uniqueMembers="false" />
+        <Level name="Branch Code" column="code" uniqueMembers="true" />
+      </Hierarchy>
+    </Dimension>
+
+    <!-- Brand -->
+    <Dimension name="Brand" foreignKey="brand_dim_id">
+      <Hierarchy hasAll="true" allMemberName="All Brands" primaryKey="id">
+        <Table name="brand_dimension" />
+        <Level name="Brand Name" column="name" uniqueMembers="false" />
+        <Level name="Brand Code" column="code" uniqueMembers="true" />
+      </Hierarchy>
+    </Dimension>
+
+    <!-- Customer -->
+    <Dimension name="Customer" foreignKey="customer_dim_id">
+      <Hierarchy hasAll="true" allMemberName="All Customers" primaryKey="id">
+        <Table name="customer_dimension" />
+        <Level name="Customer Surname" column="surname" uniqueMembers="false" />
+        <Level name="Customer Middle Name" column="middle_name" uniqueMembers="false" />
+        <Level name="Customer Given Name" column="given_name" uniqueMembers="false" />
+      </Hierarchy>
+    </Dimension>
+
+    <!-- Tracking Number -->
+    <Dimension name="Tracking Numbers">
+      <Hierarchy hasAll="true" allMemberName="All Tracking Numbers">
+        <Level name="Tracking Number" column="tracking_no" uniqueMembers="true" />
+      </Hierarchy>
+    </Dimension>
+    
+    <!-- Job order status -->
+    <Dimension name="Status">
+      <Hierarchy hasAll="true" allMemberName="All Statuses">
+        <Level name="Status" column="status" uniqueMembers="false" />
+      </Hierarchy>
+    </Dimension>
+
+    <!-- Job order deletion status -->
+    <Dimension name="Deleted">
+      <Hierarchy hasAll="false">
+        <Level name="Deleted" column="deleted" uniqueMembers="false" />
+      </Hierarchy>
+    </Dimension>
+
+    <!-- Measures -->
+    <Measure name="Amount Paid" column="total_amt_paid" aggregator="sum" formatString="Standard" />
+    <Measure name="Amount Due" column="total_amt" aggregator="sum" formatString="Standard" />
+    <Measure name="Weight" column="wt_kg" aggregator="sum" formatString="Standard" />
+  </Cube>
+</Schema>
