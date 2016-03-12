@@ -89,7 +89,7 @@ require([
     'inventory/inventory.module.js',
     'acctspayable/acctspayable.module.js',
     'event/event.module.js',
-    'anonymous/anon.module.js'
+    'reports/reports.module.js'
   ], function (angular) {
   angular.element().ready(function () {
     angular.bootstrap(document, [
@@ -115,7 +115,8 @@ require([
       'servicetype.module',
       'inventory.module',
       'acctspayable.module',
-      'event.module'
+      'event.module',
+      'reports.module'
     ]);
   });
 });
