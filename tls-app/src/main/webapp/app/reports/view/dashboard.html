@@ -1,3 +1,17 @@
 <h3 class="page-header">
   Reports Dashboard
 </h3>
+
+<link rel="stylesheet" href="/saiku_components/saiku.css" type="text/css">
+<link type="text/css" href="/saiku_components/js/saiku/plugins/CCC_Chart/tipsy.css" rel="stylesheet"/>
+
+<form class="form-inline" style="margin-top: 10px;">
+  <select ng-model="saikuFile" ng-options="query.name + '.saiku' as query.name for query in queries"
+    ng-change="refreshQueries()" class="form-control"></select>
+  <a href="{{saikuSettings.server}}/rest/saiku/{{saikuSettings.user}}/export/saiku/xls?file={{saikuFile}}" class="btn btn-success">
+    <i class="fa fa-file-excel-o"></i> Export to Excel
+  </a>
+</form>
+
+<div id="saiku-chart"></div>
+<div id="saiku-table" class="table table-striped"></div>
