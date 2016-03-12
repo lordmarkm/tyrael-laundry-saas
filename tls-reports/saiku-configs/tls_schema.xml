@@ -63,8 +63,8 @@
     </Dimension>
 
     <!-- Measures -->
-    <Measure name="Amount Paid" column="total_amt_paid" aggregator="sum" formatString="Standard" />
-    <Measure name="Amount Due" column="total_amt" aggregator="sum" formatString="Standard" />
-    <Measure name="Weight" column="wt_kg" aggregator="sum" formatString="Standard" />
+    <Measure name="Amount Paid" column="total_amt_paid" aggregator="sum" formatString="#,###.00" />
+    <Measure name="Amount Due" column="total_amt" aggregator="sum" formatString="#,###.00" />
+    <Measure name="Weight" column="wt_kg" aggregator="sum" formatString="#,###.00" />
   </Cube>
 </Schema>
