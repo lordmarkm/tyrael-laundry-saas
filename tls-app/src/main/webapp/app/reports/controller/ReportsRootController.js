@@ -31,7 +31,10 @@ define(function () {
     $scope.saikuClient.execute({
       file: $scope.saikuFile,
       htmlObject: "#saiku-table",
-      render: "table"
+      render: "table",
+      params: {
+        branchCode: 'lnav9'
+      }
     });
 
   }];
