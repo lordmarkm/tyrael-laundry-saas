@@ -73,67 +73,88 @@ require.config({
     },
     'bootstrap': {
       deps: ['jquery']
+    },
+
+    //Saiku deps
+    'backbone': {
+      deps: ['underscore', 'jquery'],
+      exports: 'Backbone'
+    },
+    'underscore': {
+      exports: '_'
+    },
+    'jquery-ui': {deps: ['jquery']},
+    'jquery-blockui': {deps: ['jquery', 'jquery-ui']},
+    'saiku-table-renderer': {deps: ['backbone', 'jquery-blockui', 'saiku-renderer']},
+    'ccc-protovis-msie': {deps: ['ccc-def']},
+    'ccc-pvc': {deps: ['ccc-def']},
+    'ccc-jquery.tipsy': {deps: ['ccc-def']},
+    'ccc-tipsy': {deps: ['ccc-def']},
+    'saiku-embed': {
+      deps: ['jquery-blockui', 'saiku-chart-renderer', 'saiku-table-renderer', 'ccc-protovis', 'ccc-protovis-msie',
+             'ccc-pvc', 'ccc-jquery.tipsy', 'ccc-tipsy']
     }
   }
 });
 
 require([
-    'angular',
-    'angular-resource',
-    'angular-animate',
-    'angular-ngtable',
-    'angular-ui-select',
-    'angular-sanitize',
-    'angular-bootstrap',
-    'toaster',
-    'angular-ui-router',
-    'jquery',
-    'bootstrap',
-    'metisMenu',
-    'moment',
-    'angular-busy',
-    'angular-moment',
-    'core/core.module.js',
-    'admin/admin.module.js',
-    'brandmgr/brandmgr.module.js',
-    'pos/pos.module.js',
-    'brand/brand.module.js',
-    'branch/branch.module.js',
-    'user/user.module.js',
-    'joborder/joborder.module.js',
-    'customer/customer.module.js',
-    'servicetype/servicetype.module.js',
-    'inventory/inventory.module.js',
-    'acctspayable/acctspayable.module.js',
-    'event/event.module.js',
-    'reports/reports.module.js'
-  ], function (angular) {
+         'angular',
+         'angular-resource',
+         'angular-animate',
+         'angular-ngtable',
+         'angular-ui-select',
+         'angular-sanitize',
+         'angular-bootstrap',
+         'toaster',
+         'angular-ui-router',
+         'jquery',
+         'bootstrap',
+         'metisMenu',
+         'moment',
+         'angular-busy',
+         'angular-moment',
+         'saiku-embed',
+         'core/core.module.js',
+         'admin/admin.module.js',
+         'brandmgr/brandmgr.module.js',
+         'pos/pos.module.js',
+         'brand/brand.module.js',
+         'branch/branch.module.js',
+         'user/user.module.js',
+         'joborder/joborder.module.js',
+         'customer/customer.module.js',
+         'servicetype/servicetype.module.js',
+         'inventory/inventory.module.js',
+         'acctspayable/acctspayable.module.js',
+         'event/event.module.js',
+         'reports/reports.module.js'
+         ], function (angular) {
   angular.element().ready(function () {
     angular.bootstrap(document, [
-      'ui.router',
-      'ngResource',
-      'ngAnimate',
-      'ngTable',
-      'ui.select',
-      'ngSanitize',
-      'ui.bootstrap',
-      'toaster',
-      'cgBusy',
-      'angularMoment',
-      'core.module',
-      'admin.module',
-      'brandmgr.module',
-      'pos.module',
-      'brand.module',
-      'branch.module',
-      'user.module',
-      'joborder.module',
-      'customer.module',
-      'servicetype.module',
-      'inventory.module',
-      'acctspayable.module',
-      'event.module',
-      'reports.module'
-    ]);
+                                 'ui.router',
+                                 'ngResource',
+                                 'ngAnimate',
+                                 'ngTable',
+                                 'ui.select',
+                                 'ngSanitize',
+                                 'ui.bootstrap',
+                                 'toaster',
+                                 'cgBusy',
+                                 'angularMoment',
+                                 'core.module',
+                                 'admin.module',
+                                 'brandmgr.module',
+                                 'pos.module',
+                                 'brand.module',
+                                 'branch.module',
+                                 'user.module',
+                                 'joborder.module',
+                                 'customer.module',
+                                 'servicetype.module',
+                                 'inventory.module',
+                                 'acctspayable.module',
+                                 'event.module',
+                                 'reports.module'
+                                 ]);
   });
 });

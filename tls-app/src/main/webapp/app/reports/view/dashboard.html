@@ -8,7 +8,7 @@
 <form class="form-inline" style="margin-top: 10px;">
   <select ng-model="saikuFile" ng-options="query.name + '.saiku' as query.name for query in queries"
     ng-change="refreshQueries()" class="form-control"></select>
-  <a href="{{saikuSettings.server}}/rest/saiku/{{saikuSettings.user}}/export/saiku/xls?file={{saikuFile}}" class="btn btn-success">
+  <a href="/saiku/rest/saiku/admin/export/saiku/xls?file={{saikuFile}}" class="btn btn-success">
     <i class="fa fa-file-excel-o"></i> Export to Excel
   </a>
 </form>

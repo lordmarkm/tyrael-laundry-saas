@@ -1,10 +1,15 @@
 define(function () {
-  return ['$scope',
-          function ($scope) {
+  return ['$scope', '$resource',
+          function ($scope, $resource) {
 
     $scope.saikuRepositoryService = $resource('/saiku/rest/saiku/admin/repository');
 
     $scope.saikuFile = 'wait.saiku';
+
+    $scope.saikuClient = new SaikuClient({
+      server: "/saiku",
+      path: "/rest/saiku/embed"
+    });
 
     $scope.saikuClient.execute({
       file: $scope.saikuFile,
@@ -14,9 +19,12 @@ define(function () {
       zoom: true,
       chartDefinition: {
         height: 400,
-        colors: ["red", "blue", "green", "yellow"],
+        colors: ["blue", "red", "green", "yellow"],
         baseAxisSize: "300px",
         baseAxisSizeMax : "200"
+      },
+      params: {
+        branchCode: 'psls'
       }
     });
 

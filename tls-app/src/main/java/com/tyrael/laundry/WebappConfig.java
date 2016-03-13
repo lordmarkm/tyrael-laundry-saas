@@ -48,6 +48,8 @@ public class WebappConfig extends WebMvcConfigurerAdapter {
     //Link directly to html pages
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+      registry.addViewController("/error").setViewName("errorpage");
+
       //Home page for anonymous visitors (doesn't load angular stuff)
       registry.addViewController("/").setViewName("index");
 
