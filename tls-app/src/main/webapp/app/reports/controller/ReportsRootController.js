@@ -4,7 +4,7 @@ define(function () {
 
     $scope.saikuRepositoryService = $resource('/saiku/rest/saiku/admin/repository');
 
-    $scope.saikuFile = 'wait.saiku';
+    $scope.saikuFile = 'fzz.saiku';
 
     $scope.saikuClient = new SaikuClient({
       server: "/saiku",
@@ -24,7 +24,7 @@ define(function () {
         baseAxisSizeMax : "200"
       },
       params: {
-        branchCode: 'psls'
+        branchCode: 'lnav9'
       }
     });
 
