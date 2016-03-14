@@ -5,6 +5,9 @@ define(function () {
     $scope.saikuRepositoryService = $resource('/saiku/rest/saiku/admin/repository');
 
     $scope.saikuFile = 'fzz.saiku';
+    $scope.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    $scope.month = 'March';
+    $scope.year = 2016;
 
     $scope.saikuClient = new SaikuClient({
       server: "/saiku",

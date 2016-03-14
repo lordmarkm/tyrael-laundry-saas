@@ -13,5 +13,10 @@
   </a>
 </form>
 
+<form class="form-inline" style="margin-top: 10px;">
+  <select ng-model="year" ng-options="year as year for year in years"
+    ng-change="refreshQueries()" class="form-control"></select>
+</form>
+
 <div id="saiku-chart"></div>
 <div id="saiku-table" class="table table-striped"></div>
