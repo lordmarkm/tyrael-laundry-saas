@@ -1,7 +1,8 @@
 define([
    'angular',
-   'reports/controller/ReportsRootController'
-], function (angular, ReportsRootController) {
+   'reports/controller/ReportsRootController',
+   'reports/resolve/ReportsDashboardResolve'
+], function (angular, ReportsRootController, ReportsDashboardResolve) {
 
   console.debug('Configuring reports.module');
   angular.module('reports.module', [])
@@ -11,6 +12,7 @@ define([
         url: 'reports',
         template: '<ui-view></ui-view>',
         controller: ReportsRootController,
+        resolve: ReportsDashboardResolve,
         access: ['ROLE_ADMIN', 'ROLE_BRAND_MANAGER'],
         abstract: true
       })
