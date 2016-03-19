@@ -76,7 +76,7 @@ define(function () {
         return;
       }
 
-      $scope.pageTitle = $scope.params.report.name;
+      $scope.pageTitle = $scope.params.brand.name + ' ' + $scope.params.report.name;
 
       $scope.saikuClient.execute({
         file: $scope.params.report.name + '.saiku',
