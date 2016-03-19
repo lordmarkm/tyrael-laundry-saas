@@ -53,6 +53,7 @@
           <li><a ui-sref="default.inv_item.list" ui-sref-active="active"><i class="fa fa-archive fa-fw"></i> Inventory Items</a>
           <li><a ui-sref="default.sales_header.list" ui-sref-active="active"><i class="fa fa-shopping-basket fa-fw"></i> Sales</a>
           <li ng-if="isAuthorized(['ROLE_ADMIN', 'ROLE_BRAND_MANAGER'])"><a ui-sref="default.acctspayable.list" ui-sref-active="active"><i class="fa fa-lightbulb-o fa-fw"></i> Accounts Payable</a>
+          <li ng-if="isAuthorized(['ROLE_ADMIN', 'ROLE_BRAND_MANAGER'])"><a ui-sref="default.reports.dashboard" ui-sref-active="active"><i class="fa fa-bar-chart fa-fw"></i> Reports</a>
         </ul>
       </div>
     </div>

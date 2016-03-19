@@ -1,0 +1,41 @@
+<h3 class="page-header">Reports Dashboard</h3>
+
+<link type="text/css" href="/saiku_components/saiku.css" rel="stylesheet" >
+<link type="text/css" href="/saiku_components/js/saiku/plugins/CCC_Chart/tipsy.css" rel="stylesheet"/>
+
+<div id="saiku-chart"></div>
+<div id="saiku-table" class="table table-striped">Click on "View Report" to generate report</div>
+
+<h4 class="page-header" style="margin-top: 50px;">Report Params</h4>
+<form class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2">Brand</label>
+    <div class="col-sm-6">
+      <select ng-model="params.brand" ng-options="brand as brand.name for brand in brands" class="form-control"></select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2">Report</label>
+    <div class="col-sm-6">
+      <select ng-model="params.saikuFile" ng-options="query.name + '.saiku' as query.name for query in reports" class="form-control"></select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2">Period</label>
+    <div class="col-sm-4 row">
+      <div class="col-sm-6"><select ng-model="params.month" ng-options="month as month for month in availableMonths" class="form-control"></select></div>
+      <div class="col-sm-6"><select ng-model="params.year" ng-options="year as year for year in years" ng-change="yearUpdated(year)" class="form-control"></select></div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2"></label>
+    <div class="col-sm-4">
+      <button ng-click="refreshQueries('View report button')" class="btn btn-primary">View report</button>
+      <!-- 
+      <a href="/saiku/rest/saiku/admin/export/saiku/xls?file={{params.saikuFile}}&parambrandCode={{params.brand.code}}&paramyear={{params.year}}&parammonth={{params.month}}" class="btn btn-success">
+        <i class="fa fa-file-excel-o"></i> Export to Excel
+      </a>
+      -->
+    </div>
+  </div>
+</form>

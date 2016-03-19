@@ -14,7 +14,24 @@ require.config({
     'metisMenu': '../lib/metisMenu/dist/metisMenu.min',
     'moment': '../lib/moment/min/moment.min',
     'angular-moment': '../lib/angular-moment/angular-moment.min',
-    'angular-busy': '../lib/angular-busy/dist/angular-busy.min'
+    'angular-busy': '../lib/angular-busy/dist/angular-busy.min',
+
+    //The following components are used by reports module
+    'jquery-ui': '../lib/jquery-ui/jquery-ui.min',
+    'jquery-blockui': '../lib/jquery.blockUI/jquery.blockUI',
+    'underscore': '../saiku_components/js/backbone/underscore',
+    'json2': '../saiku_components/js/backbone/json2',
+    'backbone': '../saiku_components/js/backbone/backbone',
+    'ccc-def': '../saiku_components/js/saiku/plugins/CCC_Chart/def',
+    'ccc-protovis': '../saiku_components/js/saiku/plugins/CCC_Chart/protovis',
+    'ccc-protovis-msie': '../saiku_components/js/saiku/plugins/CCC_Chart/protovis-msie',
+    'ccc-pvc': '../saiku_components/js/saiku/plugins/CCC_Chart/pvc',
+    'ccc-jquery.tipsy': '../saiku_components/js/saiku/plugins/CCC_Chart/jquery.tipsy',
+    'ccc-tipsy': '../saiku_components/js/saiku/plugins/CCC_Chart/tipsy',
+    'saiku-renderer': '../saiku_components/js/saiku/render/SaikuRenderer',
+    'saiku-table-renderer': '../saiku_components/js/saiku/render/SaikuTableRenderer',
+    'saiku-chart-renderer': '../saiku_components/js/saiku/render/SaikuChartRenderer',
+    'saiku-embed': '../saiku_components/js/saiku/embed/SaikuEmbed'
   },
   shim: {
     'angular': {
@@ -56,66 +73,88 @@ require.config({
     },
     'bootstrap': {
       deps: ['jquery']
+    },
+
+    //Saiku deps
+    'backbone': {
+      deps: ['underscore', 'jquery'],
+      exports: 'Backbone'
+    },
+    'underscore': {
+      exports: '_'
+    },
+    'jquery-ui': {deps: ['jquery']},
+    'jquery-blockui': {deps: ['jquery', 'jquery-ui']},
+    'saiku-table-renderer': {deps: ['backbone', 'jquery-blockui', 'saiku-renderer']},
+    'ccc-protovis-msie': {deps: ['ccc-def']},
+    'ccc-pvc': {deps: ['ccc-def']},
+    'ccc-jquery.tipsy': {deps: ['ccc-def']},
+    'ccc-tipsy': {deps: ['ccc-def']},
+    'saiku-embed': {
+      deps: ['jquery-blockui', 'saiku-chart-renderer', 'saiku-table-renderer', 'ccc-protovis', 'ccc-protovis-msie',
+             'ccc-pvc', 'ccc-jquery.tipsy', 'ccc-tipsy']
     }
   }
 });
 
 require([
-    'angular',
-    'angular-resource',
-    'angular-animate',
-    'angular-ngtable',
-    'angular-ui-select',
-    'angular-sanitize',
-    'angular-bootstrap',
-    'toaster',
-    'angular-ui-router',
-    'jquery',
-    'bootstrap',
-    'metisMenu',
-    'moment',
-    'angular-busy',
-    'angular-moment',
-    'core/core.module.js',
-    'admin/admin.module.js',
-    'brandmgr/brandmgr.module.js',
-    'pos/pos.module.js',
-    'brand/brand.module.js',
-    'branch/branch.module.js',
-    'user/user.module.js',
-    'joborder/joborder.module.js',
-    'customer/customer.module.js',
-    'servicetype/servicetype.module.js',
-    'inventory/inventory.module.js',
-    'acctspayable/acctspayable.module.js',
-    'event/event.module.js',
-    'anonymous/anon.module.js'
-  ], function (angular) {
+         'angular',
+         'angular-resource',
+         'angular-animate',
+         'angular-ngtable',
+         'angular-ui-select',
+         'angular-sanitize',
+         'angular-bootstrap',
+         'toaster',
+         'angular-ui-router',
+         'jquery',
+         'bootstrap',
+         'metisMenu',
+         'moment',
+         'angular-busy',
+         'angular-moment',
+         'saiku-embed',
+         'core/core.module.js',
+         'admin/admin.module.js',
+         'brandmgr/brandmgr.module.js',
+         'pos/pos.module.js',
+         'brand/brand.module.js',
+         'branch/branch.module.js',
+         'user/user.module.js',
+         'joborder/joborder.module.js',
+         'customer/customer.module.js',
+         'servicetype/servicetype.module.js',
+         'inventory/inventory.module.js',
+         'acctspayable/acctspayable.module.js',
+         'event/event.module.js',
+         'reports/reports.module.js'
+         ], function (angular) {
   angular.element().ready(function () {
     angular.bootstrap(document, [
-      'ui.router',
-      'ngResource',
-      'ngAnimate',
-      'ngTable',
-      'ui.select',
-      'ngSanitize',
-      'ui.bootstrap',
-      'toaster',
-      'cgBusy',
-      'angularMoment',
-      'core.module',
-      'admin.module',
-      'brandmgr.module',
-      'pos.module',
-      'brand.module',
-      'branch.module',
-      'user.module',
-      'joborder.module',
-      'customer.module',
-      'servicetype.module',
-      'inventory.module',
-      'acctspayable.module',
-      'event.module'
-    ]);
+                                 'ui.router',
+                                 'ngResource',
+                                 'ngAnimate',
+                                 'ngTable',
+                                 'ui.select',
+                                 'ngSanitize',
+                                 'ui.bootstrap',
+                                 'toaster',
+                                 'cgBusy',
+                                 'angularMoment',
+                                 'core.module',
+                                 'admin.module',
+                                 'brandmgr.module',
+                                 'pos.module',
+                                 'brand.module',
+                                 'branch.module',
+                                 'user.module',
+                                 'joborder.module',
+                                 'customer.module',
+                                 'servicetype.module',
+                                 'inventory.module',
+                                 'acctspayable.module',
+                                 'event.module',
+                                 'reports.module'
+                                 ]);
   });
 });
