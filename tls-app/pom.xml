@@ -19,6 +19,7 @@
     <kettle.jndi.root>./tls-reports-kettle/jndi-dev</kettle.jndi.root>
     <optimizejs.phase>none</optimizejs.phase>
     <main.js.source>${project.basedir}/src/main/webapp/app/main.js</main.js.source>
+    <saiku.host>localhost</saiku.host>
   </properties>
 
   <dependencies>
@@ -95,6 +96,7 @@
         <js.optimize>uglify</js.optimize>
         <css.optimize>standard</css.optimize>
         <main.js.source>${project.build.directory}/webapp-build/main.js</main.js.source>
+        <saiku.host>ginaslaundry.com</saiku.host>
       </properties>
     </profile>
   </profiles>
