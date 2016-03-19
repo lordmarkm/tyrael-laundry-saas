@@ -46,12 +46,10 @@ public class ReportsProxyController {
 
     @PostConstruct
     public void configureRestTemplate() {
-        String username = env.getProperty("saiku.username");
-        String password = env.getProperty("saiku.password");
         server = env.getProperty("saiku.host");
         port = env.getProperty("saiku.port", Integer.class);
-
-        LOG.info("Configuring saiku rest client. username={}, password={}", username, password);
+        String username = env.getProperty("saiku.username");
+        String password = env.getProperty("saiku.password");
 
         restTemplate = new RestTemplate();
 
@@ -74,7 +72,7 @@ public class ReportsProxyController {
 
     @ResponseBody
     @RequestMapping("/saiku/**")
-    public void mirrorRest(@RequestBody(required = false) String body, HttpMethod method, HttpServletRequest request,
+    public String mirrorRest(@RequestBody(required = false) String body, HttpMethod method, HttpServletRequest request,
             HttpServletResponse response) throws URISyntaxException, IOException {
 
         LOG.debug("Saiku request. body={}, method={}, request={}, response={}", body, method, request, response);
@@ -84,12 +82,7 @@ public class ReportsProxyController {
         ResponseEntity<String> responseEntity =
                 restTemplate.exchange(uri, method, new HttpEntity<String>(body), String.class);
 
-        //Mirror the headers too
-        for (Entry<String, List<String>> header : responseEntity.getHeaders().entrySet()) {
-            response.setHeader(header.getKey(), header.getValue().get(0));
-        }
-
-        response.getOutputStream().write(responseEntity.getBody().getBytes());
+        return responseEntity.getBody();
     }
 
 }
