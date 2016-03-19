@@ -46,10 +46,12 @@ public class ReportsProxyController {
 
     @PostConstruct
     public void configureRestTemplate() {
-        server = env.getProperty("saiku.host");
-        port = env.getProperty("saiku.port", Integer.class);
         String username = env.getProperty("saiku.username");
         String password = env.getProperty("saiku.password");
+        server = env.getProperty("saiku.host");
+        port = env.getProperty("saiku.port", Integer.class);
+
+        LOG.info("Configuring saiku rest client. username={}, password={}", username, password);
 
         restTemplate = new RestTemplate();
 
