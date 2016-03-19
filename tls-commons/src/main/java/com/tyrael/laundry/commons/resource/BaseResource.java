@@ -7,11 +7,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.tyrael.laundry.commons.dto.PageInfo;
 import com.tyrael.laundry.commons.model.BaseEntity;
@@ -62,6 +65,12 @@ public abstract class BaseResource<E extends BaseEntity, D, S extends TyraelJpaS
     public ResponseEntity<D> delete(@RequestParam Long id) {
         LOG.debug("Delete request. id={}", id);
         return ok(service.deleteInfo(id));
+    }
+
+    @ResponseStatus(value=HttpStatus.UNAUTHORIZED, reason="Error")  // 409
+    @ExceptionHandler(Exception.class)
+    public void conflict() {
+      // Nothing to do
     }
 
 }

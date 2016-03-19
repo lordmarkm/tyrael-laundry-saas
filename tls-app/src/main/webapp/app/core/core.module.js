@@ -37,7 +37,7 @@ define([
 
     //Try to have the oader for every http
     .config(['$httpProvider', function ($httpProvider) {
-      $httpProvider.interceptors.push(['$q', '$rootScope', function ($q, $rootScope) {
+      $httpProvider.interceptors.push(['$q', '$rootScope', '$window', function ($q, $rootScope, $window) {
         var numLoadings = 0;
         return {
           request: function (config) {
@@ -54,6 +54,10 @@ define([
           responseError: function (response) {
             if (!(--numLoadings)) {
               $rootScope.$broadcast("loader_hide");
+            }
+            //redirect to home on unauthorized
+            if (response.status === 401) {
+              $window.location.href = '/';
             }
             return $q.reject(response);
           }
