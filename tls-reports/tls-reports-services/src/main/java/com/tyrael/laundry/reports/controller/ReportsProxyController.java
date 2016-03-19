@@ -1,7 +1,10 @@
 package com.tyrael.laundry.reports.controller;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Map.Entry;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -69,8 +72,8 @@ public class ReportsProxyController {
 
     @ResponseBody
     @RequestMapping("/saiku/**")
-    public String mirrorRest(@RequestBody(required = false) String body, HttpMethod method, HttpServletRequest request,
-            HttpServletResponse response) throws URISyntaxException {
+    public void mirrorRest(@RequestBody(required = false) String body, HttpMethod method, HttpServletRequest request,
+            HttpServletResponse response) throws URISyntaxException, IOException {
 
         LOG.debug("Saiku request. body={}, method={}, request={}, response={}", body, method, request, response);
 
@@ -79,7 +82,12 @@ public class ReportsProxyController {
         ResponseEntity<String> responseEntity =
                 restTemplate.exchange(uri, method, new HttpEntity<String>(body), String.class);
 
-        return responseEntity.getBody();
+        //Mirror the headers too
+        for (Entry<String, List<String>> header : responseEntity.getHeaders().entrySet()) {
+            response.setHeader(header.getKey(), header.getValue().get(0));
+        }
+
+        response.getOutputStream().write(responseEntity.getBody().getBytes());
     }
 
 }

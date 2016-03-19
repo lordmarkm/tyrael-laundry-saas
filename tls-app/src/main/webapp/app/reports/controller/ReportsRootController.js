@@ -2,39 +2,64 @@ define(function () {
   return ['$scope', '$resource', 'moment', 'brands',
           function ($scope, $resource, moment, brands) {
 
+    $scope.params = {};
+
     $scope.saikuRepositoryService = $resource('/saiku/rest/saiku/admin/repository');
-    $scope.saikuFile = 'fzz.saiku';
+    $scope.reports = $scope.saikuRepositoryService.query(function (reports) {
+
+      //Remove the non-parametrized reports
+      for (var i = 0; i < reports.length; i++) {
+        if (reports[i].xml.indexOf('${') == -1) {
+          reports.splice(i, 1);
+        }
+      }
+      if (!$scope.reports.length) {
+        return;
+      }
+      $scope.reports = reports;
+      if (reports.length) {
+        $scope.params.saikuFile = $scope.reports[0].name + '.saiku';
+      }
+    });
 
     //Set first brand as default
     $scope.brands = brands;
     if ($scope.brands.length) {
-      $scope.brand = $scope.brands[0];
+      $scope.params.brand = $scope.brands[0];
     }
 
     //Compute the available dates
     var now = moment(), monthNow = now.get('month'), yearNow = now.get('year');
 
     //Available years are 2016 to present year
+    $scope.params.year = yearNow;
     $scope.years = [];
-    for (var i = 2016; i <= 2018; i++) {
+    for (var i = 2010; i <= yearNow; i++) {
       $scope.years.push(i);
     }
-    $scope.year = $scope.years[$scope.years.length - 1];
+    $scope.yearUpdated = function (year) {
+      if (year === yearNow) {
+        $scope.params.month = $scope.months[monthNow];
+      }
+      computeAvailableMonths();
+    }
 
     //Default month is current month
     $scope.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    $scope.availableMonths = function () {
-      console.debug('compute months. $scope.year=' + $scope.year + ',yearnow=' + yearNow);
+    $scope.availableMonths = [];
+
+    function computeAvailableMonths () {
       var clone;
-      if ($scope.year != yearNow) {
-        return $scope.months;
+      if ($scope.params.year != yearNow) {
+        $scope.availableMonths = $scope.months;
       } else {
         clone = $scope.months.slice(0);
         clone.splice(monthNow + 1, 11 - monthNow);
-        return clone;
+        $scope.availableMonths = clone;
       }
     };
-    $scope.month = $scope.months[monthNow];
+    computeAvailableMonths();
+    $scope.params.month = $scope.months[monthNow];
 
     $scope.saikuClient = new SaikuClient({
       server: "/saiku",
@@ -43,13 +68,13 @@ define(function () {
 
     //Re-execute the selected query
     $scope.refreshQueries = function () {
-      return;
-      if (!$scope.brand.code) {
+      console.debug('month: ' + $scope.params.month + ', year: ' + $scope.params.year + ', brand: ' + $scope.params.brand.code + ', report: ' + $scope.params.saikuFile);
+      if (!$scope.params.brand || !$scope.params.month || !$scope.params.year) {
         return;
       }
 
       $scope.saikuClient.execute({
-        file: $scope.saikuFile,
+        file: $scope.params.saikuFile,
         htmlObject: "#saiku-chart",
         render: "chart",
         mode: "bar",
@@ -61,21 +86,26 @@ define(function () {
           baseAxisSizeMax : "200"
         },
         params: {
-          branchCode: 'lnav9'
+          brandCode: $scope.params.brand.code,
+          year: $scope.params.year,
+          month: $scope.params.month
         }
       });
-  
+
+      //clear the table view in case no data is retrieved since saiku api leaves the existing table
+      angular.element('#saiku-table').html('');
+
       $scope.saikuClient.execute({
-        file: $scope.saikuFile,
+        file: $scope.params.saikuFile,
         htmlObject: "#saiku-table",
         render: "table",
         params: {
-          brandCode: $scope.brand.code
+          brandCode: $scope.params.brand.code,
+          year: $scope.params.year,
+          month: $scope.params.month
         }
       });
     };
-
-    $scope.refreshQueries();
 
 
 

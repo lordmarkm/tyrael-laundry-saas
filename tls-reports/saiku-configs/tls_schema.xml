@@ -15,18 +15,24 @@
 
     <!-- Branch -->
     <Dimension name="Branch" foreignKey="branch_dim_id">
-      <Hierarchy hasAll="true" allMemberName="All Branches" primaryKey="id">
+      <Hierarchy hasAll="true" allMemberName="All Branch Names" primaryKey="id">
         <Table name="branch_dimension" />
         <Level name="Branch Name" column="name" uniqueMembers="false" />
+      </Hierarchy>
+      <Hierarchy name="Branch Code" hasAll="true" allMemberName="All Branch Codes" primaryKey="id">
+        <Table name="branch_dimension" />
         <Level name="Branch Code" column="code" uniqueMembers="true" />
       </Hierarchy>
     </Dimension>
 
     <!-- Brand -->
     <Dimension name="Brand" foreignKey="brand_dim_id">
-      <Hierarchy hasAll="true" allMemberName="All Brands" primaryKey="id">
+      <Hierarchy hasAll="true" allMemberName="All Brand Names" primaryKey="id">
         <Table name="brand_dimension" />
         <Level name="Brand Name" column="name" uniqueMembers="false" />
+      </Hierarchy>
+      <Hierarchy name="Brand Code" hasAll="true" allMemberName="All Brand Codes" primaryKey="id">
+        <Table name="brand_dimension" />
         <Level name="Brand Code" column="code" uniqueMembers="true" />
       </Hierarchy>
     </Dimension>
