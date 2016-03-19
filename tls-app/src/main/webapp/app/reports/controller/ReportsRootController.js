@@ -3,7 +3,7 @@ define(function () {
           function ($scope, $resource, moment, brands) {
 
     $scope.params = {};
-
+    $scope.pageTitle = 'Reports Dashboard';
     $scope.saikuRepositoryService = $resource('/saiku/rest/saiku/admin/repository');
     $scope.reports = $scope.saikuRepositoryService.query(function (reports) {
 
@@ -18,9 +18,13 @@ define(function () {
       }
       $scope.reports = reports;
       if (reports.length) {
-        $scope.params.saikuFile = $scope.reports[0].name + '.saiku';
+        $scope.params.report = $scope.reports[0];
       }
     });
+
+    $scope.hasParam = function (paramName, report) {
+      return report.xml.indexOf('${' + paramName + '}') != -1;
+    };
 
     //Set first brand as default
     $scope.brands = brands;
@@ -68,13 +72,14 @@ define(function () {
 
     //Re-execute the selected query
     $scope.refreshQueries = function () {
-      console.debug('month: ' + $scope.params.month + ', year: ' + $scope.params.year + ', brand: ' + $scope.params.brand.code + ', report: ' + $scope.params.saikuFile);
       if (!$scope.params.brand || !$scope.params.month || !$scope.params.year) {
         return;
       }
 
+      $scope.pageTitle = $scope.report.name;
+
       $scope.saikuClient.execute({
-        file: $scope.params.saikuFile,
+        file: $scope.params.report.name + '.saiku',
         htmlObject: "#saiku-chart",
         render: "chart",
         mode: "bar",
@@ -96,7 +101,7 @@ define(function () {
       angular.element('#saiku-table').html('');
 
       $scope.saikuClient.execute({
-        file: $scope.params.saikuFile,
+        file: $scope.params.report.name + '.saiku',
         htmlObject: "#saiku-table",
         render: "table",
         params: {

@@ -1,4 +1,4 @@
-<h3 class="page-header">Reports Dashboard</h3>
+<h3 class="page-header">${pageTitle}</h3>
 
 <link type="text/css" href="/saiku_components/saiku.css" rel="stylesheet" >
 <link type="text/css" href="/saiku_components/js/saiku/plugins/CCC_Chart/tipsy.css" rel="stylesheet"/>
@@ -17,14 +17,14 @@
   <div class="form-group">
     <label class="col-sm-2">Report</label>
     <div class="col-sm-6">
-      <select ng-model="params.saikuFile" ng-options="query.name + '.saiku' as query.name for query in reports" class="form-control"></select>
+      <select ng-model="params.report" ng-options="query as query.name for query in reports" class="form-control"></select>
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group" ng-show="hasParam('month', params.report) || hasParam('year', params.report)">
     <label class="col-sm-2">Period</label>
     <div class="col-sm-4 row">
-      <div class="col-sm-6"><select ng-model="params.month" ng-options="month as month for month in availableMonths" class="form-control"></select></div>
-      <div class="col-sm-6"><select ng-model="params.year" ng-options="year as year for year in years" ng-change="yearUpdated(year)" class="form-control"></select></div>
+      <div class="col-sm-6" ng-show="hasParam('month', params.report)"><select ng-model="params.month" ng-options="month as month for month in availableMonths" class="form-control"></select></div>
+      <div class="col-sm-6" ng-show="hasParam('year', params.report)"><select ng-model="params.year" ng-options="year as year for year in years" ng-change="yearUpdated(year)" class="form-control"></select></div>
     </div>
   </div>
   <div class="form-group">
