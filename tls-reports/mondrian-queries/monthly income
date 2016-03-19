@@ -1,0 +1,5 @@
+SELECT
+NON EMPTY {Hierarchize({{[Measures].[Amount Paid], [Measures].[Amount Due], [Measures].[Weight]}})} ON COLUMNS,
+NON EMPTY {Hierarchize({{[Date Received].[${year}]}, Filter({{[Date Received].[Month].Members}}, (Exists(Ancestor([Date Received].CurrentMember, [Date Received].[Year]), {[Date Received].[${year}]}).Count  > 0))})} ON ROWS
+FROM [JobOrder]
+WHERE {[Deleted].[N]}
