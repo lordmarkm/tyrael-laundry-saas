@@ -119,4 +119,23 @@
     <button ng-click="moreEvents()" ng-disabled="events.length >= totalEvents" class="btn btn-primary">More</button>
     <small>Showing {{events.length}} of {{totalEvents}}</small>
   </div>
+
+  <!-- App version updates -->
+  <div class="col-sm-4">
+    <h3 class="page-header">
+      Update History
+      <br><small>The last 30 updates to this app</small>
+    </h3>
+    <div class="panel panel-info">
+      <div class="panel-heading">App Update History</div>
+      <div class="panel-body">
+        <div class="list-group">
+          <div class="list-group-item" ng-repeat="commit in commits">
+            <p>{{commit.commit.message}}</p>
+            <small class="text-muted">{{moment(commit.commit.author.date).fromNow()}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
