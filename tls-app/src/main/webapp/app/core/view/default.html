@@ -9,8 +9,11 @@
   
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="#">Home</a></li>
+        <li class="active" ng-if="isAuthorized('ROLE_ADMIN')"><a ui-sref="default.admin.dashboard" ui-sref-active="active">Dashboard</a></li>
+        <li class="active" ng-if="isAuthorized('ROLE_BRAND_MANAGER')"><a ui-sref="default.brandmgr.dashboard" ui-sref-active="active">Dashboard</a></li>
+        <li class="active" ng-if="isAuthorized('ROLE_POS')"><a ui-sref="default.pos.dashboard" ui-sref-active="active">Dashboard</a></li>
+        <li><a ui-sref="help.index" title="Help">Help</a></li>
         <li><a href="#">Contact</a></li>
         <li ng-if="isAuthorized('ROLE_POS')" class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

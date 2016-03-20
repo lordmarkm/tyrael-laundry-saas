@@ -1,1 +1,70 @@
-Help page
+<nav ng-if="isAuthenticated()" class="navbar navbar-default mt20" style="margin-bottom: 0;">
+  <div class="container-fluid">
+    <!-- Header -->
+    <div class="navbar-header">
+      <a ng-if="isAuthorized('ROLE_ADMIN')" class="navbar-brand" ui-sref="default.manager.splash" title="Admin Dashboard">Admin</a>
+      <a ng-if="isAuthorized('ROLE_BRAND_MANAGER')" class="navbar-brand" title="Management Dashboard">Management</a>
+      <a ng-if="isAuthorized('ROLE_POS')" ui-sref="default.pos.dashboard" class="navbar-brand" title="POS Dashboard">Point of Sales</a>
+    </div>
+  
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul id="side-menu" class="nav navbar-nav">
+        <li><a href="/#/">Home</a></li>
+        <li ng-if="isAuthorized('ROLE_ADMIN')"><a ui-sref="default.admin.dashboard" ui-sref-active="active">Dashboard</a></li>
+        <li ng-if="isAuthorized('ROLE_BRAND_MANAGER')"><a ui-sref="default.brandmgr.dashboard" ui-sref-active="active">Dashboard</a></li>
+        <li ng-if="isAuthorized('ROLE_POS')"><a ui-sref="default.pos.dashboard" ui-sref-active="active">Dashboard</a></li>
+        <li class="active"><a ui-sref="help.index" title="Help">Help</a></li>
+        <li><a href="#">Contact</a></li>
+        <li ng-if="isAuthorized('ROLE_POS')" class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-shopping-cart"></i> Shopping Cart &nbsp;
+            <span ng-if="shoppingCart.items.length" class="label label-success">{{shoppingCart.items.length}}</span>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li ng-if="shoppingCart.items.length" class="dropdown-header">Cart items (click to remove)</li>
+            <li ng-if="!shoppingCart.items.length" class="dropdown-header">No items in cart</li>
+            <li ng-repeat="cartItem in shoppingCart.items">
+              <a href="javascript:;" ng-click="shoppingCart.removeItem($index)">{{cartItem.inventoryItem.inventoryItemTypeName}} {{cartItem.quantity}}</a>
+            </li>
+            <li ng-if="shoppingCart.items.length" role="separator" class="divider"></li>
+            <li ng-if="shoppingCart.items.length" class="dropdown-header">Shopping cart actions</li>
+            <li ng-if="shoppingCart.items.length"><a ui-sref="default.checkout">Checkout</a></li>
+            <li ng-if="shoppingCart.items.length"><a href="javascript:;" ng-click="shoppingCart.clearCart()">Clear cart</a></li>
+          </ul>
+        </li>
+      </ul>    
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/logout">Logged in as {{principal.username}} Logout</a></li>
+      </ul>
+    </div>
+  
+    <!-- Sidebar -->
+    <div class="row">
+    <div role="navigation" class="navbar-primary sidebar" style="margin-top: 0;">
+      <div class="sidebar-nav navbar-collapse">
+        <ul class="nav" id="side-menu">
+          <li ng-if="isAuthorized('ROLE_ADMIN')"><a ui-sref="default.admin.dashboard" ui-sref-active="active"><i class="fa fa-dashboard fa-fw"></i> Back to Dashboard</a></li>
+          <li ng-if="isAuthorized('ROLE_BRAND_MANAGER')"><a ui-sref="default.brandmgr.dashboard" ui-sref-active="active"><i class="fa fa-dashboard fa-fw"></i> Back to Dashboard</a></li>
+          <li ng-if="isAuthorized('ROLE_POS')"><a ui-sref="default.pos.dashboard" ui-sref-active="active"><i class="fa fa-dashboard fa-fw"></i> Back to Dashboard</a></li>
+          <li><a ui-sref="help.glossary" ui-sref-active="active"><i class="fa fa-exclamation-circle fa-fw"></i> Glossary of Important Terms</a>
+          <li class="collapsible">
+            <a ui-sref="help.customer" ui-sref-active="active"><i class="fa fa-users fa-fw"></i> Customer</span></a>
+            <ul class="nav nav-second-level">
+              <li><a ui-sref="help.customer_list" ui-sref-active="active"><i class="fa fa-list"></i> The customer list view</a>
+              <li><a ui-sref="help.customer_create" ui-sref-active="active"><i class="fa fa-plus"></i> Creating or updating a customer record</a></li>
+              <li><a ui-sref="help.customer_delete" ui-sref-active="active"><i class="fa fa-close"></i> Deleting a customer record</a>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </div>
+  </div>
+</nav>
+
+<div id="{{isAuthenticated() ? 'page-wrapper' : 'no-id'}}"  cg-busy="cgLoader.promise" style="padding-top: 20px; padding-bottom: 40px;" ng-cloak>
+  <div class="row">
+    <ui-view></ui-view>
+  </div>
+</div>
