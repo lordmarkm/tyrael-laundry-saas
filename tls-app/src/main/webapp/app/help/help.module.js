@@ -33,6 +33,10 @@ define([
       .state('help.customer_delete', {
         url: '/customer-delete',
         templateUrl: 'help/view/customer_delete.html'
+      })
+      .state('help.customer_filter_job_orders', {
+        url: '/customer-filter-job-orders',
+        templateUrl: 'help/view/customer_filter_job_orders.html'
       });
 
     }]);
