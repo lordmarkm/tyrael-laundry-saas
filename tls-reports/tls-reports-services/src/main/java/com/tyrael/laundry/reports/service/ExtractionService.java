@@ -1,5 +1,7 @@
 package com.tyrael.laundry.reports.service;
 
+import javax.annotation.PostConstruct;
+
 import org.pentaho.di.core.KettleEnvironment;
 import org.pentaho.di.core.exception.KettleException;
 import org.pentaho.di.job.JobMeta;
@@ -29,8 +31,9 @@ public class ExtractionService {
     private Environment env;
 
     /**
-     * Runs once a day, extracts data
+     * Runs once a day and on restart, extracts data
      */
+    @PostConstruct
     @Scheduled(cron = "0 0 0 * * ?")
     public void runKettle() {
         try {
