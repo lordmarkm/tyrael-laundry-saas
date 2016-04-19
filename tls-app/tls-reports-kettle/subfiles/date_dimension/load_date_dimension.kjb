@@ -341,7 +341,7 @@
       <description/>
       <type>EVAL_TABLE_CONTENT</type>
       <connection>tyrael_laundry_saas_reports</connection>
-      <schemaname>tyrael_laundry_saas_reports</schemaname>
+      <schemaname/>
       <tablename>date_dimension</tablename>
       <success_condition>rows_count_smaller</success_condition>
       <limit>1000</limit>
