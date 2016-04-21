@@ -3,7 +3,9 @@ package com.tyrael.laundry.reports.service;
 import javax.annotation.PostConstruct;
 
 import org.pentaho.di.core.KettleEnvironment;
+import org.pentaho.di.core.Result;
 import org.pentaho.di.core.exception.KettleException;
+import org.pentaho.di.job.Job;
 import org.pentaho.di.job.JobMeta;
 import org.pentaho.di.repository.Repository;
 import org.pentaho.di.repository.filerep.KettleFileRepository;
@@ -50,14 +52,10 @@ public class ExtractionService {
 
             jobMeta = new JobMeta("./tls-reports-kettle/main.kjb", repository);
 
-            org.pentaho.di.job.Job job = new org.pentaho.di.job.Job(repository, jobMeta);
-            String[] arg = new String[2];
-            arg[0] = "kahit ano";
-            arg[1] = "kahit ano";
-            job.setArguments(arg);
+            Job job = new Job(repository, jobMeta);
             job.start();
             job.waitUntilFinished();
-            org.pentaho.di.core.Result result = job.getResult();
+            Result result = job.getResult();
 
             LOG.debug("Extraction result={}", result);
         } catch (KettleException e) {
