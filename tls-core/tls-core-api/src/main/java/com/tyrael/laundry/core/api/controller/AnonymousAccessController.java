@@ -23,6 +23,7 @@ import com.tyrael.laundry.model.customer.Customer;
  *
  */
 @Controller
+@RequestMapping("/anon")
 public class AnonymousAccessController {
 
     private static final Logger LOG = LoggerFactory.getLogger(AnonymousAccessController.class);
