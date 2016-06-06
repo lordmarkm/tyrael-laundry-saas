@@ -23,41 +23,43 @@ define([
         url: 'joborders',
         template: '<ui-view></ui-view>',
         controller: JobOrderRootController,
-        abstract: true,
-        access: ['authenticated']
+        abstract: true
       })
       .state('default.joborder.list', {
         url: '',
         templateUrl: 'joborder/view/list.html',
         controller: JobOrderListController,
         resolve: JobOrderListResolve,
-        access: ['authenticated']
+        access: 'authenticated'
       })
       //same as list, but filtered by customer
       .state('default.joborder.customer', {
         url: '/customer/{customerCode}?{customerName}',
         templateUrl: 'joborder/view/list.html',
         controller: JobOrderListController,
-        resolve: JobOrderListResolve
+        resolve: JobOrderListResolve,
+        access: 'authenticated'
       })
       .state('default.joborder.add', {
         url: '/add',
         templateUrl: 'joborder/view/update.html',
         controller: JobOrderUpdateController,
-        resolve: JobOrderUpdateResolve
+        resolve: JobOrderUpdateResolve,
+        access: 'authenticated'
       })
       .state('default.joborder.update', {
         url: '/update/{joborderCode}/{urlSlug}',
         templateUrl: 'joborder/view/update.html',
         controller: JobOrderUpdateController,
-        resolve: JobOrderUpdateResolve
+        resolve: JobOrderUpdateResolve,
+        access: 'authenticated'
       })
       .state('default.joborder.view', {
         url: '/{joborderCode}/{urlSlug}',
         templateUrl: 'joborder/view/view.html',
         controller: JobOrderViewController,
         resolve: JobOrderViewResolve,
-        access: ['authenticated']
+        access: 'authenticated'
       });
     }]);
 

@@ -8,6 +8,7 @@ import static com.tyrael.laundry.reference.JobOrderStatus.PAID_CLAIMED;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -54,11 +55,12 @@ public class JobOrderServiceCustomImpl extends TyraelJpaServiceCustomImpl<JobOrd
     private CustomerService customerService;
 
     private BooleanExpression addBrandFilter(final BooleanExpression predicate) {
-        if (AuthenticationUtil.isAuthorized(AuthenticationUtil.ROLE_ADMIN)) {
+        if (!AuthenticationUtil.isAuthenticated() || AuthenticationUtil.isAuthorized(AuthenticationUtil.ROLE_ADMIN)) {
+            //Ironically, admin and unauthenticated users have full access to all job orders
             return predicate;
         } else {
             List<Brand> brands = brandService.findByUserUsername(AuthenticationUtil.getLoggedInUsername());
-            return predicate.and(jobOrder.branch.brand.in(brands));
+            return CollectionUtils.isEmpty(brands) ? predicate : predicate.and(jobOrder.branch.brand.in(brands));
         }
     }
 
