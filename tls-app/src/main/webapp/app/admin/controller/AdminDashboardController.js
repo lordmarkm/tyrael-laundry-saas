@@ -1,6 +1,7 @@
 define(function () {
-  return ['$scope', 'events', 'dashboard', 'EventService', function ($scope, events, dashboard, EventService) {
+  return ['$scope', '$http', 'moment', 'events', 'dashboard', 'EventService', function ($scope, $http, moment, events, dashboard, EventService) {
 
+    $scope.moment = moment;
     $scope.page = 1;
     $scope.totalEvents = 0;
     $scope.dashboard = dashboard;
@@ -19,5 +20,8 @@ define(function () {
       });
     };
 
+    $http.get('https://api.github.com/repos/lordmarkm/tyrael-laundry-saas/commits').then(function (commits) {
+      $scope.commits = commits.data;
+    });
   }];
 });

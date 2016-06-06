@@ -128,7 +128,8 @@ require([
          'acctspayable/acctspayable.module.js',
          'event/event.module.js',
          'reports/reports.module.js',
-         'help/help.module.js'
+         'help/help.module.js',
+         'anonymous/anon.module.js'
          ], function (angular) {
   angular.element().ready(function () {
     angular.bootstrap(document, [
@@ -156,7 +157,8 @@ require([
                                  'acctspayable.module',
                                  'event.module',
                                  'reports.module',
-                                 'help.module'
+                                 'help.module',
+                                 'anon.module'
                                  ]);
   });
 });

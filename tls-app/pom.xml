@@ -83,7 +83,7 @@
         <db.host>tyrael-laundry-saas.cwsdrmvlsryc.ap-southeast-1.rds.amazonaws.com</db.host>
         <db.username>root</db.username>
         <db.password>1234qwer</db.password>
-        <reports.host>tyrael-laundry-saas-reports.cwsdrmvlsryc.ap-southeast-1.rds.amazonaws.com</reports.host>
+        <reports.host>tyrael-laundry-saas.cwsdrmvlsryc.ap-southeast-1.rds.amazonaws.com</reports.host>
         <reports.username>root</reports.username>
         <reports.password>1234qwer</reports.password>
         <kettle.jndi.root>./tls-reports-kettle/jndi-aws</kettle.jndi.root>

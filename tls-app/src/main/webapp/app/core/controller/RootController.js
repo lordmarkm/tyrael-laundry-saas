@@ -5,6 +5,11 @@ define(function () {
     $scope.contextPath = 'laundry';
     $scope.shoppingCart = shoppingCart;
     $scope.isAuthorized = function (permission) {
+      //Anybody can access anonymous access states
+      if (permission === 'anonymous') {
+        return true;
+      }
+      //Otherwise, unauthenticated users can't access anything
       if (!$scope.principal) {
         return false;
       }

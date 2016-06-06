@@ -1,7 +1,8 @@
 define([
    'angular',
-   'anonymous/controller/AnonRootController.js'
-], function (angular, AnonRootController) {
+   'anonymous/controller/AnonRootController.js',
+   'anonymous/controller/AnonJobOrderListController.js'
+], function (angular, AnonRootController, AnonJobOrderListController) {
   console.debug('Configuring anon.module');
   angular.module('anon.module', [])
     .config(['$stateProvider', function ($stateProvider) {
@@ -14,7 +15,9 @@ define([
       })
       .state('anon.joborders', {
         url: 'joborders/{customerCode}?{customerName}',
-        templateUrl: 'anonymous/view/joborders.html'
+        templateUrl: 'anonymous/view/joborders.html',
+        controller: AnonJobOrderListController,
+        access: ['anonymous']
       });
 
     }]);

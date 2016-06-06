@@ -175,6 +175,35 @@
   <hop> <from>Add created and updated date</from><to>lookup cust code</to><enabled>Y</enabled> </hop>
   </order>
   <step>
+    <name>Add created and updated date</name>
+    <type>SystemInfo</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>meta_updated_dt</name>
+        <type>system date &#x28;fixed&#x29;</type>
+        </field>
+      <field>
+        <name>meta_created_dt</name>
+        <type>system date &#x28;fixed&#x29;</type>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>120</xloc>
+      <yloc>200</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Get dest max update date</name>
     <type>TableInput</type>
     <description/>
@@ -186,7 +215,7 @@
            <schema_name/>
            </partitioning>
     <connection>tyrael_laundry_saas_reports</connection>
-    <sql>SELECT COALESCE&#x28;&#xa;           date_sub&#x28;max&#x28;meta_updated_dt&#x29;, interval 8 HOUR&#x29;,&#xa;		   str_to_date&#x28;&#x27;&#x24;&#x7b;default.updatedDateTime&#x7d;&#x27;, &#x27;&#x25;d-&#x25;b-&#x25;y&#x27;&#x29;&#xa;       &#x29;&#xa;FROM job_order_fact</sql>
+    <sql>SELECT COALESCE&#x28;&#xa;           max&#x28;meta_updated_dt&#x29;,&#xa;		   str_to_date&#x28;&#x27;&#x24;&#x7b;default.updatedDateTime&#x7d;&#x27;, &#x27;&#x25;d-&#x25;b-&#x25;y&#x27;&#x29;&#xa;       &#x29;&#xa;FROM job_order_fact</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -196,6 +225,113 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>240</xloc>
       <yloc>20</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insert &#x2f; Update job_order_fact</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>tyrael_laundry_saas_reports</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema/>
+      <table>job_order_fact</table>
+      <key>
+        <name>tracking_no</name>
+        <field>tracking_no</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>status</name>
+        <rename>status</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>total_amt</name>
+        <rename>total_amt</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>total_amt_paid</name>
+        <rename>total_amt_paid</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>tracking_no</name>
+        <rename>tracking_no</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>wt_kg</name>
+        <rename>wt_kg</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>customer_dim_id</name>
+        <rename>customer_dim_id</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>branch_dim_id</name>
+        <rename>branch_dim_id</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>brand_dim_id</name>
+        <rename>brand_dim_id</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>date_received_dim_id</name>
+        <rename>date_received_dim_id</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>date_completed_dim_id</name>
+        <rename>date_completed_dim_id</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>date_claimed_dim_id</name>
+        <rename>date_claimed_dim_id</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>date_due_dim_id</name>
+        <rename>date_due_dim_id</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>deleted</name>
+        <rename>deleted</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>meta_created_dt</name>
+        <rename>meta_created_dt</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>meta_updated_dt</name>
+        <rename>meta_updated_dt</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>800</xloc>
+      <yloc>40</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -212,7 +348,7 @@
            <schema_name/>
            </partitioning>
     <connection>tyrael_laundry_saas</connection>
-    <sql>SELECT&#xa;	job_order.created_date as created_date,&#xa;    job_order.updated_date as updated_date,&#xa;	job_order.deleted as deleted,&#xa;    date&#x28;job_order.date_claimed&#x29; as date_claimed,&#xa;    date&#x28;job_order.date_completed&#x29; as date_completed,&#xa;    date&#x28;job_order.date_due&#x29; as date_due,&#xa;    date&#x28;job_order.date_received&#x29; as date_received,&#xa;	job_order.status as status,&#xa;	job_order.total_amt as total_amt,&#xa;    job_order.branch_id as branch_id,&#xa;    job_order.customer_id as customer_id,&#xa;	job_order.total_amt_paid as total_amt_paid,&#xa;	job_order.tracking_no as tracking_no,&#xa;    sum&#x28;job_service.wt_kg&#x29; as wt_kg&#xa;FROM job_order job_order join job_service job_service on job_service.JOB_ID &#x3d; job_order.id&#xa;WHERE job_order.updated_date &#x3e; &#x3f;&#xa;GROUP BY job_order.id</sql>
+    <sql>SELECT&#xa;	job_order.created_date,  as created_date,&#xa;    job_order.updated_date as updated_date,&#xa;	job_order.deleted as deleted,&#xa;    date&#x28;job_order.date_claimed&#x29; as date_claimed,&#xa;    date&#x28;job_order.date_completed&#x29; as date_completed,&#xa;    date&#x28;job_order.date_due&#x29; as date_due,&#xa;    date&#x28;job_order.date_received&#x29; as date_received,&#xa;	job_order.status as status,&#xa;	job_order.total_amt as total_amt,&#xa;    job_order.branch_id as branch_id,&#xa;    job_order.customer_id as customer_id,&#xa;	job_order.total_amt_paid as total_amt_paid,&#xa;	job_order.tracking_no as tracking_no,&#xa;    sum&#x28;job_service.wt_kg&#x29; as wt_kg&#xa;FROM job_order job_order join job_service job_service on job_service.JOB_ID &#x3d; job_order.id&#xa;WHERE job_order.updated_date &#x3e; &#x3f;&#xa;GROUP BY job_order.id</sql>
     <limit>0</limit>
     <lookup>Get dest max update date</lookup>
     <execute_each_row>N</execute_each_row>
@@ -485,7 +621,7 @@
     </step>
 
   <step>
-    <name>lookup date_received</name>
+    <name>lookup date_claimed</name>
     <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -506,14 +642,14 @@
       <fail_on_multiple>N</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>date_received</name>
+        <name>date_claimed</name>
         <field>date</field>
         <condition>&#x3d;</condition>
         <name2/>
       </key>
       <value>
         <name>id</name>
-        <rename>date_received_dim_id</rename>
+        <rename>date_claimed_dim_id</rename>
         <default>0</default>
         <type>Integer</type>
       </value>
@@ -521,7 +657,7 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>800</xloc>
-      <yloc>380</yloc>
+      <yloc>220</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -569,48 +705,6 @@
     </step>
 
   <step>
-    <name>lookup date_claimed</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>tyrael_laundry_saas_reports</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>date_dimension</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>date_claimed</name>
-        <field>date</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>id</name>
-        <rename>date_claimed_dim_id</rename>
-        <default>0</default>
-        <type>Integer</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>800</xloc>
-      <yloc>220</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
     <name>lookup date_due</name>
     <type>DBLookup</type>
     <description/>
@@ -653,8 +747,8 @@
     </step>
 
   <step>
-    <name>Insert &#x2f; Update job_order_fact</name>
-    <type>InsertUpdate</type>
+    <name>lookup date_received</name>
+    <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -664,126 +758,32 @@
            <schema_name/>
            </partitioning>
     <connection>tyrael_laundry_saas_reports</connection>
-    <commit>100</commit>
-    <update_bypassed>N</update_bypassed>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
     <lookup>
       <schema/>
-      <table>job_order_fact</table>
+      <table>date_dimension</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>tracking_no</name>
-        <field>tracking_no</field>
+        <name>date_received</name>
+        <field>date</field>
         <condition>&#x3d;</condition>
         <name2/>
       </key>
       <value>
-        <name>status</name>
-        <rename>status</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>total_amt</name>
-        <rename>total_amt</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>total_amt_paid</name>
-        <rename>total_amt_paid</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>tracking_no</name>
-        <rename>tracking_no</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>wt_kg</name>
-        <rename>wt_kg</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>customer_dim_id</name>
-        <rename>customer_dim_id</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>branch_dim_id</name>
-        <rename>branch_dim_id</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>brand_dim_id</name>
-        <rename>brand_dim_id</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>date_received_dim_id</name>
+        <name>id</name>
         <rename>date_received_dim_id</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>date_completed_dim_id</name>
-        <rename>date_completed_dim_id</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>date_claimed_dim_id</name>
-        <rename>date_claimed_dim_id</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>date_due_dim_id</name>
-        <rename>date_due_dim_id</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>deleted</name>
-        <rename>deleted</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>meta_created_dt</name>
-        <rename>meta_created_dt</rename>
-        <update>N</update>
-      </value>
-      <value>
-        <name>meta_updated_dt</name>
-        <rename>meta_updated_dt</rename>
-        <update>Y</update>
+        <default>0</default>
+        <type>Integer</type>
       </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>800</xloc>
-      <yloc>40</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Add created and updated date</name>
-    <type>SystemInfo</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>meta_updated_dt</name>
-        <type>system date &#x28;fixed&#x29;</type>
-        </field>
-      <field>
-        <name>meta_created_dt</name>
-        <type>system date &#x28;fixed&#x29;</type>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>120</xloc>
-      <yloc>200</yloc>
+      <yloc>380</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
