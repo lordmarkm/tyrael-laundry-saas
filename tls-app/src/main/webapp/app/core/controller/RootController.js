@@ -5,6 +5,12 @@ define(function () {
     $scope.contextPath = 'laundry';
     $scope.shoppingCart = shoppingCart;
     $scope.isAuthorized = function (permission) {
+      console.debug('checking auth.');
+      //Anybody can access anonymous access states
+      if (permission === 'anonymous') {
+        return true;
+      }
+      //Otherwise, unauthenticated users can't access anything
       if (!$scope.principal) {
         return false;
       }
@@ -68,6 +74,7 @@ define(function () {
     };
 
     $rootScope.$on('$stateChangeStart', function (event, toState) {
+      console.debug('checking access.');
       if (typeof toState.access != 'undefined' && !$scope.isAuthorized(toState.access)) {
         event.preventDefault();
         $state.go('default.login', {msg: 'unauthorized'});

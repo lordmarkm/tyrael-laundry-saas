@@ -30,7 +30,8 @@ define([
         url: '',
         templateUrl: 'joborder/view/list.html',
         controller: JobOrderListController,
-        resolve: JobOrderListResolve
+        resolve: JobOrderListResolve,
+        access: ['authenticated']
       })
       //same as list, but filtered by customer
       .state('default.joborder.customer', {
@@ -55,7 +56,8 @@ define([
         url: '/{joborderCode}/{urlSlug}',
         templateUrl: 'joborder/view/view.html',
         controller: JobOrderViewController,
-        resolve: JobOrderViewResolve
+        resolve: JobOrderViewResolve,
+        access: ['authenticated']
       });
     }]);
 
