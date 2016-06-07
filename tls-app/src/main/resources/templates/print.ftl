@@ -29,13 +29,12 @@ body {
   </div>
   <h4>To view job orders, please visit http://ginaslaundry.com/anon/${joborder.customer.code}</h4>
   <hr>
+  <ul style="list-style-type: none; padding-left: 10px;">
+    <li><strong style="display: inline-block; width: 100px; margin-right: 10px;">Customer</strong>${joborder.customer.formattedName}<br>
+    <li><strong style="display: inline-block; width: 100px; margin-right: 10px;">Date received</strong>${joborder.dateReceived.toString('MMM dd, yyyy h:mm a')}
+    <li><strong style="display: inline-block; width: 100px; margin-right: 10px;">Date due</strong>${joborder.dateDue.toString('MMM dd, yyyy')}
+  </ul>
   <dl>
-    <dt>Customer
-    <dd>${joborder.customer.formattedName}
-    <dt>Date received
-    <dd>${joborder.dateReceived.toString('MMM dd, yyyy hh:mm a')}
-    <dt>Date due
-    <dd>${joborder.dateDue.toString('MMM dd, yyyy')}
     <dt>Services
     <dd>
       <#list joborder.jobServices as service>
@@ -65,8 +64,6 @@ body {
       </#list>
     </dd>
     <dt>Total Amount Due
-    <dd>₱${joborder.totalAmount?string(",##0.00")}
-    <dt>Total Amount Paid
-    <dd>₱${joborder.totalAmountPaid?string(",##0.00")}
+    <dd>₱${(joborder.totalAmount - joborder.totalAmountPaid)?string(",##0.00")}
 </body>
 </html>
