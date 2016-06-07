@@ -3,6 +3,13 @@ define(function () {
           function ($scope, $stateParams, ngTableParams, JobOrderService) {
 
     $scope.customerName = $stateParams.customerName;
+    $scope.customerCode = $stateParams.customerCode;
+
+    //Tell the parent anon scope who the customer is
+    $scope.$emit('setCustomer', {
+      customerName: $scope.customerName,
+      customerCode: $scope.customerCode
+    });
 
     //List
     var table = $scope.tableParams = new ngTableParams({

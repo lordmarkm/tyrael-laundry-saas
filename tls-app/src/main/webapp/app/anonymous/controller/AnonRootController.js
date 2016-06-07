@@ -11,5 +11,11 @@ define(function () {
       delete $scope.cgLoader.promise;
     });
 
+    //When customer is set on lower scopes
+    $scope.$on('setCustomer', function (event, customer) {
+      $scope.customerCode = customer.customerCode;
+      $scope.customerName = customer.customerName;
+    });
+
   }];
 });
