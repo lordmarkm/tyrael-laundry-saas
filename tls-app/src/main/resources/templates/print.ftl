@@ -33,6 +33,7 @@ body {
     <li><strong style="display: inline-block; width: 100px; margin-right: 10px;">Customer</strong>${joborder.customer.formattedName}<br>
     <li><strong style="display: inline-block; width: 100px; margin-right: 10px;">Date received</strong>${joborder.dateReceived.toString('MMM dd, yyyy h:mm a')}
     <li><strong style="display: inline-block; width: 100px; margin-right: 10px;">Date due</strong>${joborder.dateDue.toString('MMM dd, yyyy')}
+    <li><strong style="display: inline-block; width: 100px; margin-right: 10px;">Amount due</strong>₱${(joborder.totalAmount - joborder.totalAmountPaid)?string(",##0.00")}
   </ul>
   <dl>
     <dt>Services
@@ -63,7 +64,5 @@ body {
       <span style="margin-right: 10px;">${item.quantity} <img src="/app/images/${item.iconPath}" class="img-sixteen"/></span>
       </#list>
     </dd>
-    <dt>Total Amount Due
-    <dd>₱${(joborder.totalAmount - joborder.totalAmountPaid)?string(",##0.00")}
 </body>
 </html>
