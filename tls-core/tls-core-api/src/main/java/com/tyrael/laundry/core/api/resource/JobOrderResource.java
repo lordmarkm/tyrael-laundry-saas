@@ -39,14 +39,12 @@ public class JobOrderResource extends BaseResource<JobOrder, JobOrderInfo, JobOr
         return new ResponseEntity<>(service.rqlSearch(term, page), OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_POS') or hasRole('ROLE_MANAGER') or canAccess(#principal, #trackingNo)")
+    //This is disabled atm
+    //@PreAuthorize("hasRole('ROLE_POS') or hasRole('ROLE_MANAGER') or canAccess(#principal, #trackingNo)")
     @RequestMapping(method = GET, params = "trackingNo")
     public ResponseEntity<JobOrderInfo> findByTrackingNo(Principal principal, @RequestParam String trackingNo) {
         LOG.debug("Find by tracking number request. trackingNo={}", trackingNo);
         JobOrderInfo jobOrder = service.findByTrackinNoInfo(trackingNo);
-        if (null == principal && null != jobOrder) {
-            jobOrder.setCustomer(null);
-        }
         return new ResponseEntity<>(jobOrder, OK);
     }
 

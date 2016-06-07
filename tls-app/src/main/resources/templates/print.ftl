@@ -19,13 +19,23 @@ body {
 </head>
 
 <body style="width: 30%;">
-  <img src="/img/logo.png" style="max-height: 100px;" />
-  <h4 class="page-header" style="margin: 0;">${joborder.customer.formattedName} ${joborder.dateReceived}</h4>
+  <div style="display:inline-block; vertical-align:top; width: 25%;">
+    <img src="/img/logo.png" style="max-height: 100px;" />
+  </div>
+  <div style="display:inline-block; font-weight: bold; width: 65%;">
+    <div style="font-size: 1.1em;">Gina's Laundry</div>
+    <div style="font-size: 1em;">A customer friendly laundry shop</div>
+    <div style="font-size: 1em;">Block 13, Lot 6. Aldea Homes, Sibulan</div>
+  </div>
+  <h4>To view job orders, please visit http://ginaslaundry.com/anon/${joborder.customer.code}</h4>
+  <hr>
   <dl>
+    <dt>Customer
+    <dd>${joborder.customer.formattedName}
     <dt>Date received
-    <dd>${joborder.dateReceived}
+    <dd>${joborder.dateReceived.toString('MMM dd, yyyy hh:mm a')}
     <dt>Date due
-    <dd>${joborder.dateDue}
+    <dd>${joborder.dateDue.toString('MMM dd, yyyy')}
     <dt>Services
     <dd>
       <#list joborder.jobServices as service>

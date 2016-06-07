@@ -1,6 +1,6 @@
 define(function () {
-  return ['$scope', '$stateParams', 'ngTableParams', 'JobOrderService',
-          function ($scope, $stateParams, ngTableParams, JobOrderService) {
+  return ['$scope', '$stateParams', 'ngTableParams', 'JobOrderService', 'JobOrderStatusService',
+          function ($scope, $stateParams, ngTableParams, JobOrderService, JobOrderStatusService) {
 
     $scope.customerName = $stateParams.customerName;
     $scope.customerCode = $stateParams.customerCode;
@@ -49,6 +49,10 @@ define(function () {
       }
       return term;
     }
+
+    $scope.josLabel = function (code) {
+      return JobOrderStatusService.toLabel(code);
+    };
 
   }];
 });

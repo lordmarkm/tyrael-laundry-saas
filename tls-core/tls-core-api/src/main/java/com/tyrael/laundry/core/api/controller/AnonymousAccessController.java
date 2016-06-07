@@ -44,7 +44,7 @@ public class AnonymousAccessController {
                 .addObject("jobOrder", jobOrder);
     }
 
-    @RequestMapping(value = "/customer/{customerCode}", method = GET)
+    @RequestMapping(value = "/{customerCode}", method = GET)
     public String redirectToJobOrders(@PathVariable String customerCode) {
         Customer customer = customerService.findByCode(customerCode);
         if (null != customer) {
